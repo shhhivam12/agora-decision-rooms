@@ -14,7 +14,7 @@ import textwrap
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'artifacts' / 'submission'
 sys.path.insert(0, str(ROOT / 'artifacts' / 'tools'))
-from PIL import Image, ImageDraw, ImageFont, ImageFilter
+from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageOps
 import edge_tts
 from reportlab.pdfgen import canvas
 from reportlab.lib.utils import ImageReader
@@ -70,10 +70,26 @@ def frame(scene,index,with_phone=True):
     paste_logo(img,ROOT/'mobile/assets/branding/roundtable-app-icon-v3.png',(85,58,62,62))
     d.text((165,68),'RoundTable AI',font=font(34,True),fill=INK)
     d.text((85,167),scene['label'],font=font(22,True),fill=LIME)
-    y=draw_wrapped(d,scene['title'],(85,228),70,INK,1170,True,1.16)
-    y=draw_wrapped(d,scene['body'],(87,y+43),32,MUTED,1120,False,1.5)
-    d.line((85,785,1190,785),fill='#3D344E',width=2)
-    draw_wrapped(d,scene['proof'],(85,809),24,LIME,1110)
+    if scene.get('kind') == 'conversation':
+        draw_wrapped(d,scene['title'],(85,228),70,INK,1170,True,1.16)
+        for person_index,(person_id,person_name) in enumerate([('ayaan','Ayaan'),('priya','Priya'),('host','You')]):
+            x=85+380*person_index
+            selected=scene['speaker']==person_id
+            photo=ImageOps.fit(Image.open(OUT/'photos'/f'{person_id}-source.jpg').convert('RGB'),(350,245),centering=(.5,.4),method=Image.Resampling.LANCZOS)
+            mask=Image.new('L',(350,245));ImageDraw.Draw(mask).rounded_rectangle((0,0,350,245),radius=20,fill=255)
+            img.paste(photo,(x,365),mask)
+            d.rounded_rectangle((x,365,x+350,665),radius=20,outline=LIME if selected else '#514567',width=5 if selected else 2)
+            d.rounded_rectangle((x+2,610,x+348,663),radius=12,fill='#292333')
+            d.text((x+16,624),person_name,font=font(24,True),fill=INK)
+            d.text((x+214,628),'Speaking' if selected else 'Listening',font=font(17,True),fill=LIME if selected else MUTED)
+        d.text((85,699),scene['speakerName'].upper()+' /',font=font(21,True),fill=LIME)
+        draw_wrapped(d,'“'+scene['body']+'”',(85,740),38,INK,1135,False,1.2)
+        draw_wrapped(d,scene['proof'],(85,882),20,MUTED,1110)
+    else:
+        y=draw_wrapped(d,scene['title'],(85,228),70,INK,1170,True,1.16)
+        y=draw_wrapped(d,scene['body'],(87,y+43),32,MUTED,1120,False,1.5)
+        d.line((85,785,1190,785),fill='#3D344E',width=2)
+        draw_wrapped(d,scene['proof'],(85,809),24,LIME,1110)
     d.text((85,984),'AGORA VOICE AI HACKATHON 2026',font=font(19,True),fill=MUTED)
     d.text((1113,984),f'{index+1:02d} / {len(SCENES):02d}',font=font(19),fill=MUTED)
     d.rounded_rectangle((1351,67,1804,1014),radius=38,fill='#08080B',outline='#514567',width=3)
@@ -93,7 +109,7 @@ async def narrate():
         async with semaphore:
             for attempt in range(3):
                 try:
-                    await edge_tts.Communicate(scene['narration'],'en-IN-NeerjaNeural',rate='+4%').save(str(filename))
+                    await edge_tts.Communicate(scene['narration'],scene.get('voice','en-IN-NeerjaNeural'),rate='+4%').save(str(filename))
                     print('Narrated '+scene['id'],flush=True)
                     return
                 except Exception:
@@ -134,7 +150,7 @@ def video():
         clip=OUT/'clips'/f"{scene['id']}.mp4"
         if clip.exists() and clip.stat().st_size>1000:continue
         source_duration=scene['end']-scene['start']
-        phone_source = ['-loop','1','-framerate','30','-i',str(OUT/'screenshots'/f"{scene['shot']}.png")] if scene['id'] in ['09-agora','10-pipeline'] else ['-ss',str(scene['start']),'-t',str(source_duration),'-i',str(raw)]
+        phone_source = ['-loop','1','-framerate','30','-i',str(OUT/'screenshots'/f"{scene['shot']}.png")] if scene['id'] in ['09-agora','10-pipeline'] or scene.get('kind') == 'conversation' else ['-ss',str(scene['start']),'-t',str(source_duration),'-i',str(raw)]
         filters=f'[1:v]scale=430:900,setsar=1,tpad=stop_mode=clone:stop_duration={duration},trim=duration={duration},setpts=PTS-STARTPTS[phone];[0:v][phone]overlay=1363:90:shortest=1,format=yuv420p[v]'
         run([FFMPEG,'-hide_banner','-loglevel','error','-y','-loop','1','-framerate','30','-i',str(plate),*phone_source,'-i',str(audio),'-filter_complex',filters,'-map','[v]','-map','2:a','-t',str(duration),'-c:v','libopenh264','-b:v','6M','-g','60','-c:a','aac','-b:a','192k','-ar','48000',str(clip)])
         print('Rendered '+scene['id'],flush=True)
@@ -146,7 +162,7 @@ def video():
     run([FFMPEG,'-hide_banner','-loglevel','error','-y','-i',str(joined),'-af','loudnorm=I=-16:TP=-1.5:LRA=7','-c:v','copy','-c:a','aac','-b:a','192k','-ar','48000','-movflags','+faststart',str(final)])
     subtitles(durations)
     metadata=probe(final)
-    (OUT/'video-verification.json').write_text(json.dumps({'duration':sum(durations),'sceneDurations':durations,'bytes':final.stat().st_size,'probe':metadata,'source':'Actual local app interaction recording','voiceover':'Microsoft Edge en-IN-NeerjaNeural','liveAgoraCallShown':False},indent=2),encoding='utf-8')
+    (OUT/'video-verification.json').write_text(json.dumps({'duration':sum(durations),'sceneDurations':durations,'bytes':final.stat().st_size,'probe':metadata,'source':'Actual local app interaction recording','voiceover':'Synthetic presentation narration and distinct scripted participant voices','illustrativeConversation':True,'liveAgoraCallShown':False},indent=2),encoding='utf-8')
     frame(SCENES[0],0).resize((1600,900),Image.Resampling.LANCZOS).save(OUT/'roundtable-ai-thumbnail.png')
     print(f'Video ready: {sum(durations):.1f} seconds',flush=True)
 
@@ -159,7 +175,7 @@ def presentation():
         ('The complete guided journey','One goal becomes a reviewable decision',['Create → brief → search → comparison','Voting → approval → local receipt','Budget, rain and early-departure scenarios'], '07-compare'),
         ('People stay in control','The agent proposes; application state governs',['All three simulated votes must be recorded','Host reviews the exact proposed action','Agent pause, captions and activity log stay visible'], '10-approve'),
         ('Agora integration','Real-time voice foundation in the native client',['RTC: microphone publication and agent audio','RTM: live transcripts and agent state','Agent Client Toolkit: lifecycle and state events','FastAPI: short-lived tokens; start and stop sessions'], '14-agora'),
-        ('Conversational AI pipeline','Configured through the Agora Python SDK',['Deepgram STT → OpenAI model → MiniMax speech','Voice activity detection and interruption configuration','Metrics and errors enabled; credentials kept on server','Live account and Android audio validation pending'], '14-agora'),
+        ('Conversational AI pipeline','Live backend verified with the Agora Python SDK',['Deepgram STT → OpenAI model → MiniMax speech','Voice activity detection and interruption configuration','Live token generation and agent start/stop verified','Android microphone and audible playback test pending'], '14-agora'),
         ('Implementation and evaluation','A working mobile prototype with clear boundaries',['React Native + TypeScript; Android packaging workflow','17 Jest tests, TypeScript and web production build pass','2 backend tests pass; actual browser journey captured','Group sync, live venues and external calendar are next'], '11-receipt'),
         ('Try RoundTable','Evaluate the decision journey in minutes',['Run the public preview or install the latest Android build','Use the guided budget scenario through the receipt','Native voice: Me → Open Agora voice → backend URL','Public source: shhhivam12/roundtable-ai-hackathon'], '01-home'),
     ]

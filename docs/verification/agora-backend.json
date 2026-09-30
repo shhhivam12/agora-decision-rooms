@@ -1,0 +1,15 @@
+{
+  "configured": true,
+  "token_generated": true,
+  "agent_started": true,
+  "agent_stopped": true,
+  "audible_android_audio_verified": false,
+  "health": {
+    "service": "roundtable-agora",
+    "configured": true,
+    "voice_pipeline": "Agora Conversational AI + RTC + RTM"
+  },
+  "token_lifetime_seconds": 3600,
+  "agent_status": "started",
+  "checked_at_utc": "2026-09-30T05:19:32Z"
+}

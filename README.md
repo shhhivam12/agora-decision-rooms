@@ -2,105 +2,129 @@
 
 > Talk together. Decide together. Get it done.
 
-**Downloads:** [Download Android APK](https://github.com/shhhivam12/roundtable-ai-hackathon/releases/download/hackathon-2026/roundtable-ai-android-arm64.apk) · [All submission resources](https://github.com/shhhivam12/roundtable-ai-hackathon/releases/tag/hackathon-2026)
+RoundTable AI is a mobile decision room where an AI serves the whole group. Friends bring different budgets, food preferences and time constraints. A shared **Smart Stage** turns those needs into comparable options, a room vote, explicit approval and a traceable outcome.
 
-**Evaluator links:** [Try the app](https://shhhivam12.github.io/roundtable-ai-hackathon/evaluator/) · [Watch the narrated demo](https://shhhivam12.github.io/roundtable-ai-hackathon/evaluator/video.html) · [Project presentation](https://shhhivam12.github.io/roundtable-ai-hackathon/evaluator/roundtable-ai-project-presentation.pdf)
+**[Try the interactive preview](https://shhhivam12.github.io/roundtable-ai-hackathon/evaluator/)** · **[Download the Android APK](https://github.com/shhhivam12/roundtable-ai-hackathon/releases/download/hackathon-2026/roundtable-ai-android-arm64.apk)** · **[Project presentation](https://shhhivam12.github.io/roundtable-ai-hackathon/evaluator/roundtable-ai-project-presentation.pdf)**
 
-This public repository contains the sanitized hackathon snapshot. Server credentials and generated dependency folders are excluded. The included Android debug signing key is only for test builds.
+**[Watch the 3-minute YouTube demo](https://youtu.be/Ysq3IAfMn4Q)** — portrait conversation, actual app walkthrough, Agora architecture and captions.
 
-## Judge quick start
+[![Watch RoundTable AI on YouTube](docs/screenshots/youtube-thumbnail.png)](https://youtu.be/Ysq3IAfMn4Q)
 
-RoundTable AI demonstrates a complete **guided group decision journey**: a shared brief, budget-aware comparison, three participant votes, host approval, and a local receipt. The AI serves the room while application state owns the decision.
+![RoundTable AI product overview](docs/screenshots/product-overview.jpg)
 
-- **Try it:** `cd mobile`, `npm ci`, `npm run web`; open `http://127.0.0.1:5173`.
-- **Golden path:** Create an outing room → Create room & invite → Let RoundTable work → vote as each demo participant → review → approve → receipt.
-- **Native Agora voice:** Android → Me → Open Agora voice → backend URL → Prepare voice session → Connect Agora voice. An enabled Agora project and running FastAPI backend are required.
-- **Submission:** [form answers and evaluation guide](docs/submission.md), [claim evidence](docs/claim-evidence.md), [Smart Stage](docs/smart-stage.md).
+## Watch the room reach a decision
 
-The guided outing uses labelled fixture data. The native RTC/RTM voice entry and managed Agora agent backend are wired in source; live account/device validation is pending. Group synchronization, live venue search, video capture, and external calendar writes are not claimed as complete.
+1. **Create a room.** Choose an outing, invite the crew and set a decision rule.
+2. **Collect the brief.** Ayaan needs to stay under ₹700; Priya wants vegetarian food. The constraints stay visible beside the conversation.
+3. **Compare fairly.** Bowling at ₹760 and painting at ₹890 are excluded. The ₹620 games café leaves ₹80 of headroom.
+4. **Hear every vote.** Record each of the three demo participants' votes. The workflow waits for everyone.
+5. **Review before acting.** The host sees the proposed plan, time and attendees and gives explicit approval.
+6. **Show the outcome.** The local demo receipt records the selected plan, votes and approval.
 
-RoundTable AI is a mobile-first shared voice agent that helps a group turn a live conversation into a consented, verifiable action.
+Rain and early-departure scenarios change the brief and alternatives. Captions, stage expansion, microphone/hand-raise controls and agent pause make the shared experience easy to follow.
 
-Instead of serving one user, the AI serves the room. It listens for each participant's constraints, makes trade-offs visible, proposes comparable options, records the group's decision, requests the right approvals, and executes only the approved action.
+## Product walkthrough in screenshots
 
-## Hackathon scope
+The screenshots below come from actual app interactions. Venue data, group participants, voting and the calendar receipt use the guided demo. The narrated video also includes a clearly labelled fictional conversation with licensed stock portraits and scripted voices.
 
-The prototype is built for the [Agora Voice AI Hackathon](https://www.commudle.com/communities/ai-mobile-coders/hackathons/voice-ai-hackathon). The event requires a mobile or mobile-first application with Agora Conversational AI as a meaningful part of the real-time voice experience.
+### Start a room and make the brief visible
 
-The primary demo is one complete group-outing journey:
+| Home | Create an outing |
+|---|---|
+| <img src="docs/screenshots/01-home.png" width="300" alt="RoundTable Home with group rooms" /> | <img src="docs/screenshots/02-create.png" width="300" alt="Create an outing room with a goal and decision rule" /> |
 
-1. A host creates a room and invites participants.
-2. Participants state preferences and constraints by voice.
-3. The app displays a shared constraint board as the conversation evolves.
-4. The AI presents three comparable options and explains the trade-offs.
-5. Participants rank or approve the options from their phones.
-6. The deterministic decision engine selects the result using the room's rule.
-7. The app asks for final approval before taking an external action.
-8. The backend creates a calendar event and returns a verifiable receipt.
+| Shared brief | Captions and conversation controls |
+|---|---|
+| <img src="docs/screenshots/03-brief.png" width="300" alt="Group constraints on the Smart Stage" /> | <img src="docs/screenshots/04-captions.png" width="300" alt="Captions visible alongside the group stage" /> |
 
-The demo should prove one reusable engine rather than several disconnected assistants.
+### Watch the agent's work and compare the trade-offs
 
-## Why it is different
+| Expanded Smart Stage | Search stage |
+|---|---|
+| <img src="docs/screenshots/05-expanded.png" width="300" alt="Expanded stage with participant controls" /> | <img src="docs/screenshots/06-search.png" width="300" alt="Search against fixture venue options" /> |
 
-Most voice assistants optimize for one person. RoundTable AI models a group:
+| Budget-aware comparison | All three votes recorded |
+|---|---|
+| <img src="docs/screenshots/07-compare.png" width="300" alt="Options excluded when they exceed the shared budget" /> | <img src="docs/screenshots/09-vote-complete.png" width="300" alt="Three explicit simulated participant votes" /> |
 
-- who is participating;
-- which constraints are public or private;
-- where preferences conflict;
-- which decision rule applies;
-- who is affected by an action;
-- who must approve it;
-- whether execution succeeded.
+### Approve, receive an outcome and adapt
 
-The AI may summarize, compare, and explain. Deterministic application code owns votes, permissions, approval thresholds, execution, and receipts.
+| Host action review | Local receipt |
+|---|---|
+| <img src="docs/screenshots/10-approve.png" width="300" alt="Host reviews the plan before approving" /> | <img src="docs/screenshots/11-receipt.png" width="300" alt="Receipt with selected plan, votes and approval" /> |
 
-## Recommended implementation
+| Rain changes plans | Someone leaves early |
+|---|---|
+| <img src="docs/screenshots/12-rain.png" width="300" alt="Indoor alternatives after a rain constraint" /> | <img src="docs/screenshots/13-early.png" width="300" alt="An earlier time window changes the outing brief" /> |
 
-- **Mobile:** bare React Native with TypeScript, built from Agora's official React Native Conversational AI recipe
-- **Real-time voice:** Agora RTC, RTM, and Agent Client Toolkit
-- **Agent backend:** Python and FastAPI using Agora's managed voice pipeline first
-- **Room state:** Supabase Postgres with Realtime for durable room, vote, approval, and action state
-- **Decision engine:** typed Python domain logic with explicit policies and audit events
-- **First live integrations:** venue search behind a provider adapter and Google Calendar for the final action
-- **Testing:** Jest for the mobile client, Pytest for backend/domain behavior, and a scripted deterministic demo mode
+## The group conversation in the demo
 
-React Native is the speed-oriented choice because it gives one TypeScript UI codebase for Android and iOS and Agora now provides an official bare React Native voice-agent recipe. The hackathon demo should be tested and shipped on Android first. The code can remain iOS-ready, but an iOS build still requires access to macOS/Xcode and should not be allowed to block the demo.
+![Illustrative group conversation beside the actual mobile app](docs/screenshots/illustrative-conversation.jpg)
 
-## Repository map
+Licensed stock portraits and distinct scripted voices show how the group experience feels. This scene is labelled as an illustration; it is not a recorded live video call.
 
-```text
-docs/
-  architecture.md       System boundaries, data flow, and safety model
-  build-plan.md         Date-free implementation plan and acceptance gates
-  demo-script.md        The judge-facing golden path
-  hackathon-brief.md     Verified event constraints and sources
-  product-brief.md       Product definition, scope, and non-goals
+## Agora at the core
+
+- **Agora RTC:** the native client publishes the microphone and receives the agent's audio.
+- **Agora RTM:** transcripts and agent state flow into the client toolkit.
+- **Agora Agent Client Toolkit:** coordinates the conversation lifecycle and client state.
+- **Agora Conversational AI:** coordinates Deepgram speech recognition → OpenAI reasoning → MiniMax speech synthesis.
+- **FastAPI:** generates short-lived tokens, starts/stops agents and keeps credentials on the server.
+- **Voice controls:** voice activity detection, interruption configuration, metrics and errors are enabled in source.
+
+On **30 September 2026**, the live account check successfully generated an Agora token, started a Conversational AI agent and stopped it. Android microphone playback and live transcript reception still need a device test. The shared guided stage is a separate deterministic workflow.
+
+[Sanitized live backend check](docs/verification/agora-backend.json) · [Claim evidence](docs/claim-evidence.md)
+
+<img src="docs/screenshots/14-agora.png" width="300" alt="Native Android Agora voice entry instructions" />
+
+## Architecture
+
+```mermaid
+flowchart LR
+    User[Android microphone] --> RTC[Agora RTC]
+    RTC <--> Agent[Agora Conversational AI]
+    Agent --> STT[Deepgram STT]
+    STT --> LLM[OpenAI model]
+    LLM --> TTS[MiniMax TTS]
+    TTS --> RTC
+    Agent --> RTM[Agora RTM]
+    RTM --> Toolkit[Agent Client Toolkit]
+    Toolkit --> UI[Native voice and captions]
+    Backend[FastAPI token and lifecycle service] --> Agent
+    Stage[Guided Smart Stage] --> Vote[Votes]
+    Vote --> Approval[Host approval]
+    Approval --> Receipt[Local receipt]
 ```
 
-```text
-mobile/                  React Native application and deterministic outing demo
-server/                  Official FastAPI Agora agent foundation
-packages/domain/         Future shared schemas and deterministic decision rules
-```
+## Run it
 
-## Product status
+Browser preview:
 
-The first mobile vertical slice is implemented under `mobile/`. It includes a complete five-tab social shell, branded Home/Rooms/Create/Friends/Profile pages, an interactive Group Outing Room, shared Central Stage, agent activity, constraints, option comparison, voting, approval, and a verified demo receipt. Android and iOS launcher assets use the selected RoundTable v3 icon; in-product identity uses the v4 lockup.
-
-The group outing uses deterministic demo data. The Android voice screen connects the Agora RTC, RTM, and Agent Client Toolkit session implementation to the product. The backend prompt facilitates group outing constraints. Live account and device verification is pending; the group stage is not driven by a live Agora transcript yet.
-
-## Run the current prototype
-
-Fast laptop browser preview:
-
-```powershell
+```bash
 cd mobile
 npm ci
 npm run web
 ```
 
-Then open `http://127.0.0.1:5173`. For native Android testing, start Metro with `npm start` and run `npm run android` in another terminal after configuring Android Studio. See [`mobile/README.md`](mobile/README.md) for the exact paths and current limitations.
+Open `http://127.0.0.1:5173` and follow **Create → Create room & invite → Let RoundTable work → votes → review → approve → receipt**.
 
-## Working-name note
+For native voice, configure `server/.env` from `.env.example` with an enabled Agora Conversational AI project's App ID and certificate, install server dependencies and run `python src/server.py`. Install the ARM64 Android APK, then open **Me → Open Agora voice → backend URL → Prepare voice session → Connect Agora voice**. A physical phone needs a reachable LAN or HTTPS backend.
 
-RoundTable AI is a strong descriptive working name, but similar names are already in use. Keep it for the hackathon unless branding becomes a judging or publication concern; perform a proper naming and trademark check before treating it as a production brand.
+[Mobile setup](mobile/README.md) · [Server setup](server/README.md) · [Smart Stage guide](docs/smart-stage.md)
+
+## Validation and current scope
+
+- TypeScript, **17 Jest tests** and the production web build pass.
+- **2 backend tests** pass; the live Agora token and agent lifecycle check passes.
+- The standalone ARM64 Android workflow succeeded; the APK includes the reachable native voice entry and Agora libraries.
+- The evaluator journey and recorded product interactions were verified in a logged-out browser.
+- Group state synchronization, live venue providers, participant video capture and external calendar writes are next integrations. The demo receipt is local.
+
+## Original work and attribution
+
+Original work includes the social mobile experience, Smart Stage, budget/rain/time scenarios, voting and approval flow, branding, facilitation prompt and reachable native voice entry. Agora's official React Native Conversational AI recipe supplies the reused SDK foundation; see [its retained license](docs/AGORA_RECIPE_LICENSE).
+
+[Media credits](docs/media-credits.md) explain the illustrative portrait scene. Server credentials, dependency folders and generated private artifacts are excluded from this public snapshot. The starter Android debug signing key is included only for reproducible test builds.
+
+Built by **Shivam Mahendru** for the **Agora Voice AI Hackathon 2026**.

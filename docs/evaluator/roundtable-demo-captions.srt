@@ -1,127 +1,139 @@
 1
-00:00:00,200 --> 00:00:05,136
-Group plans stall when everyone's needs are scattered across a chat. RoundTable AI
+00:00:00,200 --> 00:00:06,272
+Group plans get stuck in chat. RoundTable AI brings everyone into one mobile
 
 2
-00:00:05,136 --> 00:00:10,072
-gives the whole group one shared decision room. Talk together, see the trade-offs,
+00:00:06,272 --> 00:00:12,344
+decision room: talk together, see the trade-offs, and leave with an approved plan.
 
 3
-00:00:10,072 --> 00:00:15,008
-and leave with an approved plan.
-
-4
-00:00:15,808 --> 00:00:20,824
+00:00:13,144 --> 00:00:18,160
 Start with an outing, choose your crew, and set the room's decision rule.
 
-5
-00:00:20,824 --> 00:00:25,840
+4
+00:00:18,160 --> 00:00:23,176
 The mobile interface gives every conversation a clear finish line.
 
+5
+00:00:23,976 --> 00:00:29,424
+Friday plans? Can we keep it under seven hundred rupees each?
+
 6
-00:00:26,640 --> 00:00:31,752
-Ayaan wants to stay under seven hundred rupees. Priya wants vegetarian food. The
+00:00:30,224 --> 00:00:37,040
+Yes! Vegetarian food, please. And maybe somewhere with a game?
 
 7
-00:00:31,752 --> 00:00:36,864
-Smart Stage keeps the room's constraints visible, alongside participant tiles, captions, and controls
+00:00:37,840 --> 00:00:41,128
+Sounds good. Let us pick one plan we can all agree on.
 
 8
-00:00:36,864 --> 00:00:41,976
-to pause the agent.
+00:00:41,928 --> 00:00:44,988
+I will compare food and activities under seven hundred, show the trade-offs, and
 
 9
-00:00:42,776 --> 00:00:48,056
-RoundTable compares three outing options. Two exceed the budget and are excluded. The
+00:00:44,988 --> 00:00:48,048
+let everyone vote.
 
 10
-00:00:48,056 --> 00:00:53,336
-games cafe costs six hundred and twenty rupees, leaving eighty rupees of headroom.
+00:00:48,848 --> 00:00:53,960
+Ayaan wants to stay under seven hundred rupees. Priya wants vegetarian food. The
 
 11
-00:00:53,336 --> 00:00:58,616
-The recommendation explains the trade-off.
+00:00:53,960 --> 00:00:59,072
+Smart Stage keeps the room's constraints visible, alongside participant tiles, captions, and controls
 
 12
-00:00:59,416 --> 00:01:03,976
-The room now votes. In this guided demo, we cast each participant's vote.
+00:00:59,072 --> 00:01:04,184
+to pause the agent.
 
 13
-00:01:03,976 --> 00:01:08,536
-Application state records all three, and the workflow waits for everyone before opening
+00:01:04,984 --> 00:01:10,264
+RoundTable compares three outing options. Two exceed the budget and are excluded. The
 
 14
-00:01:08,536 --> 00:01:13,096
-the action review.
+00:01:10,264 --> 00:01:15,544
+games cafe costs six hundred and twenty rupees, leaving eighty rupees of headroom.
 
 15
-00:01:13,896 --> 00:01:19,368
-Before anything happens, the host reviews the plan, time, and attendees. Explicit approval
+00:01:15,544 --> 00:01:20,824
+The recommendation explains the trade-off.
 
 16
-00:01:19,368 --> 00:01:24,840
-comes first, with a clear path back to comparison.
+00:01:21,624 --> 00:01:26,184
+The room now votes. In this guided demo, we cast each participant's vote.
 
 17
-00:01:25,640 --> 00:01:29,968
-The approved workflow ends with a visible receipt containing the plan, votes, and
+00:01:26,184 --> 00:01:30,744
+Application state records all three, and the workflow waits for everyone before opening
 
 18
-00:01:29,968 --> 00:01:34,296
-approval. This is a local demo receipt; the external calendar provider remains a
+00:01:30,744 --> 00:01:35,304
+the action review.
 
 19
-00:01:34,296 --> 00:01:38,624
-separate integration.
+00:01:36,104 --> 00:01:41,576
+Before anything happens, the host reviews the plan, time, and attendees. Explicit approval
 
 20
-00:01:39,424 --> 00:01:44,408
-Rain changes the plan. A participant needs to leave early. RoundTable's scenario controls
+00:01:41,576 --> 00:01:47,048
+comes first, with a clear path back to comparison.
 
 21
-00:01:44,408 --> 00:01:49,392
-update the shared brief and alternatives, demonstrating the same decision engine under different
+00:01:47,848 --> 00:01:52,176
+The approved workflow ends with a visible receipt containing the plan, votes, and
 
 22
-00:01:49,392 --> 00:01:54,376
-constraints.
+00:01:52,176 --> 00:01:56,504
+approval. This is a local demo receipt; the external calendar provider remains a
 
 23
-00:01:55,176 --> 00:02:01,384
-Agora is the voice foundation. The native client uses RTC for microphone and
+00:01:56,504 --> 00:02:00,832
+separate integration.
 
 24
-00:02:01,384 --> 00:02:07,592
-agent audio, RTM for transcripts, and the Agent Client Toolkit for conversation state.
+00:02:01,632 --> 00:02:06,616
+Rain changes the plan. A participant needs to leave early. RoundTable's scenario controls
 
 25
-00:02:07,592 --> 00:02:13,800
-FastAPI keeps Agora credentials on the server and manages tokens and agent sessions.
+00:02:06,616 --> 00:02:11,600
+update the shared brief and alternatives, demonstrating the same decision engine under different
 
 26
-00:02:14,600 --> 00:02:20,480
-The configured Agora pipeline combines speech recognition, a language model, and speech synthesis,
+00:02:11,600 --> 00:02:16,584
+constraints.
 
 27
-00:02:20,480 --> 00:02:26,360
-with voice activity detection, interruption settings, metrics, and errors. Android now has a
+00:02:17,384 --> 00:02:23,592
+Agora is the voice foundation. The native client uses RTC for microphone and
 
 28
-00:02:26,360 --> 00:02:32,240
-reachable live voice screen. Account and device validation are still pending; this recording
+00:02:23,592 --> 00:02:29,800
+agent audio, RTM for transcripts, and the Agent Client Toolkit for conversation state.
 
 29
-00:02:32,240 --> 00:02:38,120
-demonstrates the complete guided group journey.
+00:02:29,800 --> 00:02:36,008
+FastAPI keeps Agora credentials on the server and manages tokens and agent sessions.
 
 30
-00:02:38,920 --> 00:02:44,128
-RoundTable AI turns a group conversation into a visible decision process. The AI
+00:02:36,808 --> 00:02:43,132
+Agora coordinates speech recognition, a language model, and speech synthesis, with interruption handling,
 
 31
-00:02:44,128 --> 00:02:49,336
-serves the room, while people stay in control. Talk together. Decide together. Get
+00:02:43,132 --> 00:02:49,456
+metrics, and errors. The live backend check generated a token, started a Conversational
 
 32
-00:02:49,336 --> 00:02:54,544
-it done.
+00:02:49,456 --> 00:02:55,780
+AI agent, and stopped it successfully. Android microphone playback still needs a device
+
+33
+00:02:55,780 --> 00:03:02,104
+test. This recording shows the guided group decision journey.
+
+34
+00:03:02,904 --> 00:03:08,244
+RoundTable AI serves the whole room while people stay in control. Talk together.
+
+35
+00:03:08,244 --> 00:03:13,584
+Decide together. Get it done.
