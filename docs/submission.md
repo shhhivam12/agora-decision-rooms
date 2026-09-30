@@ -1,36 +1,4 @@
-# RoundTable AI submission
-
-Prepared on 30 September 2026 for the Agora Voice AI Hackathon.
-
-## Approach
-
-Lead with the group decision problem and show one complete mobile journey. Make the Agora RTC, RTM, Agent Client Toolkit and managed Conversational AI architecture easy to inspect. Present the working experience confidently and disclose live integration status in one clear paragraph.
-
-The official Commudle FAQ accepts a mobile application or prototype, and evaluates innovation, mobile experience, meaningful real-time voice, execution, UX and impact. Meaningful live Agora usage remains the largest eligibility risk until account/device audio is verified.
-
-Official event: https://www.commudle.com/communities/ai-mobile-coders/hackathons/voice-ai-hackathon
-
-## Exact form fields
-
-The deployed public frontend was inspected without account credentials. The authenticated team page remains unverified because browser automation fails to initialize. Target association: `HackathonTeam`, ID `8033`.
-
-| Field | Prepared answer |
-| --- | --- |
-| `name` | RoundTable AI — Shared Voice Decisions with Agora |
-| `build_type` | project |
-| `description` | Use the polished description below |
-| `link` | https://github.com/shhhivam12/roundtable-ai-hackathon |
-| `live_app_link` | https://shhhivam12.github.io/roundtable-ai-hackathon/evaluator/ |
-| `video_iframe` | Use `artifacts/submission/commudle-video-embed.txt`; a plain URL fails validation |
-| Images | Thumbnail, comparison, approval and receipt PNGs in `artifacts/submission` |
-| Tags | Agora, Conversational AI, React Native, Voice AI, TypeScript, Android, FastAPI, Collaboration |
-| Team | Preserve the registered association; do not add members or send invitations |
-| CAPTCHA | Human completion if shown |
-| Publish | Final action after links, playback and preview are checked |
-
-Current frontend constraints: project name required, no URL in the name, maximum 100 characters; description minimum 300 characters; at least five tags; source link or live app link required; PNG/JPG/JPEG images under 3 MB each; video accepts iframe markup. Creation checks reCAPTCHA. Backend deadline/eligibility acceptance remains unverified.
-
-## Polished project description
+# RoundTable AI — Agora Voice AI Hackathon 2026
 
 ### RoundTable AI
 
@@ -62,37 +30,20 @@ The video shows the complete guided mobile decision journey using actual app int
 
 ### Technical execution and original work
 
-React Native and TypeScript power the client, with a Vite evaluator preview and FastAPI/Python backend. TypeScript, 17 Jest tests and the production web build pass; two backend SDK/configuration tests pass. GitHub Actions supports a standalone ARM64 Android build.
+React Native and TypeScript power the client, with a Vite evaluator preview and FastAPI/Python backend. TypeScript, 17 Jest tests and the production web build pass; two backend SDK/configuration tests pass. GitHub Actions produced a standalone ARM64 Android build with the native voice entry included.
 
 Agora's official React Native Conversational AI recipe supplies the reused SDK foundation. Original hackathon work includes the social experience, Smart Stage, budget/rain/time scenarios, voting and consent interaction, branding, facilitation prompt and reachable native voice flow.
 
 The first use case is friends planning an outing. The decision pattern can extend to shared purchases, household choices and team planning: everyone is heard, trade-offs stay visible, and actions wait for approval.
 
+### Judge resources
+
+Try the product: https://shhhivam12.github.io/roundtable-ai-hackathon/evaluator/
+
+Watch the narrated demo: https://shhhivam12.github.io/roundtable-ai-hackathon/evaluator/video.html
+
+Project presentation: https://shhhivam12.github.io/roundtable-ai-hackathon/evaluator/roundtable-ai-project-presentation.pdf
+
+Download the Android app, source package and media: https://github.com/shhhivam12/roundtable-ai-hackathon/releases/tag/hackathon-2026
+
 Built by **Shivam Mahendru** for the **Agora Voice AI Hackathon 2026**.
-
-## Video metadata
-
-**Title:** RoundTable AI | Shared Voice Decisions with Agora | Hackathon Demo
-
-**Description:** RoundTable AI gives a group one shared decision room. Watch the mobile Smart Stage resolve a budget conflict, compare options, record simulated votes, request approval and produce a local receipt. Built with React Native and an Agora RTC/RTM/Agent Client Toolkit foundation plus a FastAPI Conversational AI backend. This video shows the guided product demo; native account/device validation and external providers remain pending. Built by Shivam Mahendru for the Agora Voice AI Hackathon 2026. Foundation: Agora's official React Native Conversational AI recipe. Narration is an AI-generated presentation voiceover.
-
-**Visibility:** Unlisted with embedding enabled. Paste the platform's real embed markup in the iframe field.
-
-## Upload files
-
-- `artifacts/submission/roundtable-ai-demo-1080p.mp4`
-- `artifacts/submission/roundtable-demo-captions.srt`
-- `artifacts/submission/roundtable-ai-thumbnail.png`
-- `artifacts/submission/roundtable-ai-project-presentation.pdf`
-- `artifacts/submission/roundtable-ai-source.zip` (credentials and generated dependencies excluded)
-- Latest Android APK from the submission branch; existing older APKs do not contain the current native voice wiring.
-
-## Submission gates
-
-1. Recover browser control or fill the form manually from this package.
-2. Put the authorized Agora project configuration in `server/.env`; verify audible native voice and RTM transcripts.
-3. Public source is available in the separate sanitized `roundtable-ai-hackathon` repository. The original repository remains private.
-4. Verify the GitHub Pages MP4 playback and paste the real iframe from the prepared field sheet.
-5. Review the team association, complete CAPTCHA if required, and publish before the round closes.
-
-No form has been filled, uploaded or published at the time this document was prepared.

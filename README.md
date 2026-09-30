@@ -2,6 +2,8 @@
 
 > Talk together. Decide together. Get it done.
 
+**Downloads:** [Download Android APK](https://github.com/shhhivam12/roundtable-ai-hackathon/releases/download/hackathon-2026/roundtable-ai-android-arm64.apk) · [All submission resources](https://github.com/shhhivam12/roundtable-ai-hackathon/releases/tag/hackathon-2026)
+
 **Evaluator links:** [Try the app](https://shhhivam12.github.io/roundtable-ai-hackathon/evaluator/) · [Watch the narrated demo](https://shhhivam12.github.io/roundtable-ai-hackathon/evaluator/video.html) · [Project presentation](https://shhhivam12.github.io/roundtable-ai-hackathon/evaluator/roundtable-ai-project-presentation.pdf)
 
 This public repository contains the sanitized hackathon snapshot. Server credentials and generated dependency folders are excluded. The included Android debug signing key is only for test builds.
