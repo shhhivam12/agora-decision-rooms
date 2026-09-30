@@ -161,7 +161,7 @@ def presentation():
         ('Agora integration','Real-time voice foundation in the native client',['RTC: microphone publication and agent audio','RTM: live transcripts and agent state','Agent Client Toolkit: lifecycle and state events','FastAPI: short-lived tokens; start and stop sessions'], '14-agora'),
         ('Conversational AI pipeline','Configured through the Agora Python SDK',['Deepgram STT → OpenAI model → MiniMax speech','Voice activity detection and interruption configuration','Metrics and errors enabled; credentials kept on server','Live account and Android audio validation pending'], '14-agora'),
         ('Implementation and evaluation','A working mobile prototype with clear boundaries',['React Native + TypeScript; Android packaging workflow','17 Jest tests, TypeScript and web production build pass','2 backend tests pass; actual browser journey captured','Group sync, live venues and external calendar are next'], '11-receipt'),
-        ('Try RoundTable','Evaluate the decision journey in minutes',['Run the web preview or install the latest Android build','Use the guided budget scenario through the receipt','Native voice: Me → Open Agora voice → backend URL','GitHub source: shhhivam12/roundtable-ai (currently private)'], '01-home'),
+        ('Try RoundTable','Evaluate the decision journey in minutes',['Run the public preview or install the latest Android build','Use the guided budget scenario through the receipt','Native voice: Me → Open Agora voice → backend URL','Public source: shhhivam12/roundtable-ai-hackathon'], '01-home'),
     ]
     c=canvas.Canvas(str(OUT/'roundtable-ai-project-presentation.pdf'),pagesize=(960,540))
     c.setTitle('RoundTable AI — Agora Voice AI Hackathon Project Presentation')

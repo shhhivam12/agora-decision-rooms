@@ -20,8 +20,8 @@ The deployed public frontend was inspected without account credentials. The auth
 | `build_type` | project |
 | `description` | Use the polished description below |
 | `link` | https://github.com/shhhivam12/roundtable-ai-hackathon |
-| `live_app_link` | Leave empty until a public HTTPS preview is deployed and verified; never use localhost |
-| `video_iframe` | Actual `<iframe ...></iframe>` embed markup from the hosted video; a plain URL fails validation |
+| `live_app_link` | https://shhhivam12.github.io/roundtable-ai-hackathon/evaluator/ |
+| `video_iframe` | Use `artifacts/submission/commudle-video-embed.txt`; a plain URL fails validation |
 | Images | Thumbnail, comparison, approval and receipt PNGs in `artifacts/submission` |
 | Tags | Agora, Conversational AI, React Native, Voice AI, TypeScript, Android, FastAPI, Collaboration |
 | Team | Preserve the registered association; do not add members or send invitations |
@@ -91,8 +91,8 @@ Built by **Shivam Mahendru** for the **Agora Voice AI Hackathon 2026**.
 
 1. Recover browser control or fill the form manually from this package.
 2. Put the authorized Agora project configuration in `server/.env`; verify audible native voice and RTM transcripts.
-3. Resolve repository visibility or give judges the sanitized source archive.
-4. Host the MP4, paste its real iframe, and verify logged-out playback.
+3. Public source is available in the separate sanitized `roundtable-ai-hackathon` repository. The original repository remains private.
+4. Verify the GitHub Pages MP4 playback and paste the real iframe from the prepared field sheet.
 5. Review the team association, complete CAPTCHA if required, and publish before the round closes.
 
 No form has been filled, uploaded or published at the time this document was prepared.
