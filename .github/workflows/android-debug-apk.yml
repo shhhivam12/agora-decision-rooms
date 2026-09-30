@@ -1,0 +1,59 @@
+name: Build Android APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "mobile/**"
+      - ".github/workflows/android-debug-apk.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  android-apk:
+    name: Standalone Android APK
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: mobile/package-lock.json
+
+      - name: Set up Java
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: gradle
+
+      - name: Install JavaScript dependencies
+        working-directory: mobile
+        run: npm ci
+
+      - name: Verify TypeScript and tests
+        working-directory: mobile
+        run: npm run verify
+
+      - name: Build standalone test APK
+        working-directory: mobile/android
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleRelease -PreactNativeArchitectures=arm64-v8a --no-daemon
+          cp app/build/outputs/apk/release/app-release.apk app/build/outputs/apk/release/roundtable-ai-android.apk
+
+      - name: Upload installable APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: roundtable-ai-android-apk
+          path: mobile/android/app/build/outputs/apk/release/roundtable-ai-android.apk
+          if-no-files-found: error
+          retention-days: 14

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#6B58F4" />
+    <meta name="description" content="RoundTable AI — talk together, decide together, get it done." />
+    <link rel="icon" type="image/png" href="./roundtable-icon.png" />
+    <title>RoundTable AI — Shared Voice Decisions</title>
+    <style>
+      * { box-sizing: border-box; }
+      html, body, #root { height: 100%; }
+      body {
+        margin: 0;
+        overflow: hidden;
+        background:
+          radial-gradient(circle at 20% 15%, rgba(107,88,244,.38), transparent 28%),
+          radial-gradient(circle at 82% 80%, rgba(217,255,103,.18), transparent 24%),
+          #181420;
+      }
+      #root {
+        display: flex;
+        width: 100%;
+        max-width: 430px;
+        margin: 0 auto;
+        background: #f6f6f9;
+        box-shadow: 0 0 80px rgba(0, 0, 0, 0.46);
+      }
+      @media (max-width: 430px) { #root { max-width: none; } }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/main.tsx"></script>
+  </body>
+</html>
