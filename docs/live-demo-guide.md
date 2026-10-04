@@ -42,7 +42,7 @@ Choose **Open shared Stage without microphone** for typed planning and votes wit
 
 ## Native Android APK
 
-Download the [current ARM64 test APK](https://github.com/shhhivam12/agora-decision-rooms/releases/download/decision-rooms-v1.1.0/agora-decision-rooms-android.apk). It runs without Metro and includes the native UI, guided outing and native Agora voice entry. To use native voice with a USB-connected phone, run `adb reverse tcp:8000 tcp:8000` and enter `http://127.0.0.1:8000` as the backend URL in the app. `10.0.2.2` is the emulator alias.
+Download the [current ARM64 test APK](https://github.com/shhhivam12/agora-decision-rooms/releases/latest/download/agora-decision-rooms-android.apk). It runs without Metro and includes the native UI, guided outing and native Agora voice entry. To use native voice with a USB-connected phone, run `adb reverse tcp:8000 tcp:8000` and enter `http://127.0.0.1:8000` as the backend URL in the app. `10.0.2.2` is the emulator alias.
 
 The shared Stage and group video use the browser room. See [mobile setup](../mobile/README.md) for native development and APK details.
 
