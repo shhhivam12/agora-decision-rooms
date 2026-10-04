@@ -26,7 +26,7 @@ video_html='''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta n
 (PUB/'docs'/'index.html').write_text('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0; url=evaluator/"><title>RoundTable AI</title></head><body><a href="evaluator/">Open RoundTable AI</a> · <a href="evaluator/video.html">Watch demo</a> · <a href="evaluator/roundtable-ai-project-presentation.pdf">Project presentation</a></body></html>',encoding='utf-8')
 
 for file in [PUB/'docs'/'submission.md',PUB/'README.md']:
-    text=file.read_text(encoding='utf-8').replace('https://github.com/shhhivam12/roundtable-ai — currently private; judge access must be resolved',REPO)
+    text=file.read_text(encoding='utf-8')
     if file.name=='README.md':
         text=text.replace('> Talk together. Decide together. Get it done.','> Talk together. Decide together. Get it done.\n\n**Evaluator links:** [Try the app]('+PREVIEW+') · [Watch the narrated demo]('+VIDEO+') · [Project presentation]('+PREVIEW+'roundtable-ai-project-presentation.pdf)\n\nThis public repository contains the sanitized hackathon snapshot. Server credentials and generated dependency folders are excluded. The included Android debug signing key is only for test builds.')
     file.write_text(text,encoding='utf-8')
