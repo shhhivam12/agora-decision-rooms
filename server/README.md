@@ -2,7 +2,7 @@
 
 FastAPI owns RTC/RTM token generation, the Agora Conversational AI assistant and the authoritative shared Smart Stage. The browser uses shared voice rooms with real planning checks and authenticated member votes; the native Android client retains its quickstart voice API. The guided outing uses separate local sample options and simulated votes.
 
-See [the laptop + Android demo guide](../docs/live-demo-guide.md) for start commands, USB forwarding, a recording sequence and troubleshooting.
+See [the laptop + Android setup guide](../docs/live-demo-guide.md) for start commands, USB forwarding and troubleshooting.
 
 ## Run locally
 
@@ -33,7 +33,7 @@ RTC+RTM tokens last 30 minutes, covering the room lifetime. The assistant uses `
 
 ## Production web hosting
 
-After `cd mobile && npm run web:build`, this server can serve `mobile/dist-web` at `/` alongside the API. `WEB_DIST_DIR` overrides the static directory. The repository `Dockerfile` builds and serves both from one origin and disables the legacy native API. The hosting provider must supply HTTPS and server environment variables. The current change does not deploy a public site.
+After `cd mobile && npm run web:build`, this server can serve `mobile/dist-web` at `/` alongside the API. `WEB_DIST_DIR` overrides the static directory. The repository `Dockerfile` builds and serves both from one origin and disables the legacy native API. The hosting provider must supply HTTPS and server environment variables.
 
 | Environment | Default | Purpose |
 | --- | --- | --- |
@@ -53,4 +53,4 @@ Legacy native endpoints: `GET /get_config`, `POST /startAgent`, `POST /stopAgent
 .venv\Scripts\python.exe -m pytest -q -p no:cacheprovider
 ```
 
-From the repository root, `server/.venv/Scripts/python.exe scripts/check-live-voice.py` checks real Agora start/stop without printing tokens or secrets. Audible playback and live captions on physical devices need the separate two-device check.
+Audible playback and remote video require a physical-device check in addition to automated tests.

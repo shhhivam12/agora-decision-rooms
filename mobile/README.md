@@ -12,7 +12,7 @@ This is the React Native client for the first Agora Decision Rooms experience: a
 - deterministic guided agent workflow;
 - shared constraint cards;
 - comparable outing options and voting;
-- explicit calendar approval;
+- explicit approval of the guided plan;
 - visible execution state and demo receipt;
 - visible “Powered by Agora” and hackathon creator attribution;
 - Agora RTC, RTM, and Agent Client Toolkit foundation retained from the official recipe.
