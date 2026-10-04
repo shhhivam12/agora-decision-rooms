@@ -108,7 +108,7 @@ Open `http://localhost:5173` → **Try live voice with your people**. Create/joi
 
 ## Evidence and scope
 
-TypeScript, frontend tests, backend tests and the production web build are checked before publication. [Claim evidence](docs/claim-evidence.md) separates source implementation, real-provider checks, user-reported voice results and physical-device checks. Four public reads, shared member views, actual votes and confirmation gates have recorded backend evidence. Physical Hindi audibility, speech-to-card capture and two-device video still need their own phone rehearsal.
+TypeScript, frontend tests, backend tests and the production web build are checked before publication. [Features and prototype scope](docs/claim-evidence.md) explains the shared browser room, separate native APK and guided preview. Automated tests cover room access, media lifecycle, bilingual preference capture, member voting and stale-plan rejection. Physical Hindi audibility, speech-to-card capture and two-device video remain separate device checks.
 
 Rooms are ephemeral: up to four members, approximately 15 minutes, one backend worker. Restarting the backend clears active rooms. The Android APK uses test signing and is intended for phone testing, not Play Store distribution.
 
@@ -118,7 +118,7 @@ Rooms are ephemeral: up to four members, approximately 15 minutes, one backend w
 
 [![Agora Decision Rooms — One room. One decision.](docs/assets/video/decision-rooms-youtube-thumbnail-v1.jpg)](https://youtu.be/WUYoZa39Y3s)
 
-The six-minute walkthrough shows the current UI, room setup, a single-participant live Agora session, captions and a weather request. The shared provider/voting evidence is documented separately in [claim evidence](docs/claim-evidence.md).
+The six-minute walkthrough shows the current UI, room setup, a single-participant live Agora session, captions and a weather request. See [features and prototype scope](docs/claim-evidence.md) for the shared room and provider limits.
 
 ## Original work
 

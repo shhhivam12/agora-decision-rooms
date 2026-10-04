@@ -32,7 +32,6 @@ export default defineConfig({
     rollupOptions: {
       input: {
         app: resolve(import.meta.dirname, 'web/index.html'),
-        assistant: resolve(import.meta.dirname, 'web/assistant-preview.html'),
       },
     },
   },

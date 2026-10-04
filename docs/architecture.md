@@ -42,4 +42,4 @@ The server can serve the production client and API from one HTTPS origin; `Docke
 
 Agora certificates and vendor keys stay in server environment variables. Public snapshots omit member secrets/tokens. Camera capture is opt-in; leaving closes media tracks. No deployment, production readiness or physical-device results are implied by architecture alone.
 
-[Live Stage](live-smart-stage.md) · [Device guide](live-demo-guide.md) · [Claim evidence](claim-evidence.md)
+[Live Stage](live-smart-stage.md) · [Device guide](live-demo-guide.md) · [Features and scope](claim-evidence.md)

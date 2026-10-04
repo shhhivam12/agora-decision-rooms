@@ -1,79 +1,47 @@
-# Agora Decision Rooms — screenshot story v2
+# The Agora Decision Rooms story
 
-**Ten new story assets with actual app screenshots**, captured and rendered on 4 October 2026. Kabir explains the group journey using his current in-app SVG avatar. The approved logo, charcoal/ivory/sage palette and real Segoe UI typography are retained.
+Kabir walks through one group outing: bring the crew, understand every preference, check real options and agree on a shared plan. These ten cards contain actual app captures with the current branding.
 
-[View all ten](contact-sheet.jpg) · [Open the gallery](index.html) · [Design specification](design-spec.json) · [Capture provenance](source-screens/capture-manifest.json)
+**Your people. One shared plan.**
 
-## Ready to use
+![Your people. One shared plan.](github-webp/01-one-room-one-plan.webp)
 
-- Upload the ten numbered **JPGs in `portal-jpg/`** to the hackathon gallery, in filename order.
-- Use **`github-webp/`** for lightweight GitHub embeds. PNG masters are in this directory.
-- Individual assets are **1920 × 1280**, landscape **3:2**.
-- All screens come from the running current app. Original source images are retained unchanged in `source-screens/`.
-- Card 06 enlarges details from three screenshots. The other cards display full viewport captures inside device frames, preserving screenshot proportions.
-- Every card also has a standalone `.html` source for editing copy, layout and typography without redrawing the UI.
+**Start a room. Bring the crew.**
 
-## The story
+![Start a room. Bring the crew.](github-webp/02-start-and-join.webp)
 
-1. **Your people. One shared plan.** — Kabir introduces Agora Decision Rooms beside the actual current home screen.
+**Every preference has a place.**
 
-   ![Kabir introduces Agora Decision Rooms beside the actual current home screen.](github-webp/01-one-room-one-plan.webp)
+![Every preference has a place.](github-webp/03-shared-preferences.webp)
 
-2. **Start a room. Bring the crew.** — Real room setup and join-by-code screens beside Kabir's explanation.
+**Watch the Smart Stage work.**
 
-   ![Real room setup and join-by-code screens beside Kabir's explanation.](github-webp/02-start-and-join.webp)
+![Watch the Smart Stage work.](github-webp/04-smart-stage.webp)
 
-3. **Every preference has a place.** — The actual Smart Stage Plan view shows the three friends' individual preferences.
+**Real places. Clear trade-offs.**
 
-   ![The actual Smart Stage Plan view shows the three friends' individual preferences.](github-webp/03-shared-preferences.webp)
+![Real places. Clear trade-offs.](github-webp/05-real-venue-options.webp)
 
-4. **This is the Smart Stage.** — The actual shared Smart Stage with its four planning checks and four workflow tabs.
+**Check the weather, route and venue details.**
 
-   ![The actual shared Smart Stage with its four planning checks and four workflow tabs.](github-webp/04-smart-stage.webp)
+![Check the weather, route and venue details.](github-webp/06-check-the-details.webp)
 
-5. **Real places. Clear trade-offs.** — Actual public venue results show vegetarian metadata, source links and unverified prices.
+**Plans change. Update the brief.**
 
-   ![Actual public venue results show vegetarian metadata, source links and unverified prices.](github-webp/05-real-venue-options.webp)
+![Plans change. Update the brief.](github-webp/07-update-the-brief.webp)
 
-6. **Rain? Route? Venue details?** — Three enlarged details from real app screenshots show weather, driving and venue-policy results.
+**Every person gets a say.**
 
-   ![Three enlarged details from real app screenshots show weather, driving and venue-policy results.](github-webp/06-check-the-details.webp)
+![Every person gets a say.](github-webp/08-everyone-votes.webp)
 
-7. **Plans change. Change the brief.** — Actual meeting-detail form illustrates changing the group's shared brief.
+**Leave with a plan everyone supports.**
 
-   ![Actual meeting-detail form illustrates changing the group's shared brief.](github-webp/07-update-the-brief.webp)
+![Leave with a plan everyone supports.](github-webp/09-confirmed-plan.webp)
 
-8. **Every person gets a say.** — Actual shared decision screen records all three member votes and enables host confirmation.
+**Agora carries the conversation.**
 
-   ![Actual shared decision screen records all three member votes and enables host confirmation.](github-webp/08-everyone-votes.webp)
+![Agora carries the conversation.](github-webp/10-agora-conversation.webp)
 
-9. **Leave with a plan everyone can follow.** — Actual confirmed plan records unanimous support and explicitly states that no booking was made.
+The Stage captures use three backend members with microphones and cameras off. Provider values are dated examples, and prices or exact booking availability remain unknown. The confirmed plan records consent; it does not make a reservation. The illustrated cast represents the group rather than recorded video participants.
 
-   ![Actual confirmed plan records unanimous support and explicitly states that no booking was made.](github-webp/09-confirmed-plan.webp)
-
-10. **Agora carries the conversation.** — Actual people/Kabir and Hindi Stage screenshots alongside the implemented Agora capabilities.
-
-   ![Actual people/Kabir and Hindi Stage screenshots alongside the implemented Agora capabilities.](github-webp/10-agora-conversation.webp)
-
-
-## What the screenshots show
-
-The room was created through the app's microphone-free Stage entry, with You, Priya and Ayaan as three actual backend members. Preferences, real provider reads, proposal, three authenticated votes and host confirmation were entered through the app's supported APIs, then captured from the actual frontend. No UI text or source screenshot was AI-generated or rewritten.
-
-The sources were OpenStreetMap/Overpass for venue discovery and listed reservation metadata, Open-Meteo for weather, and OSRM for driving estimates. All four checks returned ready results during capture. Forecasts, listing metadata and travel times are dated examples. Venue prices, indoor seating and exact booking availability remain unverified. The confirmed plan explicitly says no booking has been made.
-
-The voice and Agora card explains implemented RTC voice/optional video, RTM captions/state, Conversational AI facilitation and Agent Client Toolkit lifecycle capabilities. Its captured room had microphone and cameras off; the images do not represent a recorded live audio/video test. Shared Stage preferences, read tools and votes belong to the app backend.
-
-[Current Stage guide](../../live-smart-stage.md) · [Avatar guide](../../assistant-avatar.md) · [Claim evidence](../../claim-evidence.md)
-
-## Reproduce
-
-From the repository root, while the existing local app and backend are running:
-
-```powershell
-node scripts/capture-decision-story-screens.cjs
-node scripts/render-decision-screenshot-story.cjs
-```
-
-The capture script creates its own ephemeral room, starts no cloud voice assistant, prints no member secrets/tokens, and closes its room afterward. The renderer uses the bundled Playwright/Sharp runtime and copies the existing app SVG/avatar assets without editing them. [Export report](export-report.json) records source image hashes and file sizes.
-
+[Download the ten-page product story](../../evaluator/decision-rooms-product-story.pdf) · [Features and scope](../../claim-evidence.md) · [Media credits](../../media-credits.md)
