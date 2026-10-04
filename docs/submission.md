@@ -47,8 +47,8 @@ The new gallery contains ten designed cards with intact screenshots captured fro
 - Current UI preview: https://shhhivam12.github.io/roundtable-ai-hackathon/evaluator/
 - Android test build: https://github.com/shhhivam12/roundtable-ai-hackathon/releases/latest
 - Product story: https://shhhivam12.github.io/roundtable-ai-hackathon/evaluator/decision-rooms-product-story.pdf
-- Existing narrated demo: https://youtu.be/Ysq3IAfMn4Q
+- Current creator-recorded demo: https://youtu.be/WUYoZa39Y3s
 
-The existing video remains the earlier guided version; a new recording will be added later.
+The current six-minute creator-recorded walkthrough shows the new UI, a single-participant live Agora voice room, captions and a weather request. Multi-device voting and public-provider evidence are documented separately in the repository.
 
 Built by Shivam Mahendru for the Agora Voice AI Hackathon 2026.

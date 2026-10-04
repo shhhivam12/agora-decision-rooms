@@ -20,4 +20,10 @@ Earlier walkthroughs use actual local app screenshots, with local synthetic pres
 - Earlier rebrand narration: installed local Microsoft Zira Desktop synthetic voice.
 - The original published video retains its stock-portrait conversation and scripted voices as historical media.
 
-The earlier full walkthrough videos have not been regenerated. The new media consists of the small assistant-motion loops and their preview montage.
+The earlier full walkthrough videos have not been regenerated or replaced.
+
+## Current creator video and thumbnail — 4 October 2026
+
+The current submitted demo is [Shivam's creator-recorded walkthrough](https://youtu.be/WUYoZa39Y3s). It replaces the historical guided-video reference in the active README, submission copy and evaluator player. The recording shows the current browser app, one creator participant, an Agora voice session, captions and a weather request. It does not establish a physical multi-device camera/voting rehearsal.
+
+The new [YouTube thumbnail](assets/video/decision-rooms-youtube-thumbnail-v1.jpg) was created with built-in imagegen from the approved Kabir artwork, current Stage screenshot and app lockup. It is generated marketing artwork, not an unchanged screen capture. The final JPEG is 1280 × 720; the [prompt and references](assets/video/thumbnail-prompt-v1.txt) are retained. No stock human portrait or fabricated booking result is included.

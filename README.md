@@ -4,7 +4,7 @@
 
 One room for the whole group's next plan. **Kabir**, your AI facilitator, helps friends turn different budgets, food preferences and time constraints into a decision everyone can see and support. The **Smart Stage** shows the brief, real planning checks, venue options, each person's vote and the confirmed plan alongside the conversation.
 
-**[Explore the browser preview](https://shhhivam12.github.io/roundtable-ai-hackathon/evaluator/)** · **[Download the current Android test APK](https://github.com/shhhivam12/roundtable-ai-hackathon/releases/latest)** · **[The 10-image product story](docs/assets/decision-rooms-screenshots-v2/README.md)** · **[Commudle submission](https://www.commudle.com/builds/roundtable-ai-shared-voice-decisions-with-agora)**
+**[Watch the demo](https://youtu.be/WUYoZa39Y3s)** · **[Explore the browser preview](https://shhhivam12.github.io/roundtable-ai-hackathon/evaluator/)** · **[Download the current Android test APK](https://github.com/shhhivam12/roundtable-ai-hackathon/releases/latest)** · **[The 10-image product story](docs/assets/decision-rooms-screenshots-v2/README.md)** · **[Commudle submission](https://www.commudle.com/builds/roundtable-ai-shared-voice-decisions-with-agora)**
 
 ![Kabir introduces Agora Decision Rooms beside the current app](docs/assets/decision-rooms-screenshots-v2/github-webp/01-one-room-one-plan.webp)
 
@@ -112,11 +112,13 @@ TypeScript, frontend tests, backend tests and the production web build are check
 
 Rooms are ephemeral: up to four members, approximately 15 minutes, one backend worker. Restarting the backend clears active rooms. The Android APK uses test signing and is intended for phone testing, not Play Store distribution.
 
-## Existing demo video
+## Demo video
 
-**[Watch the existing 3-minute YouTube demo](https://youtu.be/Ysq3IAfMn4Q)** — the earlier guided version. A new recording will be added later.
+**[Watch the latest creator-recorded demo](https://youtu.be/WUYoZa39Y3s)**
 
-[![Existing guided demo video](docs/screenshots/youtube-thumbnail.png)](https://youtu.be/Ysq3IAfMn4Q)
+[![Agora Decision Rooms — One room. One decision.](docs/assets/video/decision-rooms-youtube-thumbnail-v1.jpg)](https://youtu.be/WUYoZa39Y3s)
+
+The six-minute walkthrough shows the current UI, room setup, a single-participant live Agora session, captions and a weather request. The shared provider/voting evidence is documented separately in [claim evidence](docs/claim-evidence.md).
 
 ## Original work
 

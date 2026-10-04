@@ -1,0 +1,10 @@
+Built-in imagegen, 4 October 2026. Use case: compositing / ads-marketing.
+
+Compose a new premium 16:9 YouTube thumbnail for Agora Decision Rooms using the approved Kabir bust, current shared-Stage screenshot and approved logo lockup as references. Retain Kabir's ivory round head, charcoal outlines, headphones, tea mug and open hand. Charcoal, ivory and sage palette. Large left headline exactly ONE ROOM. / ONE DECISION.; product label AGORA DECISION ROOMS; small VOICE AI + SMART STAGE label. Kabir gestures toward a large nearly front-facing phone showing the current Stage and member agreement. Clear typography, strong hierarchy, spacious margins, subtle depth and connecting lines. No invented booking/price/award claims, stock faces, dense paragraphs, neon purple or watermark. Keep primary text clear of the YouTube duration badge.
+
+References:
+- mobile/assets/characters/kabir-bust.png
+- docs/assets/decision-rooms-screenshots-v2/source-screens/14-all-members-support.png
+- mobile/assets/branding/decision-rooms-lockup.png
+
+This is generated marketing artwork composed from the current UI reference, not an unaltered screenshot or proof of a live audio/video call. Source output is retained under output/final-submission-2026-10-04/. Final JPEG export: 1280 x 720.
