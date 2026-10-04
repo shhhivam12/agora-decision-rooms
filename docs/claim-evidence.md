@@ -7,7 +7,7 @@ Agora Decision Rooms brings up to four people into a shared browser room with on
 | Shared browser room with the backend | Agora voice, optional participant video, captions, English/Hindi/Hinglish assistant modes, shared preferences and planning checks, member votes and host confirmation. |
 | Shared Stage without microphone | Typed preferences and requests, real provider checks, shared votes and confirmation through the backend. No microphone or cloud voice assistant starts. |
 | Public static preview | Current UI and guided outing with sample venues, illustrated participants, simulated votes and a local receipt. |
-| Android test APK 1.1.0 | Current native UI, branding, bilingual interface, guided outing and native Agora voice entry. Shared browser Stage and participant video use Android Chrome. |
+| Android test APK 1.1.1 | Current native UI, branding, bilingual interface, guided outing and native Agora voice entry. Shared browser Stage and participant video use Android Chrome. |
 
 ## Planning checks
 

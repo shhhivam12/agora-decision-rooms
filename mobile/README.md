@@ -38,6 +38,8 @@ The browser can also use real Agora RTC audio and RTM captions with the backend 
 
 ### No Android Studio: download the GitHub-built APK
 
+Download the [latest standalone APK](https://github.com/shhhivam12/agora-decision-rooms/releases/latest/download/agora-decision-rooms-android.apk) directly, or use the build artifact below.
+
 1. Open the repository's **Actions** tab on GitHub.
 2. Open the latest **Build Android APK** run.
 3. Under **Artifacts**, download `agora-decision-rooms-android-apk`, or download the APK directly from the latest GitHub release.
@@ -47,7 +49,7 @@ The browser can also use real Agora RTC audio and RTM captions with the backend 
 
 This is a standalone ARM64 test build: it includes the JavaScript bundle, so it opens without Metro or a laptop server. It uses the standard Android debug signing key and is suitable for testing and demos, not Play Store distribution. Almost every current Android phone is ARM64; an older 32-bit phone will need a separate build.
 
-Version 1.1.0 (version code 2) includes the new Decision Rooms name, launcher/splash branding, Kabir artwork, bilingual UI, guided outing and native Agora voice entry. The package ID and test signing key stay stable for upgrade continuity.
+Version 1.1.1 (version code 3) includes the new Decision Rooms name, launcher/splash branding, Kabir artwork, bilingual UI, guided outing and native Agora voice entry. The Android and iOS launchers now use the component registered by the JavaScript entrypoint, fixing the native startup mismatch. The package ID and test signing key stay stable for upgrade continuity.
 
 For **native voice on your phone**, start the backend and connect the phone by USB with debugging enabled. Run `adb reverse tcp:8000 tcp:8000`, then open the APK's live voice entry and set its backend URL to `http://127.0.0.1:8000`. Prepare the session and connect, allowing microphone access when Android asks. Alternatively use a reachable HTTPS/LAN backend; `10.0.2.2` works only in the emulator.
 

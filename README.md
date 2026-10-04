@@ -4,7 +4,7 @@
 
 One room for the whole group's next plan. **Kabir**, your AI facilitator, helps friends turn different budgets, food preferences and time constraints into a decision everyone can see and support. The **Smart Stage** shows the brief, real planning checks, venue options, each person's vote and the confirmed plan alongside the conversation.
 
-**[Watch the demo](https://youtu.be/WUYoZa39Y3s)** · **[Explore the browser preview](https://shhhivam12.github.io/agora-decision-rooms/evaluator/)** · **[Download the current Android test APK](https://github.com/shhhivam12/agora-decision-rooms/releases/latest)** · **[The 10-image product story](docs/assets/decision-rooms-screenshots-v2/README.md)** · **[Commudle submission](https://www.commudle.com/builds/roundtable-ai-shared-voice-decisions-with-agora)**
+**[Watch the demo](https://youtu.be/WUYoZa39Y3s)** · **[Explore the browser preview](https://shhhivam12.github.io/agora-decision-rooms/evaluator/)** · **[Download the current Android test APK](https://github.com/shhhivam12/agora-decision-rooms/releases/latest/download/agora-decision-rooms-android.apk)** · **[The 10-image product story](docs/assets/decision-rooms-screenshots-v2/README.md)** · **[Commudle submission](https://www.commudle.com/builds/roundtable-ai-shared-voice-decisions-with-agora)**
 
 ![Kabir introduces Agora Decision Rooms beside the current app](docs/assets/decision-rooms-screenshots-v2/github-webp/01-one-room-one-plan.webp)
 
