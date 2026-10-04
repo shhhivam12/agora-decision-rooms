@@ -5,8 +5,8 @@ import json
 ROOT=Path(__file__).resolve().parents[1]
 PUB=ROOT/'artifacts'/'public-submission'/'roundtable-ai'
 OUT=ROOT/'artifacts'/'submission'
-REPO='https://github.com/shhhivam12/roundtable-ai-hackathon'
-PREVIEW='https://shhhivam12.github.io/roundtable-ai-hackathon/evaluator/'
+REPO='https://github.com/shhhivam12/agora-decision-rooms'
+PREVIEW='https://shhhivam12.github.io/agora-decision-rooms/evaluator/'
 VIDEO=PREVIEW+'video.html'
 
 description=(ROOT/'docs'/'submission.md').read_text(encoding='utf-8').split('## Polished project description\n',1)[1].split('\n## Video metadata',1)[0].strip()

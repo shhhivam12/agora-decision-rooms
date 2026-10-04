@@ -43,10 +43,10 @@ The new gallery contains ten designed cards with intact screenshots captured fro
 
 ### Resources
 
-- Source: https://github.com/shhhivam12/roundtable-ai-hackathon
-- Current UI preview: https://shhhivam12.github.io/roundtable-ai-hackathon/evaluator/
-- Android test build: https://github.com/shhhivam12/roundtable-ai-hackathon/releases/latest
-- Product story: https://shhhivam12.github.io/roundtable-ai-hackathon/evaluator/decision-rooms-product-story.pdf
+- Source: https://github.com/shhhivam12/agora-decision-rooms
+- Current UI preview: https://shhhivam12.github.io/agora-decision-rooms/evaluator/
+- Android test build: https://github.com/shhhivam12/agora-decision-rooms/releases/latest
+- Product story: https://shhhivam12.github.io/agora-decision-rooms/evaluator/decision-rooms-product-story.pdf
 - Current creator-recorded demo: https://youtu.be/WUYoZa39Y3s
 
 The current six-minute creator-recorded walkthrough shows the new UI, a single-participant live Agora voice room, captions and a weather request. Multi-device voting and public-provider evidence are documented separately in the repository.
