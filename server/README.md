@@ -1,65 +1,56 @@
-# RoundTable AI — Agora Voice Backend
+# Agora Decision Rooms voice backend
 
-The agent collects outing budgets, dietary needs, activity preferences and time windows. It does not claim to cast votes or execute external actions. The native voice screen is separate from the deterministic Smart Stage demo.
+FastAPI owns RTC/RTM token generation, the Agora Conversational AI assistant and the authoritative shared Smart Stage. The browser uses shared voice rooms with real planning checks and authenticated member votes; the native Android client retains its quickstart voice API. The guided outing uses separate local sample options and simulated votes.
 
-Configure an enabled Agora Conversational AI project in a server-side `.env` copied from `.env.example`. Credentials are ignored by Git. `/health` reports configuration readiness without returning secrets. On Android, open Me → Open Agora voice and enter a reachable backend URL. `10.0.2.2:8000` works only in the Android emulator; a physical phone needs a reachable LAN or HTTPS server.
+See [the laptop + Android demo guide](../docs/live-demo-guide.md) for start commands, USB forwarding, a recording sequence and troubleshooting.
 
-FastAPI service that owns Agora token generation and agent session lifecycle for
-the native iOS (SwiftUI) client quickstart. The iOS app reaches it directly at
-`http://localhost:8000` (the Simulator shares the host network).
+## Run locally
 
-## What this service does
-
-Starts a simple conversational AI agent using only Agora-managed vendors — **zero-key** —
-and enables RTM so the iOS client's `ConversationalAIAPI` toolkit can render the
-live transcript:
-
-- `data_channel = "rtm"` — routes transcript/state/metrics over RTM
-- `advanced_features = {"enable_rtm": True}` — required for the iOS toolkit
-- `enable_metrics = True` / `enable_error_message = True` — stage metrics + errors
-
-**Pipeline:** `DeepgramSTT(nova-3, en)` → `OpenAI` (Agora-managed, keyless) → `MiniMaxTTS`
-
-The `OpenAI` vendor is Agora-managed (keyless by default). There is **no
-separate `llm/` service** in this recipe.
-
-## Run
-
-macOS/Linux:
-
-```bash
-cd server
-uv venv venv && . venv/bin/activate
-uv pip install -r requirements.txt -r requirements-dev.txt
-python src/server.py
-```
-
-Windows PowerShell:
+Configure the ignored `server/.env` from `.env.example`. Required: `AGORA_APP_ID` and `AGORA_APP_CERTIFICATE` for an enabled Agora Conversational AI project. The app certificate and vendor keys stay server-side. `OPENAI_API_KEY` is optional when Agora-managed OpenAI is available on the project.
 
 ```powershell
-cd server
-py -3 -m venv venv
-.\venv\Scripts\python.exe -m pip install -r requirements.txt -r requirements-dev.txt
-.\venv\Scripts\python.exe src\server.py
+python -m venv .venv
+.venv\Scripts\python.exe -m pip install -r requirements.txt -r requirements-dev.txt
+.venv\Scripts\python.exe src\server.py
 ```
 
-## Environment
+The server binds to `127.0.0.1:8000` by default. The Vite web client proxies `/api` to it; Android Chrome accesses the web client through USB forwarding. Native emulator clients use `10.0.2.2:8000`.
 
-Required:
+## Shared browser API
 
-- `AGORA_APP_ID` — Agora project App ID.
-- `AGORA_APP_CERTIFICATE` — Agora project App Certificate.
+| Route | Purpose |
+| --- | --- |
+| `GET /api/health` | Configuration readiness; no credentials returned |
+| `POST /api/voice/rooms` | Create a room and receive scoped host access |
+| `POST /api/voice/rooms/{code}/join` | Join with a distinct numeric RTC UID |
+| `POST /api/voice/rooms/{code}/assistant` | Host starts one idempotent assistant |
+| `GET /api/voice/rooms/{code}` | Member-authenticated status and heartbeat |
+| `POST /api/voice/rooms/{code}/leave` | Guest leaves; host ends room and assistant |
 
-Optional:
+Create/join take `{ "name": "Your name" }`. Other room routes require `X-Room-Member` with the member secret returned for that browser. Public room snapshots omit secrets and tokens. Rooms allow four people, expire after 15 minutes and are limited to four simultaneous rooms per backend process. Host heartbeats expire after two minutes; a 20-second cleanup loop retries cloud session shutdown.
 
-| Variable | Default | Notes |
-| --- | :---: | --- |
-| `OPENAI_MODEL` | `gpt-4o-mini` | OpenAI model |
-| `OPENAI_API_KEY` | — | BYO only — Agora manages the OpenAI key by default (keyless). Set only if your account requires it. |
-| `AGENT_GREETING` | built-in | Optional opening line override |
+RTC+RTM tokens last 30 minutes, covering the room lifetime. The assistant uses `remote_uids=["*"]` so it listens to both laptop and phone. Its pipeline is Deepgram Nova-3 multilingual (English/Hindi code switching) → Agora-managed OpenAI gpt-4o-mini → MiniMax TTS with English/Hindi/auto language boost. Hosts choose `language: en | hi | multi` when creating a room; guests inherit that mode. RTM carries captions, state and errors. Participant camera video uses the existing RTC channel and is not configured as AI vision input. The assistant proposes plans and does not invent votes or external actions.
 
-## API
+## Production web hosting
 
-- `GET /get_config` — token + channel/UID config
-- `POST /startAgent` — start an agent session
-- `POST /stopAgent` — stop an agent session
+After `cd mobile && npm run web:build`, this server can serve `mobile/dist-web` at `/` alongside the API. `WEB_DIST_DIR` overrides the static directory. The repository `Dockerfile` builds and serves both from one origin and disables the legacy native API. The hosting provider must supply HTTPS and server environment variables. The current change does not deploy a public site.
+
+| Environment | Default | Purpose |
+| --- | --- | --- |
+| `HOST` | `127.0.0.1` | Bind address; container sets `0.0.0.0` |
+| `PORT` | `8000` | HTTP port |
+| `ENABLE_NATIVE_API` | `true` | Set `false` for a browser-only hosted demo |
+| `WEB_DIST_DIR` | `mobile/dist-web` | Optional production client directory |
+| `CORS_ALLOW_ORIGINS` | Local web origins | Comma-separated allowed client origins |
+| `OPENAI_MODEL` | `gpt-4o-mini` | Model override |
+| `AGENT_GREETING` | Branded built-in greeting | Opening message override |
+
+Legacy native endpoints: `GET /get_config`, `POST /startAgent`, `POST /stopAgent`; `/health` aliases `/api/health`. Shared rooms live in memory, so a hosted demo should run one worker. Restarting it ends its active rooms.
+
+## Verify
+
+```powershell
+.venv\Scripts\python.exe -m pytest -q -p no:cacheprovider
+```
+
+From the repository root, `server/.venv/Scripts/python.exe scripts/check-live-voice.py` checks real Agora start/stop without printing tokens or secrets. Audible playback and live captions on physical devices need the separate two-device check.

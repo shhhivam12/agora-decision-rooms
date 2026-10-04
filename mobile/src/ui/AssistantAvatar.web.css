@@ -1,0 +1,141 @@
+.assistant-avatar {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  contain: layout paint;
+}
+.assistant-figure {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.assistant-head {
+  transform-box: view-box;
+  transform-origin: 165px 126px;
+}
+.assistant-hand {
+  transform-box: view-box;
+  transform-origin: 236px 211px;
+}
+.assistant-eyes {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: assistant-blink 6.1s ease-in-out infinite;
+}
+.assistant-steam {
+  animation: assistant-steam 3.5s ease-in-out infinite;
+}
+.assistant-avatar[data-mode='speaking'] .assistant-head {
+  animation: assistant-nod 1.9s ease-in-out infinite;
+}
+.assistant-avatar[data-mode='speaking'][data-pose='welcome'] .assistant-hand {
+  animation: assistant-wave 2.8s ease-in-out infinite;
+}
+.assistant-avatar[data-mode='speaking'][data-pose='explain'] .assistant-hand {
+  animation: assistant-point 2.2s ease-in-out infinite;
+}
+.assistant-avatar[data-mode='speaking'][data-pose='agree'] .assistant-hand {
+  animation: assistant-agree 2.6s ease-in-out infinite;
+}
+.assistant-avatar[data-mode='thinking'] .assistant-head {
+  animation: assistant-think 4s ease-in-out infinite;
+}
+.assistant-avatar[data-mode='thinking'] .thought-dot {
+  animation: assistant-thought 1.5s ease-in-out infinite;
+}
+.assistant-avatar .dot-1 {
+  animation-delay: 0.2s !important;
+}
+.assistant-avatar .dot-2 {
+  animation-delay: 0.4s !important;
+}
+.assistant-avatar[data-mode='offline'] *,
+.assistant-avatar[data-mode='paused'] * {
+  animation: none;
+}
+@keyframes assistant-blink {
+  0%,
+  44%,
+  48%,
+  100% {
+    transform: scaleY(1);
+  }
+  46% {
+    transform: scaleY(0.1);
+  }
+}
+@keyframes assistant-steam {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+@keyframes assistant-nod {
+  0%,
+  100% {
+    transform: rotate(-2deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
+@keyframes assistant-wave {
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(8deg);
+  }
+}
+@keyframes assistant-point {
+  0%,
+  100% {
+    transform: rotate(-2deg);
+  }
+  50% {
+    transform: rotate(-9deg);
+  }
+}
+@keyframes assistant-agree {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+}
+@keyframes assistant-think {
+  0%,
+  100% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(1deg);
+  }
+}
+@keyframes assistant-thought {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .assistant-avatar * {
+    animation: none !important;
+  }
+  .assistant-avatar .assistant-mouth {
+    display: none;
+  }
+  .assistant-avatar .assistant-smile {
+    opacity: 1;
+  }
+}

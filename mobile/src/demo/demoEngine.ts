@@ -6,22 +6,22 @@ export interface OutingOption {
 }
 
 export const participants = [
-  { id: 'you', name: 'You', initial: 'S', color: '#7657FF' },
-  { id: 'priya', name: 'Priya', initial: 'P', color: '#FF7B6E' },
-  { id: 'ayaan', name: 'Ayaan', initial: 'A', color: '#168A5B' },
+  { id: 'you', name: 'You', initial: 'S', color: '#242523' },
+  { id: 'priya', name: 'Priya', initial: 'P', color: '#697066' },
+  { id: 'ayaan', name: 'Ayaan', initial: 'A', color: '#92998F' },
 ];
 
 export const constraints = [
-  { id: 'budget', owner: 'Ayaan', icon: '₹', value: 'Under ₹900 each', accent: '#C9F36A' },
-  { id: 'food', owner: 'Priya', icon: '🥗', value: 'Vegetarian-friendly', accent: '#BDECF7' },
-  { id: 'time', owner: 'You', icon: '◷', value: 'Wrap up by 10 PM', accent: '#FFD76A' },
-  { id: 'vibe', owner: 'Everyone', icon: '✦', value: 'Food + an activity', accent: '#ECE8FF' },
+  { id: 'budget', owner: 'Ayaan', icon: '₹', value: 'Under ₹900 each', accent: '#E4E9E1' },
+  { id: 'food', owner: 'Priya', icon: '🥗', value: 'Vegetarian-friendly', accent: '#E4E9E1' },
+  { id: 'time', owner: 'You', icon: '◷', value: 'Wrap up by 10 PM', accent: '#E4E9E1' },
+  { id: 'vibe', owner: 'Everyone', icon: '✦', value: 'Food + an activity', accent: '#E4E9E1' },
 ];
 
 export const outingOptions: OutingOption[] = [
-  { id: 'bowling-bites', title: 'Bowling + bites', place: 'Indiranagar Social', emoji: '🎳', price: '₹760 pp', travel: '18 min', fit: 94, accent: '#ECE8FF' },
-  { id: 'paint-pizza', title: 'Paint + pizza', place: 'The Art Gully', emoji: '🎨', price: '₹890 pp', travel: '24 min', fit: 88, accent: '#FFF1D1' },
-  { id: 'games-cafe', title: 'Games café', place: 'Dice & Dine', emoji: '🎲', price: '₹620 pp', travel: '31 min', fit: 82, accent: '#DFF7ED' },
+  { id: 'bowling-bites', title: 'Bowling + bites', place: 'Indiranagar Social', emoji: '🎳', price: '₹760 pp', travel: '18 min', fit: 94, accent: '#E4E9E1' },
+  { id: 'paint-pizza', title: 'Paint + pizza', place: 'The Art Gully', emoji: '🎨', price: '₹890 pp', travel: '24 min', fit: 88, accent: '#E4E9E1' },
+  { id: 'games-cafe', title: 'Games café', place: 'Dice & Dine', emoji: '🎲', price: '₹620 pp', travel: '31 min', fit: 82, accent: '#E4E9E1' },
 ];
 
 export const activityByPhase: Record<DemoPhase, string[]> = {

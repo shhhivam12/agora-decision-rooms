@@ -48,12 +48,12 @@ jobs:
         run: |
           chmod +x gradlew
           ./gradlew assembleRelease -PreactNativeArchitectures=arm64-v8a --no-daemon
-          cp app/build/outputs/apk/release/app-release.apk app/build/outputs/apk/release/roundtable-ai-android.apk
+          cp app/build/outputs/apk/release/app-release.apk app/build/outputs/apk/release/agora-decision-rooms-android.apk
 
       - name: Upload installable APK
         uses: actions/upload-artifact@v4
         with:
-          name: roundtable-ai-android-apk
-          path: mobile/android/app/build/outputs/apk/release/roundtable-ai-android.apk
+          name: agora-decision-rooms-android-apk
+          path: mobile/android/app/build/outputs/apk/release/agora-decision-rooms-android.apk
           if-no-files-found: error
           retention-days: 14

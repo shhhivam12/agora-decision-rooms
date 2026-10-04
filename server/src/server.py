@@ -8,10 +8,12 @@ HTTP APIs:
 - POST /stopAgent      -> Stop agent
 """
 import logging
+import asyncio
+from contextlib import asynccontextmanager, suppress
 import os
 import random
 import time
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Literal
 from dotenv import load_dotenv
 
 # Load environment variables from .env.local or .env
@@ -21,9 +23,11 @@ load_dotenv(os.path.join(_base_dir, '.env'), override=True)
 
 from fastapi import APIRouter, FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from agora_agent.agentkit.token import generate_convo_ai_token
 from agent import Agent
+from voice_rooms import VoiceRooms, make_router
 
 logger = logging.getLogger("uvicorn.error")
 
@@ -57,17 +61,51 @@ except ValueError as e:
     agent = None
 
 
+# Shared browser rooms reuse the same project and scoped RTC+RTM token generator.
+def voice_config(channel, uid, agent_uid):
+    app_id = os.getenv("AGORA_APP_ID")
+    token = generate_convo_ai_token(
+        app_id=app_id, app_certificate=os.getenv("AGORA_APP_CERTIFICATE"),
+        channel_name=channel, uid=int(uid), token_expire=1800)
+    return {"appId": app_id, "token": token, "uid": uid,
+            "channelName": channel, "agentUid": agent_uid}
+
+
+voice_rooms = VoiceRooms(lambda: agent, voice_config)
+
+
+@asynccontextmanager
+async def lifespan(app):
+    async def cleanup():
+        while True:
+            await asyncio.sleep(20)
+            try:
+                await voice_rooms.reap()
+            except Exception:
+                logger.warning("Voice room cleanup will retry.")
+    task = asyncio.create_task(cleanup())
+    yield
+    task.cancel()
+    with suppress(asyncio.CancelledError):
+        await task
+    try:
+        await voice_rooms.shutdown()
+    except Exception:
+        logger.warning("Voice room shutdown failed; Agora idle expiry remains active.")
+
+
 # FastAPI application
 app = FastAPI(
-    title="RoundTable AI Agora Voice Service",
+    lifespan=lifespan,
+    title="Agora Decision Rooms Voice Service",
     version="1.0.0",
-    description="RoundTable AI — Agora RTC tokens and Conversational AI agent lifecycle",
+    description="Agora Decision Rooms — Agora RTC tokens and Conversational AI agent lifecycle",
 )
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
+    allow_origins=os.getenv("CORS_ALLOW_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173").split(","),
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -76,8 +114,9 @@ router = APIRouter()
 
 
 @router.get('/health')
+@router.get('/api/health')
 async def health():
-    return {'service': 'roundtable-agora', 'configured': agent is not None, 'voice_pipeline': 'Agora Conversational AI + RTC + RTM'}
+    return {'service': 'agora-decision-rooms', 'configured': agent is not None, 'voice_pipeline': 'Agora Conversational AI + RTC + RTM'}
 
 
 # Request models
@@ -87,11 +126,18 @@ class StartAgentRequest(BaseModel):
     rtcUid: int
     userUid: int
     parameters: Optional[Dict[str, Any]] = None
+    language: Literal["en", "hi", "multi"] = "multi"
 
 
 class StopAgentRequest(BaseModel):
     """Request body for POST /stopAgent"""
     agentId: str
+
+
+# The browser uses bounded rooms; native quickstart routes can be disabled on a hosted demo.
+def _require_native_api():
+    if os.getenv("ENABLE_NATIVE_API", "true").lower() != "true":
+        raise HTTPException(404, "Native quickstart API is disabled.")
 
 
 # API endpoints
@@ -105,6 +151,7 @@ async def get_config(
     uid: Optional[int] = Query(default=None),
 ):
     """Generate connection configuration"""
+    _require_native_api()
     if agent is None:
         raise HTTPException(
             status_code=500,
@@ -148,6 +195,7 @@ async def get_config(
 @router.post("/startAgent")
 async def start_agent(request: StartAgentRequest):
     """Start the agent in a channel"""
+    _require_native_api()
     if agent is None:
         raise HTTPException(
             status_code=500,
@@ -164,6 +212,7 @@ async def start_agent(request: StartAgentRequest):
             agent_uid=request.rtcUid,
             user_uid=request.userUid,
             output_audio_codec=output_audio_codec,
+            language=request.language,
         )
         return {"code": 0, "msg": "success", "data": result}
     except Exception as e:
@@ -180,6 +229,7 @@ async def start_agent(request: StartAgentRequest):
 @router.post("/stopAgent")
 async def stop_agent(request: StopAgentRequest):
     """Stop agent by ID"""
+    _require_native_api()
     if agent is None:
         raise HTTPException(
             status_code=500,
@@ -195,10 +245,16 @@ async def stop_agent(request: StopAgentRequest):
 
 
 app.include_router(router)
+app.include_router(make_router(voice_rooms))
+
+# Optional single-origin production build. API routes remain ahead of static assets.
+_web_dist = os.getenv("WEB_DIST_DIR", os.path.join(_base_dir, "..", "mobile", "dist-web"))
+if os.path.isfile(os.path.join(_web_dist, "index.html")):
+    app.mount("/", StaticFiles(directory=_web_dist, html=True), name="web")
 
 
 if __name__ == "__main__":
     import uvicorn
 
     port = int(os.getenv("PORT", "8000"))
-    uvicorn.run(app, host="0.0.0.0", port=port)
+    uvicorn.run(app, host=os.getenv("HOST", "127.0.0.1"), port=port)

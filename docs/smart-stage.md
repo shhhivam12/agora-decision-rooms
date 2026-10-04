@@ -1,4 +1,6 @@
-# Call room and Smart Stage
+# Guided sample: call room and Smart Stage
+
+This guide describes the offline guided outing. For the current backend-synchronized room, real providers and actual member votes, see [the live Smart Stage guide](live-smart-stage.md).
 
 The call room keeps participant tiles and call controls visible while a shared workspace presents the agent's current operation. Its stage moves through brief, search, compare, vote, approval, execution and receipt. People can pause automatic progression or expand the workspace. Changing the scenario cancels pending progression and resets votes.
 

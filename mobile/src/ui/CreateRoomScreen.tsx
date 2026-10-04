@@ -1,161 +1,306 @@
+import { AppText as Text, AppPressable as Pressable } from '../i18n';
 import React, { useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { AgoraMark, MakerFooter } from './Brand';
+import { StyleSheet, View } from 'react-native';
+import { MakerFooter } from './Brand';
 import { PageHeader } from './PageHeader';
-import { colors, radii } from './theme';
-
-interface Props { onCreateRoom: () => void }
-
-const goals = [
-  { id: 'outing', emoji: '🍜', title: 'Plan an outing', body: 'Food, activity and a shared calendar', accent: colors.yellow },
-  { id: 'custom', emoji: '✦', title: 'Start from a goal', body: 'Describe a decision in your own words', accent: colors.brandSoft },
-];
-
+import { Avatar } from './Portrait';
+import { CharacterBust } from './CharacterArt';
+import { characterProfiles } from './CharacterProfiles';
+import { Icon } from './Icon';
+import { Button, Screen, Section } from './Ui';
+import { colors } from './theme';
 const crew = [
-  { id: 'priya', name: 'Priya', initial: 'P', color: colors.coral },
-  { id: 'ayaan', name: 'Ayaan', initial: 'A', color: colors.green },
-  { id: 'maya', name: 'Maya', initial: 'M', color: colors.brand },
-  { id: 'kabir', name: 'Kabir', initial: 'K', color: '#E89031' },
+  { id: 'priya', name: 'Priya' },
+  { id: 'ayaan', name: 'Ayaan' },
+  { id: 'maya', name: 'Maya' },
+  { id: 'kabir', name: 'Kabir' },
 ];
-
-export function CreateRoomScreen({ onCreateRoom }: Props) {
-  const [goal, setGoal] = useState('outing');
-  const [selected, setSelected] = useState(['priya', 'ayaan']);
-  const [rule, setRule] = useState<'majority' | 'everyone'>('majority');
-  const togglePerson = (id: string) => setSelected(all => all.includes(id) ? all.filter(item => item !== id) : [...all, id]);
-
+export function CreateRoomScreen({
+  onCreateRoom,
+}: {
+  onCreateRoom: () => void;
+}) {
+  const [goal, setGoal] = useState('outing'),
+    [selected, setSelected] = useState(['priya', 'ayaan']),
+    [rule, setRule] = useState<'majority' | 'everyone'>('majority');
+  const toggle = (id: string) =>
+    setSelected(all =>
+      all.includes(id) ? all.filter(item => item !== id) : [...all, id],
+    );
   return (
-    <ScrollView style={s.screen} contentContainerStyle={s.content} showsVerticalScrollIndicator={false}>
-      <PageHeader title="Create a room" subtitle="Give the conversation a finish line" />
-
-      <View style={s.intro}>
-        <View style={s.introRing} />
-        <Text style={s.step}>NEW ROUNDTABLE</Text>
-        <Text style={s.introTitle}>What are we deciding together?</Text>
-        <Text style={s.introBody}>You set the goal and the rule. The agent keeps the process visible to everyone.</Text>
-        <View style={s.agora}><AgoraMark compact /></View>
-      </View>
-
-      <View style={s.sectionHead}><Text style={s.number}>01</Text><View><Text style={s.kicker}>ROOM RECIPE</Text><Text style={s.sectionTitle}>Choose a starting point</Text></View></View>
-      {goals.map(item => {
-        const active = goal === item.id;
-        return (
-          <Pressable key={item.id} onPress={() => setGoal(item.id)} style={({ pressed }) => [s.goal, active && s.goalActive, pressed && s.pressed]}>
-            <View style={[s.goalIcon, { backgroundColor: item.accent }]}><Text style={s.goalEmoji}>{item.emoji}</Text></View>
-            <View style={s.goalCopy}><Text style={s.goalTitle}>{item.title}</Text><Text style={s.goalBody}>{item.body}</Text></View>
-            <View style={[s.radio, active && s.radioActive]}>{active ? <View style={s.radioDot} /> : null}</View>
+    <Screen>
+      <PageHeader
+        title="Make room for a plan"
+        subtitle="A few details. Then talk it out."
+      />
+      <Section title="01 / What are we deciding?" />
+      <View style={s.goals}>
+        {[
+          {
+            id: 'outing',
+            title: 'An evening out',
+            body: 'Food, an activity and one shared plan.',
+            icon: 'coffee' as const,
+          },
+          {
+            id: 'custom',
+            title: 'Start with a goal',
+            body: 'A decision you want to make together.',
+            icon: 'rooms' as const,
+          },
+        ].map(item => (
+          <Pressable
+            key={item.id}
+            accessibilityRole="radio"
+            accessibilityLabel={item.title}
+            accessibilityState={{ checked: goal === item.id }}
+            onPress={() => setGoal(item.id)}
+            style={[s.goal, goal === item.id && s.goalActive]}
+          >
+            <Icon name={item.icon} size={26} />
+            <View style={{ flex: 1 }}>
+              <Text style={s.goalTitle}>{item.title}</Text>
+              <Text style={s.goalBody}>{item.body}</Text>
+            </View>
+            <View style={[s.radio, goal === item.id && s.radioActive]}>
+              {goal === item.id && <View style={s.radioDot} />}
+            </View>
           </Pressable>
-        );
-      })}
-
+        ))}
+      </View>
       <View style={s.objective}>
-        <Text style={s.fieldLabel}>ROOM OBJECTIVE</Text>
-        <Text style={s.objectiveText}>{goal === 'outing' ? 'Choose where to go tonight and put the final plan on our calendars.' : 'Reach one clear group decision and record the approved next step.'}</Text>
-        <View style={s.voiceHint}><Text style={s.voiceIcon}>≋</Text><Text style={s.voiceText}>You can refine this by voice inside the room</Text></View>
+        <View style={s.objectiveHead}>
+          <Text style={s.objectiveLabel}>THE ROOM'S FINISH LINE</Text>
+          <CharacterBust id="priya" size={66} />
+        </View>
+        <Text style={s.objectiveText}>
+          {goal === 'outing'
+            ? 'Choose where to go tonight and agree on the final plan.'
+            : 'Reach one clear group decision and record the approved next step.'}
+        </Text>
+        <View style={s.hint}>
+          <Icon name="waveform" size={18} />
+          <Text style={s.hintText}>Refine the brief inside the room.</Text>
+        </View>
       </View>
-
-      <View style={s.sectionHead}><Text style={s.number}>02</Text><View><Text style={s.kicker}>THE CREW</Text><Text style={s.sectionTitle}>Invite people to the table</Text></View></View>
+      <Section
+        title="02 / Bring your people"
+        caption="Choose the crew for this demo room"
+      />
       <View style={s.crew}>
-        {crew.map(person => {
-          const active = selected.includes(person.id);
-          return (
-            <Pressable key={person.id} onPress={() => togglePerson(person.id)} style={s.person}>
-              <View style={[s.avatar, { backgroundColor: person.color }, !active && s.avatarOff]}>
-                <Text style={s.avatarText}>{person.initial}</Text>
-                {active ? <View style={s.check}><Text style={s.checkText}>✓</Text></View> : null}
-              </View>
-              <Text style={[s.personName, active && s.personNameActive]}>{person.name}</Text>
-            </Pressable>
-          );
-        })}
-        <Pressable style={s.person}><View style={[s.avatar, s.add]}><Text style={s.addText}>+</Text></View><Text style={s.personName}>Invite</Text></Pressable>
+        {crew.map(person => (
+          <Pressable
+            key={person.id}
+            accessibilityRole="checkbox"
+            accessibilityLabel={'Invite ' + person.name}
+            accessibilityState={{ checked: selected.includes(person.id) }}
+            onPress={() => toggle(person.id)}
+            style={s.person}
+          >
+            <View
+              style={[
+                s.avatarWrap,
+                selected.includes(person.id) && s.avatarSelected,
+              ]}
+            >
+              <Avatar id={person.id} size={54} />
+              {selected.includes(person.id) && (
+                <View style={s.check}>
+                  <Icon name="check" size={12} color={colors.inverse} />
+                </View>
+              )}
+            </View>
+            <Text style={s.personName}>{person.name}</Text>
+            <Text style={s.personRole}>
+              {characterProfiles[person.id].shortRole}
+            </Text>
+          </Pressable>
+        ))}
       </View>
-
-      <View style={s.sectionHead}><Text style={s.number}>03</Text><View><Text style={s.kicker}>DECISION RULE</Text><Text style={s.sectionTitle}>How does the room agree?</Text></View></View>
-      <View style={s.ruleGrid}>
-        <Pressable onPress={() => setRule('majority')} style={[s.rule, rule === 'majority' && s.ruleActive]}>
-          <Text style={s.ruleIcon}>⅔</Text><Text style={s.ruleTitle}>Simple majority</Text><Text style={s.ruleBody}>The option with the most votes wins.</Text>
-        </Pressable>
-        <Pressable onPress={() => setRule('everyone')} style={[s.rule, rule === 'everyone' && s.ruleActive]}>
-          <Text style={s.ruleIcon}>◎</Text><Text style={s.ruleTitle}>Everyone agrees</Text><Text style={s.ruleBody}>No action until every person approves.</Text>
-        </Pressable>
+      <Section title="03 / How will you agree?" />
+      <View style={s.rules}>
+        {(
+          [
+            {
+              id: 'majority',
+              title: 'Simple majority',
+              body: 'The option with the most votes wins.',
+            },
+            {
+              id: 'everyone',
+              title: 'Everyone agrees',
+              body: 'Wait until the whole room approves.',
+            },
+          ] as const
+        ).map(item => (
+          <Pressable
+            key={item.id}
+            accessibilityRole="radio"
+            accessibilityLabel={item.title}
+            accessibilityState={{ checked: rule === item.id }}
+            onPress={() => setRule(item.id)}
+            style={[s.rule, rule === item.id && s.ruleActive]}
+          >
+            <View style={[s.radio, rule === item.id && s.radioActive]}>
+              {rule === item.id && <View style={s.radioDot} />}
+            </View>
+            <Text style={s.ruleTitle}>{item.title}</Text>
+            <Text style={s.ruleBody}>{item.body}</Text>
+          </Pressable>
+        ))}
       </View>
-
       <View style={s.summary}>
-        <View style={s.summaryTop}><Text style={s.summaryLabel}>ROOM READY</Text><Text style={s.summaryCode}>RT-2048</Text></View>
+        <View style={s.summaryHead}>
+          <Text style={s.summaryLabel}>YOUR DECISION ROOM</Text>
+          <Text style={s.code}>DR–2048</Text>
+        </View>
         <Text style={s.summaryTitle}>Friday Fun Crew</Text>
-        <View style={s.summaryRow}><Text style={s.summaryKey}>People</Text><Text style={s.summaryValue}>{selected.length + 1} invited</Text></View>
-        <View style={s.summaryRow}><Text style={s.summaryKey}>Rule</Text><Text style={s.summaryValue}>{rule === 'majority' ? 'Simple majority' : 'Everyone agrees'}</Text></View>
-        <View style={s.summaryRow}><Text style={s.summaryKey}>Agent mode</Text><Text style={s.summaryValue}>Visible work + approval</Text></View>
-        <Pressable testID="launch-room" onPress={onCreateRoom} style={({ pressed }) => [s.launch, pressed && s.pressed]}>
-          <View><Text style={s.launchTitle}>Create room & invite</Text><Text style={s.launchSub}>Opens the shared Central Stage</Text></View>
-          <View style={s.launchArrow}><Text style={s.launchArrowText}>→</Text></View>
-        </Pressable>
+        <View style={s.summaryRow}>
+          <Icon name="people" color={colors.inverseMuted} size={18} />
+          <Text style={s.summaryText}>
+            {selected.length + 1} people ·{' '}
+            {rule === 'majority' ? 'Simple majority' : 'Everyone agrees'}
+          </Text>
+        </View>
+        <Text style={s.summaryNote}>
+          The guided demo opens with You, Priya and Ayaan. No invitations are
+          sent.
+        </Text>
+        <Button
+          label="Create room & invite"
+          testID="launch-room"
+          onPress={onCreateRoom}
+          light
+          icon="arrow"
+        />
       </View>
-
       <MakerFooter />
-    </ScrollView>
+    </Screen>
   );
 }
-
 const s = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: colors.canvas },
-  content: { paddingHorizontal: 18, paddingTop: 10, paddingBottom: 112 },
-  intro: { minHeight: 220, borderRadius: radii.xlarge, backgroundColor: colors.brand, padding: 21, overflow: 'hidden', marginBottom: 25 },
-  introRing: { position: 'absolute', right: -50, bottom: -85, width: 190, height: 190, borderRadius: 95, borderWidth: 30, borderColor: colors.coral, opacity: .9 },
-  step: { color: colors.lime, fontSize: 8, letterSpacing: 1.7, fontWeight: '900' },
-  introTitle: { color: colors.surface, fontSize: 28, lineHeight: 31, fontWeight: '900', maxWidth: 290, marginTop: 12 },
-  introBody: { color: '#E6E1FF', fontSize: 11, lineHeight: 17, maxWidth: 280, marginTop: 9 },
-  agora: { marginTop: 15 },
-  sectionHead: { flexDirection: 'row', alignItems: 'center', gap: 11, marginTop: 9, marginBottom: 12 },
-  number: { width: 35, height: 35, borderRadius: 13, color: colors.surface, backgroundColor: colors.ink, textAlign: 'center', textAlignVertical: 'center', fontSize: 9, fontWeight: '900' },
-  kicker: { color: colors.brand, fontSize: 8, letterSpacing: 1.4, fontWeight: '900' },
-  sectionTitle: { color: colors.ink, fontSize: 17, fontWeight: '900', marginTop: 2 },
-  goal: { minHeight: 82, borderRadius: 23, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.surface, flexDirection: 'row', alignItems: 'center', padding: 12, marginBottom: 8 },
-  goalActive: { borderWidth: 2, borderColor: colors.brand },
-  goalIcon: { width: 52, height: 52, borderRadius: 18, alignItems: 'center', justifyContent: 'center' },
-  goalEmoji: { fontSize: 23 },
-  goalCopy: { flex: 1, marginLeft: 12 },
-  goalTitle: { color: colors.ink, fontSize: 13, fontWeight: '900' },
-  goalBody: { color: colors.muted, fontSize: 9, marginTop: 4 },
-  radio: { width: 21, height: 21, borderRadius: 11, borderWidth: 2, borderColor: colors.line, alignItems: 'center', justifyContent: 'center' },
-  radioActive: { borderColor: colors.brand },
-  radioDot: { width: 11, height: 11, borderRadius: 6, backgroundColor: colors.brand },
-  objective: { backgroundColor: colors.ink, borderRadius: 24, padding: 17, marginTop: 4, marginBottom: 23 },
-  fieldLabel: { color: colors.lime, fontSize: 8, letterSpacing: 1.3, fontWeight: '900' },
-  objectiveText: { color: colors.surface, fontSize: 14, lineHeight: 20, fontWeight: '800', marginTop: 9 },
-  voiceHint: { flexDirection: 'row', alignItems: 'center', marginTop: 13, gap: 7 },
-  voiceIcon: { color: colors.lime, fontSize: 17, fontWeight: '900' },
-  voiceText: { color: '#ADA6B6', fontSize: 8 },
-  crew: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 24 },
-  person: { width: 61, alignItems: 'center' },
-  avatar: { width: 51, height: 51, borderRadius: 18, alignItems: 'center', justifyContent: 'center' },
-  avatarOff: { opacity: .35 },
-  avatarText: { color: colors.surface, fontSize: 16, fontWeight: '900' },
-  check: { position: 'absolute', right: -3, bottom: -3, width: 18, height: 18, borderRadius: 9, backgroundColor: colors.lime, borderWidth: 2, borderColor: colors.canvas, alignItems: 'center', justifyContent: 'center' },
-  checkText: { color: colors.ink, fontSize: 9, fontWeight: '900' },
-  add: { backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.line, borderStyle: 'dashed' },
-  addText: { color: colors.brand, fontSize: 24 },
-  personName: { color: colors.muted, fontSize: 9, fontWeight: '700', marginTop: 7 },
-  personNameActive: { color: colors.ink, fontWeight: '900' },
-  ruleGrid: { flexDirection: 'row', gap: 9, marginBottom: 22 },
-  rule: { flex: 1, minHeight: 150, borderRadius: 24, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.surface, padding: 14 },
-  ruleActive: { borderWidth: 2, borderColor: colors.brand, backgroundColor: colors.brandSoft },
-  ruleIcon: { color: colors.brand, fontSize: 25, fontWeight: '900' },
-  ruleTitle: { color: colors.ink, fontSize: 12, fontWeight: '900', marginTop: 12 },
-  ruleBody: { color: colors.muted, fontSize: 9, lineHeight: 14, marginTop: 6 },
-  summary: { borderRadius: 29, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.line, padding: 18 },
-  summaryTop: { flexDirection: 'row', justifyContent: 'space-between' },
-  summaryLabel: { color: colors.green, fontSize: 8, letterSpacing: 1.3, fontWeight: '900' },
-  summaryCode: { color: colors.muted, fontSize: 8, fontWeight: '800' },
-  summaryTitle: { color: colors.ink, fontSize: 20, fontWeight: '900', marginVertical: 14 },
-  summaryRow: { flexDirection: 'row', justifyContent: 'space-between', borderTopWidth: 1, borderTopColor: colors.line, paddingVertical: 10 },
-  summaryKey: { color: colors.muted, fontSize: 9 },
-  summaryValue: { color: colors.ink, fontSize: 9, fontWeight: '900' },
-  launch: { minHeight: 66, borderRadius: 21, backgroundColor: colors.ink, marginTop: 9, paddingLeft: 16, paddingRight: 8, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-  launchTitle: { color: colors.surface, fontSize: 13, fontWeight: '900' },
-  launchSub: { color: '#AAA3B2', fontSize: 8, marginTop: 4 },
-  launchArrow: { width: 49, height: 49, borderRadius: 17, backgroundColor: colors.lime, alignItems: 'center', justifyContent: 'center' },
-  launchArrowText: { color: colors.ink, fontSize: 21, fontWeight: '900' },
-  pressed: { opacity: .8, transform: [{ scale: .99 }] },
+  goals: { gap: 10 },
+  goal: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 16,
+    padding: 18,
+    borderRadius: 24,
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: 'transparent',
+  },
+  goalActive: { borderColor: colors.ink },
+  goalTitle: { color: colors.ink, fontSize: 15, fontWeight: '500' },
+  goalBody: { color: colors.muted, fontSize: 11, lineHeight: 17, marginTop: 4 },
+  radio: {
+    width: 19,
+    height: 19,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: colors.mutedLight,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  radioActive: { borderColor: colors.ink },
+  radioDot: {
+    width: 9,
+    height: 9,
+    borderRadius: 5,
+    backgroundColor: colors.ink,
+  },
+  objective: {
+    backgroundColor: colors.surfaceMuted,
+    borderRadius: 26,
+    padding: 22,
+    marginTop: 14,
+  },
+  objectiveHead: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    gap: 12,
+  },
+  objectiveLabel: { fontSize: 8, letterSpacing: 1.5, color: colors.muted },
+  objectiveText: {
+    fontSize: 18,
+    lineHeight: 25,
+    letterSpacing: -0.3,
+    color: colors.ink,
+    marginTop: 12,
+  },
+  hint: { flexDirection: 'row', gap: 8, alignItems: 'center', marginTop: 19 },
+  hintText: { fontSize: 11, color: colors.muted },
+  crew: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 8,
+  },
+  person: { alignItems: 'center', gap: 10 },
+  avatarWrap: {
+    padding: 4,
+    borderRadius: 35,
+    borderWidth: 1,
+    borderColor: 'transparent',
+    opacity: 0.5,
+  },
+  avatarSelected: { borderColor: colors.ink, opacity: 1 },
+  check: {
+    position: 'absolute',
+    right: 0,
+    bottom: 0,
+    width: 20,
+    height: 20,
+    borderRadius: 11,
+    backgroundColor: colors.ink,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 2,
+    borderColor: colors.canvas,
+  },
+  personName: { fontSize: 12, color: colors.ink },
+  personRole: { fontSize: 8, color: colors.muted, textAlign: 'center' },
+  rules: { flexDirection: 'row', gap: 10 },
+  rule: {
+    flex: 1,
+    borderRadius: 26,
+    padding: 20,
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: 'transparent',
+    gap: 13,
+  },
+  ruleActive: { borderColor: colors.ink },
+  ruleTitle: { fontSize: 15, fontWeight: '500', color: colors.ink },
+  ruleBody: { fontSize: 11, lineHeight: 17, color: colors.muted },
+  summary: {
+    backgroundColor: colors.ink,
+    borderRadius: 30,
+    padding: 24,
+    marginTop: 30,
+  },
+  summaryHead: { flexDirection: 'row', justifyContent: 'space-between' },
+  summaryLabel: { color: colors.inverseMuted, fontSize: 8, letterSpacing: 1.5 },
+  code: { color: colors.inverseMuted, fontSize: 9 },
+  summaryTitle: {
+    color: colors.inverse,
+    fontSize: 25,
+    letterSpacing: -0.8,
+    fontWeight: '500',
+    marginTop: 17,
+  },
+  summaryRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginTop: 16,
+  },
+  summaryText: { color: colors.inverseMuted, fontSize: 11 },
+  summaryNote: {
+    fontSize: 10,
+    lineHeight: 17,
+    color: colors.inverseMuted,
+    marginTop: 15,
+    marginBottom: 19,
+  },
 });

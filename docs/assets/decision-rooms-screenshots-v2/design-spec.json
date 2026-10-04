@@ -1,0 +1,196 @@
+{
+  "created": "2026-10-04",
+  "brand": "Agora Decision Rooms",
+  "dimensions": {
+    "width": 1920,
+    "height": 1280
+  },
+  "method": "HTML/CSS layouts around untouched actual app screenshots and existing avatar SVGs. No AI-redrawn UI.",
+  "fonts": [
+    "Segoe UI",
+    "Arial fallback"
+  ],
+  "palette": [
+    "#242523",
+    "#FAFBF7",
+    "#EDF0EA",
+    "#697066",
+    "#B2BBAA"
+  ],
+  "cards": [
+    {
+      "id": "01-one-room-one-plan",
+      "title": "Your people.\nOne shared plan.",
+      "kicker": "THE GROUP'S EVENING, SORTED",
+      "bubble": "I'm Kabir. Let's turn “where?” into “let's go”.",
+      "pills": [
+        "Talk",
+        "Check",
+        "Vote",
+        "Confirm"
+      ],
+      "screens": [
+        "01-home-current"
+      ],
+      "pose": "welcome",
+      "layout": "single",
+      "alt": "Kabir introduces Agora Decision Rooms beside the actual current home screen."
+    },
+    {
+      "id": "02-start-and-join",
+      "title": "Start a room.\nBring the crew.",
+      "kicker": "ONE CODE. THE SAME ROOM.",
+      "bubble": "Share a code. Everyone joins the same conversation.",
+      "pills": [
+        "Laptop + Android browser",
+        "English · Hindi · Hinglish"
+      ],
+      "screens": [
+        "02-start-room-current",
+        "03-join-room-current"
+      ],
+      "pose": "welcome",
+      "layout": "pair",
+      "alt": "Real room setup and join-by-code screens beside Kabir's explanation."
+    },
+    {
+      "id": "03-shared-preferences",
+      "title": "Every preference\nhas a place.",
+      "kicker": "DIFFERENT NEEDS. ONE VISIBLE BRIEF.",
+      "bubble": "Ayaan's ₹700. Priya's veg food. Your home-by-nine note.",
+      "pills": [
+        "Speak or type",
+        "Edit your needs"
+      ],
+      "screens": [
+        "05-shared-preferences"
+      ],
+      "pose": "listen",
+      "layout": "single",
+      "dark": true,
+      "alt": "The actual Smart Stage Plan view shows the three friends' individual preferences."
+    },
+    {
+      "id": "04-smart-stage",
+      "title": "This is the\nSmart Stage.",
+      "kicker": "WATCH THE ROOM DO THE WORK",
+      "bubble": "Find venues, check rain, look up venue details and estimate the drive.",
+      "pills": [
+        "Plan → Checks → Options → Decision"
+      ],
+      "screens": [
+        "06-smart-stage-checks"
+      ],
+      "pose": "explain",
+      "layout": "single",
+      "alt": "The actual shared Smart Stage with its four planning checks and four workflow tabs."
+    },
+    {
+      "id": "05-real-venue-options",
+      "title": "Real places.\nClear trade-offs.",
+      "kicker": "FIND. COMPARE. PROPOSE.",
+      "bubble": "I show what the listing says—and what's still unknown.",
+      "pills": [
+        "Public listings",
+        "Dietary metadata",
+        "Source links"
+      ],
+      "screens": [
+        "07-real-venue-options"
+      ],
+      "pose": "think",
+      "layout": "single",
+      "alt": "Actual public venue results show vegetarian metadata, source links and unverified prices."
+    },
+    {
+      "id": "06-check-the-details",
+      "title": "Rain? Route?\nVenue details?",
+      "kicker": "CHECK BEFORE YOU CHOOSE",
+      "bubble": "Forecasts, driving estimates and listed policies. All with sources.",
+      "pills": [
+        "Open-Meteo",
+        "OSRM",
+        "OpenStreetMap"
+      ],
+      "screens": [
+        "08-rain-result",
+        "10-travel-result",
+        "09-venue-policy-result"
+      ],
+      "pose": "explain",
+      "layout": "checks",
+      "alt": "Three enlarged details from real app screenshots show weather, driving and venue-policy results."
+    },
+    {
+      "id": "07-update-the-brief",
+      "title": "Plans change.\nChange the brief.",
+      "kicker": "RAINY EVENING? NEW TIME?",
+      "bubble": "Edit the details. Recheck. Get everyone's vote again.",
+      "pills": [
+        "City + time",
+        "Preferences",
+        "Fresh agreement"
+      ],
+      "screens": [
+        "12-edit-shared-plan"
+      ],
+      "pose": "think",
+      "layout": "single",
+      "dark": true,
+      "alt": "Actual meeting-detail form illustrates changing the group's shared brief."
+    },
+    {
+      "id": "08-everyone-votes",
+      "title": "Every person\ngets a say.",
+      "kicker": "AGREEMENT IS EXPLICIT",
+      "bubble": "Each friend votes from their own device. The host confirms.",
+      "pills": [
+        "Support the plan",
+        "Needs changes"
+      ],
+      "screens": [
+        "14-all-members-support"
+      ],
+      "pose": "agree",
+      "layout": "single",
+      "alt": "Actual shared decision screen records all three member votes and enables host confirmation."
+    },
+    {
+      "id": "09-confirmed-plan",
+      "title": "Leave with a plan\neveryone can follow.",
+      "kicker": "ONE SHARED OUTCOME",
+      "bubble": "You agree. The host confirms. The result stays visible.",
+      "pills": [
+        "Venue + time",
+        "Votes + confirmation"
+      ],
+      "screens": [
+        "15-confirmed-shared-plan"
+      ],
+      "pose": "agree",
+      "layout": "single",
+      "alt": "Actual confirmed plan records unanimous support and explicitly states that no booking was made."
+    },
+    {
+      "id": "10-agora-conversation",
+      "title": "Agora carries\nthe conversation.",
+      "kicker": "REAL-TIME PEOPLE + AI",
+      "bubble": "You talk. I listen, check and explain.",
+      "pills": [
+        "RTC · voice + optional video",
+        "RTM · captions + agent state",
+        "Conversational AI · facilitator",
+        "Agent Client Toolkit · session control"
+      ],
+      "screens": [
+        "04-people-and-kabir",
+        "11-hindi-stage"
+      ],
+      "pose": "explain",
+      "layout": "pair",
+      "dark": true,
+      "agora": true,
+      "alt": "Actual people/Kabir and Hindi Stage screenshots alongside the implemented Agora capabilities."
+    }
+  ]
+}

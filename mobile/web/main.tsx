@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import App from '../App';
 
 const root = document.getElementById('root');
-if (!root) throw new Error('RoundTable web preview root was not found');
+if (!root) throw new Error('Decision Rooms web preview root was not found');
 
 createRoot(root).render(
   <React.StrictMode>

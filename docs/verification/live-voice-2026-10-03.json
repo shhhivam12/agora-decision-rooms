@@ -1,0 +1,17 @@
+{
+  "physical_audio_and_captions": "user reported working after RTM import correction on 2026-10-03; no separate four-device validation",
+  "judge_offline_fallback": "passed: voice unavailable offers guided decision room",
+  "container_build": "not run; Docker absent",
+  "date": "2026-10-03",
+  "typecheck": "passed",
+  "frontend_tests": 25,
+  "browser_voice_readiness": "passed in development and production builds",
+  "production_web_build": "passed",
+  "android_usb": "connected and localhost 5173 reverse succeeded",
+  "native_binary": "not rebuilt",
+  "deployment": "not performed",
+  "real_backend_lifecycle": "passed: shared identities, assistant start, guest leave, host stop",
+  "runtime_rtm_constructor": "corrected to default AgoraRTM.RTM after user screenshot",
+  "app": "Agora Decision Rooms",
+  "backend_tests": 9
+}

@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-04",
+  "change": "Removed all >=900px live-room desktop overrides; original mobile container and vertical room layout on every device",
+  "build": "passed",
+  "laptop": {
+    "appWidth": 430,
+    "tiles": 3,
+    "viewportHeight": 720,
+    "viewportWidth": 1280,
+    "workspaceDirection": "column",
+    "workspaceDisplay": "flex"
+  },
+  "phone": {
+    "appWidth": 390,
+    "documentScrollWidth": 390,
+    "tiles": 3,
+    "viewportHeight": 844,
+    "viewportWidth": 390,
+    "workspaceDirection": "column"
+  },
+  "callView": {
+    "appWidth": 430,
+    "columns": 2,
+    "stageHidden": true
+  },
+  "supersedesLayoutEvidence": "assistant-room-layout-2026-10-04.json",
+  "screenshots": [
+    "docs/screenshots/decision-rooms/compact-room-laptop-2026-10-04.png",
+    "docs/screenshots/decision-rooms/compact-room-phone-2026-10-04.png"
+  ],
+  "capture": "Real shared planning room with two backend members; microphones and cameras off"
+}

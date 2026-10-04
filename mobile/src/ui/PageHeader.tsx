@@ -1,8 +1,9 @@
+import { AppText as Text, AppPressable as Pressable } from '../i18n';
 import React from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { BrandIcon, BrandLockup } from './Brand';
-import { colors, radii } from './theme';
-
+import { StyleSheet, View } from 'react-native';
+import { BrandLockup } from './Brand';
+import { Icon } from './Icon';
+import { colors } from './theme';
 interface Props {
   title?: string;
   subtitle?: string;
@@ -10,63 +11,71 @@ interface Props {
   onAction?: () => void;
   brand?: boolean;
 }
-
-export function PageHeader({ title, subtitle, action, onAction, brand = false }: Props) {
+export function PageHeader({
+  title,
+  subtitle,
+  action,
+  onAction,
+  brand = false,
+}: Props) {
   return (
-    <View style={styles.header}>
-      <View style={styles.identity}>
-        {brand ? <BrandLockup width={144} /> : <BrandIcon size={42} />}
-        {!brand ? (
-          <View style={styles.copy}>
-            <Text style={styles.title}>{title}</Text>
-            {subtitle ? <Text style={styles.subtitle}>{subtitle}</Text> : null}
-          </View>
-        ) : null}
+    <View style={s.header}>
+      <View style={{ flex: 1 }}>
+        {brand ? (
+          <BrandLockup width={222} />
+        ) : (
+          <>
+            <Text style={s.title}>{title}</Text>
+            {subtitle && <Text style={s.subtitle}>{subtitle}</Text>}
+          </>
+        )}
       </View>
-      {action ? (
-        <Pressable onPress={onAction} style={({ pressed }) => [styles.action, pressed && styles.pressed]}>
-          <Text style={styles.actionText}>{action}</Text>
+      {action && onAction ? (
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={action}
+          onPress={onAction}
+          style={s.action}
+        >
+          <Text style={s.actionText}>{action}</Text>
         </Pressable>
       ) : (
-        <View style={styles.avatar}><Text style={styles.avatarText}>S</Text><View style={styles.online} /></View>
+        <View style={s.profile}>
+          <Icon name="profile" size={21} />
+        </View>
       )}
     </View>
   );
 }
-
-const styles = StyleSheet.create({
+const s = StyleSheet.create({
   header: {
-    minHeight: 58,
+    minHeight: 72,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 18,
+    gap: 8,
+    marginBottom: 13,
   },
-  identity: { flexDirection: 'row', alignItems: 'center', flex: 1 },
-  copy: { marginLeft: 11, flex: 1 },
-  title: { color: colors.ink, fontSize: 21, fontWeight: '900' },
-  subtitle: { color: colors.muted, fontSize: 10, marginTop: 2, fontWeight: '600' },
-  avatar: {
-    width: 43,
-    height: 43,
-    borderRadius: 16,
-    backgroundColor: colors.ink,
+  title: {
+    color: colors.ink,
+    fontSize: 26,
+    fontWeight: '600',
+    letterSpacing: -1,
+  },
+  subtitle: { color: colors.muted, fontSize: 12, marginTop: 5 },
+  profile: {
+    width: 44,
+    height: 44,
+    borderRadius: 24,
+    borderWidth: 1,
+    borderColor: colors.line,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  avatarText: { color: colors.surface, fontSize: 15, fontWeight: '900' },
-  online: {
-    position: 'absolute',
-    right: -1,
-    bottom: -1,
-    width: 12,
-    height: 12,
-    borderRadius: 6,
-    backgroundColor: colors.lime,
-    borderWidth: 2,
-    borderColor: colors.canvas,
+  action: {
+    borderRadius: 99,
+    backgroundColor: colors.ink,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
   },
-  action: { borderRadius: radii.pill, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.line, paddingHorizontal: 13, paddingVertical: 9 },
-  actionText: { color: colors.brand, fontSize: 10, fontWeight: '900' },
-  pressed: { opacity: 0.72 },
+  actionText: { color: colors.inverse, fontSize: 12, fontWeight: '500' },
 });

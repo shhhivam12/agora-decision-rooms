@@ -1,0 +1,168 @@
+{
+  "created": "2026-10-04",
+  "captureMethod": "Headless browser screenshots of the running app; image files are not AI redraws",
+  "voice": "Microphone-free Stage; no Agora assistant start or simulated audio/video",
+  "providerChecks": {
+    "venues": {
+      "status": "ready",
+      "provider": "OpenStreetMap / Overpass",
+      "summary": "Found public venue listings near Bengaluru, Karnataka, India. Prices, indoor seating and live opening status need confirmation.",
+      "source": "https://www.openstreetmap.org/copyright"
+    },
+    "weather": {
+      "status": "ready",
+      "provider": "Open-Meteo",
+      "summary": "Bengaluru, Karnataka, India: up to 90% rain probability, 21.4–21.5°C.",
+      "source": "https://open-meteo.com/en/docs"
+    },
+    "reservations": {
+      "status": "ready",
+      "provider": "OpenStreetMap",
+      "summary": "Mādappa Mes: reservation policy not listed. Exact table availability is unverified.",
+      "source": "https://www.openstreetmap.org/node/1809770675"
+    },
+    "travel": {
+      "status": "ready",
+      "provider": "OSRM / OpenStreetMap",
+      "summary": "About 5 minutes driving to Mādappa Mes, 2.3 km.",
+      "source": "https://project-osrm.org/"
+    }
+  },
+  "screenshots": [
+    {
+      "id": "01-home-current",
+      "description": "Current home, approved logo and fictional character world",
+      "viewport": {
+        "width": 430,
+        "height": 1040
+      },
+      "mode": "Actual app UI, microphone-free shared Stage"
+    },
+    {
+      "id": "02-start-room-current",
+      "description": "Real room setup and language choice",
+      "viewport": {
+        "width": 430,
+        "height": 1040
+      },
+      "mode": "Actual app UI, microphone-free shared Stage"
+    },
+    {
+      "id": "03-join-room-current",
+      "description": "Real join by code and microphone-free alternative",
+      "viewport": {
+        "width": 430,
+        "height": 1040
+      },
+      "mode": "Actual app UI, microphone-free shared Stage"
+    },
+    {
+      "id": "04-people-and-kabir",
+      "description": "Three actual room members and current Kabir avatar; cameras and microphone off",
+      "viewport": {
+        "width": 430,
+        "height": 1040
+      },
+      "mode": "Actual app UI, microphone-free shared Stage"
+    },
+    {
+      "id": "05-shared-preferences",
+      "description": "Shared plan and real individual preference cards",
+      "viewport": {
+        "width": 430,
+        "height": 1040
+      },
+      "mode": "Actual app UI, microphone-free shared Stage"
+    },
+    {
+      "id": "06-smart-stage-checks",
+      "description": "Current four-tab Stage and its four checks",
+      "viewport": {
+        "width": 430,
+        "height": 1040
+      },
+      "mode": "Actual app UI, microphone-free shared Stage"
+    },
+    {
+      "id": "07-real-venue-options",
+      "description": "Live public venue discovery and source metadata",
+      "viewport": {
+        "width": 430,
+        "height": 1040
+      },
+      "mode": "Actual app UI, microphone-free shared Stage"
+    },
+    {
+      "id": "08-rain-result",
+      "description": "Actual rain forecast with source and timestamp",
+      "viewport": {
+        "width": 430,
+        "height": 1040
+      },
+      "mode": "Actual app UI, microphone-free shared Stage"
+    },
+    {
+      "id": "09-venue-policy-result",
+      "description": "Actual listed reservation policy/hours, not a live booking slot",
+      "viewport": {
+        "width": 430,
+        "height": 1040
+      },
+      "mode": "Actual app UI, microphone-free shared Stage"
+    },
+    {
+      "id": "10-travel-result",
+      "description": "Actual driving estimate from the named meeting town centre",
+      "viewport": {
+        "width": 430,
+        "height": 1040
+      },
+      "mode": "Actual app UI, microphone-free shared Stage"
+    },
+    {
+      "id": "11-hindi-stage",
+      "description": "Hindi interface with shared read result",
+      "viewport": {
+        "width": 430,
+        "height": 1040
+      },
+      "mode": "Actual app UI, microphone-free shared Stage"
+    },
+    {
+      "id": "12-edit-shared-plan",
+      "description": "Actual editable city, meeting town, date and time form",
+      "viewport": {
+        "width": 430,
+        "height": 1040
+      },
+      "mode": "Actual app UI, microphone-free shared Stage"
+    },
+    {
+      "id": "13-voting-open",
+      "description": "Actual participant vote controls before consensus",
+      "viewport": {
+        "width": 430,
+        "height": 1040
+      },
+      "mode": "Actual app UI, microphone-free shared Stage"
+    },
+    {
+      "id": "14-all-members-support",
+      "description": "All three actual authenticated member votes and host confirmation gate",
+      "viewport": {
+        "width": 430,
+        "height": 1040
+      },
+      "mode": "Actual app UI, microphone-free shared Stage"
+    },
+    {
+      "id": "15-confirmed-shared-plan",
+      "description": "Actual confirmed plan with no-booking message",
+      "viewport": {
+        "width": 430,
+        "height": 1040
+      },
+      "mode": "Actual app UI, microphone-free shared Stage"
+    }
+  ]
+}

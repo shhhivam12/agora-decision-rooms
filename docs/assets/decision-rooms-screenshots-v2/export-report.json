@@ -1,0 +1,146 @@
+{
+  "created": "2026-10-04",
+  "count": 10,
+  "dimensions": "1920x1280",
+  "method": "HTML/CSS layouts around untouched actual app screenshots and existing avatar SVGs. No AI-redrawn UI.",
+  "font": "Segoe UI",
+  "sourceImages": "Unmodified screenshots; card 06 uses enlarged details from those images.",
+  "cards": [
+    {
+      "id": "01-one-room-one-plan",
+      "png": 312154,
+      "jpg": 194155,
+      "webp": 128854,
+      "screenshots": [
+        {
+          "file": "source-screens/01-home-current.png",
+          "sha256": "cf3a7cb0a19ebba226c47b7711277883280146a117dd064638ae7163394e8197"
+        }
+      ]
+    },
+    {
+      "id": "02-start-and-join",
+      "png": 331436,
+      "jpg": 223684,
+      "webp": 143986,
+      "screenshots": [
+        {
+          "file": "source-screens/02-start-room-current.png",
+          "sha256": "8b724b6ccd2e9bc70018a3daf3f1d0988a8f22d2d58fe0f390f4ccc98856557c"
+        },
+        {
+          "file": "source-screens/03-join-room-current.png",
+          "sha256": "1a668752730bb58458ffd0e07c0f83aaf35d073768e1e203244e7f5353ba0377"
+        }
+      ]
+    },
+    {
+      "id": "03-shared-preferences",
+      "png": 265072,
+      "jpg": 188078,
+      "webp": 122186,
+      "screenshots": [
+        {
+          "file": "source-screens/05-shared-preferences.png",
+          "sha256": "e7871d7970f4d7a0f6e5a68246f4e84b76de2788a50c8105790705f3abe09d14"
+        }
+      ]
+    },
+    {
+      "id": "04-smart-stage",
+      "png": 275854,
+      "jpg": 194626,
+      "webp": 127306,
+      "screenshots": [
+        {
+          "file": "source-screens/06-smart-stage-checks.png",
+          "sha256": "80a0e902e400a6715c2a6ce0fcbec6467d80ed90884b747b469c178844161d1a"
+        }
+      ]
+    },
+    {
+      "id": "05-real-venue-options",
+      "png": 279830,
+      "jpg": 199576,
+      "webp": 129602,
+      "screenshots": [
+        {
+          "file": "source-screens/07-real-venue-options.png",
+          "sha256": "c3d41c89192b2aeb2863cf45dbdd36719542a281b1fe868089464eff860759b1"
+        }
+      ]
+    },
+    {
+      "id": "06-check-the-details",
+      "png": 243557,
+      "jpg": 251063,
+      "webp": 171354,
+      "screenshots": [
+        {
+          "file": "source-screens/08-rain-result.png",
+          "sha256": "45de4a5a359f06b534ca1dec58e359891291fa371fe4c7ad77be468cb88c05c4"
+        },
+        {
+          "file": "source-screens/10-travel-result.png",
+          "sha256": "b3909bd860c8e10b2b5264af4ccebd681fa88808d5377a9b11066aecc001337e"
+        },
+        {
+          "file": "source-screens/09-venue-policy-result.png",
+          "sha256": "cbc9afd6a16af8f0539a6d7a5964f6d567325cb4a711138bf1b5c7152a384834"
+        }
+      ]
+    },
+    {
+      "id": "07-update-the-brief",
+      "png": 272761,
+      "jpg": 192061,
+      "webp": 124610,
+      "screenshots": [
+        {
+          "file": "source-screens/12-edit-shared-plan.png",
+          "sha256": "e2f8266652618310258c72235e9cf2b5cfae10e96f6fe0dda9a357e6d2228416"
+        }
+      ]
+    },
+    {
+      "id": "08-everyone-votes",
+      "png": 273006,
+      "jpg": 189357,
+      "webp": 123684,
+      "screenshots": [
+        {
+          "file": "source-screens/14-all-members-support.png",
+          "sha256": "acbaf536060ae2e0c92a30a018f153b57881d05e95673c2508e6b62909cc0714"
+        }
+      ]
+    },
+    {
+      "id": "09-confirmed-plan",
+      "png": 291547,
+      "jpg": 202959,
+      "webp": 132678,
+      "screenshots": [
+        {
+          "file": "source-screens/15-confirmed-shared-plan.png",
+          "sha256": "d95fc612c727db39391269472c4da9082aa43953fe3f9a9145f60fb9468accd8"
+        }
+      ]
+    },
+    {
+      "id": "10-agora-conversation",
+      "png": 302389,
+      "jpg": 219448,
+      "webp": 140544,
+      "screenshots": [
+        {
+          "file": "source-screens/04-people-and-kabir.png",
+          "sha256": "e6c427c991346ad72e12af69c670e239c49c19ac848472771f6dd0ed01bed017"
+        },
+        {
+          "file": "source-screens/11-hindi-stage.png",
+          "sha256": "faec40147ebd45079f71a681d8c11670cf0806b54d80c2a2a2628a688be9f791"
+        }
+      ]
+    }
+  ]
+}

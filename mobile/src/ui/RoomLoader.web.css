@@ -1,0 +1,21 @@
+.room-loader {
+  display: block;
+  flex-shrink: 0;
+}
+.room-loader-people {
+  transform-origin: 512px 512px;
+  animation: decision-room-orbit 2400ms linear infinite;
+}
+.room-loader[data-paused='true'] .room-loader-people {
+  animation-play-state: paused;
+}
+@keyframes decision-room-orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .room-loader-people {
+    animation: none;
+  }
+}

@@ -1,5 +1,7 @@
 import React from 'react';
-jest.mock('../src/ui/LiveVoiceScreen', () => require('../src/ui/LiveVoiceScreen.web'));
+jest.mock('../src/ui/LiveVoiceScreen', () =>
+  require('../src/ui/LiveVoiceScreen.web'),
+);
 import renderer, { act } from 'react-test-renderer';
 import { HomeScreen } from '../src/ui/HomeScreen';
 import { OutingRoomScreen } from '../src/ui/OutingRoomScreen';
@@ -9,11 +11,13 @@ import { ProfileScreen } from '../src/ui/ProfileScreen';
 import { RoomsScreen } from '../src/ui/RoomsScreen';
 import { AppContent } from '../App';
 
-describe('RoundTable mobile shell', () => {
+describe('Decision Rooms mobile shell', () => {
   it('starts an outing room from the social home action', () => {
     const onCreateRoom = jest.fn();
     let tree: renderer.ReactTestRenderer;
-    act(() => { tree = renderer.create(<HomeScreen onCreateRoom={onCreateRoom} />); });
+    act(() => {
+      tree = renderer.create(<HomeScreen onCreateRoom={onCreateRoom} />);
+    });
     tree!.root.findByProps({ testID: 'create-outing-room' }).props.onPress();
     expect(onCreateRoom).toHaveBeenCalledTimes(1);
     act(() => tree!.unmount());
@@ -21,7 +25,9 @@ describe('RoundTable mobile shell', () => {
 
   it('renders the shared Central Stage in the outing room', () => {
     let tree: renderer.ReactTestRenderer;
-    act(() => { tree = renderer.create(<OutingRoomScreen onLeave={jest.fn()} />); });
+    act(() => {
+      tree = renderer.create(<OutingRoomScreen onLeave={jest.fn()} />);
+    });
     expect(tree!.root.findByProps({ testID: 'central-stage' })).toBeTruthy();
     act(() => tree!.unmount());
   });
@@ -29,7 +35,9 @@ describe('RoundTable mobile shell', () => {
   it('launches the configured room from the create flow', () => {
     const onCreateRoom = jest.fn();
     let tree: renderer.ReactTestRenderer;
-    act(() => { tree = renderer.create(<CreateRoomScreen onCreateRoom={onCreateRoom} />); });
+    act(() => {
+      tree = renderer.create(<CreateRoomScreen onCreateRoom={onCreateRoom} />);
+    });
     tree!.root.findByProps({ testID: 'launch-room' }).props.onPress();
     expect(onCreateRoom).toHaveBeenCalledTimes(1);
     act(() => tree!.unmount());
@@ -38,7 +46,11 @@ describe('RoundTable mobile shell', () => {
   it('opens the live room from the rooms page', () => {
     const onOpenRoom = jest.fn();
     let tree: renderer.ReactTestRenderer;
-    act(() => { tree = renderer.create(<RoomsScreen onOpenRoom={onOpenRoom} onCreateRoom={jest.fn()} />); });
+    act(() => {
+      tree = renderer.create(
+        <RoomsScreen onOpenRoom={onOpenRoom} onCreateRoom={jest.fn()} />,
+      );
+    });
     tree!.root.findByProps({ testID: 'open-active-room' }).props.onPress();
     expect(onOpenRoom).toHaveBeenCalledTimes(1);
     act(() => tree!.unmount());
@@ -61,11 +73,19 @@ describe('RoundTable mobile shell', () => {
 
   it('navigates through the tab shell and launches the outing room', () => {
     let tree: renderer.ReactTestRenderer;
-    act(() => { tree = renderer.create(<AppContent />); });
-    act(() => { tree!.root.findByProps({ testID: 'tab-rooms' }).props.onPress(); });
+    act(() => {
+      tree = renderer.create(<AppContent />);
+    });
+    act(() => {
+      tree!.root.findByProps({ testID: 'tab-rooms' }).props.onPress();
+    });
     expect(tree!.root.findByProps({ testID: 'open-active-room' })).toBeTruthy();
-    act(() => { tree!.root.findByProps({ testID: 'tab-create' }).props.onPress(); });
-    act(() => { tree!.root.findByProps({ testID: 'launch-room' }).props.onPress(); });
+    act(() => {
+      tree!.root.findByProps({ testID: 'tab-create' }).props.onPress();
+    });
+    act(() => {
+      tree!.root.findByProps({ testID: 'launch-room' }).props.onPress();
+    });
     expect(tree!.root.findByProps({ testID: 'central-stage' })).toBeTruthy();
     act(() => tree!.unmount());
   });

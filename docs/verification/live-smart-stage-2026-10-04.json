@@ -1,0 +1,62 @@
+{
+  "city": "Bengaluru",
+  "date": "2026-10-04",
+  "checks": {
+    "venues": {
+      "status": "ready",
+      "provider": "OpenStreetMap / Overpass",
+      "summary": "Found public venue listings near Bengaluru, Karnataka, India. Prices, indoor seating and live opening status need confirmation.",
+      "source": "https://www.openstreetmap.org/copyright",
+      "checkedAt": 1791079332,
+      "voiceDelivery": "sent"
+    },
+    "reservations": {
+      "status": "ready",
+      "provider": "OpenStreetMap",
+      "summary": "Mādappa Mes: reservation policy not listed. Exact table availability is unverified.",
+      "source": "https://www.openstreetmap.org/node/1809770675",
+      "checkedAt": 1791079335,
+      "voiceDelivery": "sent"
+    },
+    "weather": {
+      "status": "ready",
+      "provider": "Open-Meteo",
+      "summary": "Bengaluru, Karnataka, India: up to 96% rain probability, 22.2–23.4°C.",
+      "source": "https://open-meteo.com/en/docs",
+      "checkedAt": 1791079336,
+      "voiceDelivery": "sent"
+    },
+    "travel": {
+      "status": "ready",
+      "provider": "OSRM / OpenStreetMap",
+      "summary": "About 5 minutes driving to Mādappa Mes, 2.3 km.",
+      "source": "https://project-osrm.org/",
+      "checkedAt": 1791079338,
+      "voiceDelivery": "sent"
+    }
+  },
+  "voiceRequested": true,
+  "sharedViewsMatch": true,
+  "earlyApprovalRejected": true,
+  "realMemberConsensus": true,
+  "noBookingMade": true,
+  "physicalSpeechAndAudibility": "Pending laptop/Android user test",
+  "frontendTests": 40,
+  "backendTests": 33,
+  "typecheck": "passed",
+  "productionBuild": "passed",
+  "lintErrors": 0,
+  "browserChecks": {
+    "twoActualBrowserMembers": true,
+    "englishAndHindiResults": true,
+    "hostConfirmationBlockedBeforeGuestVote": true,
+    "finalPlanShared": true,
+    "responsiveViewport": "390x844"
+  },
+  "screenshots": [
+    "docs/screenshots/decision-rooms/live-stage-checks-2026-10-04.png",
+    "docs/screenshots/decision-rooms/live-stage-hindi-checks-2026-10-04.png",
+    "docs/screenshots/decision-rooms/live-stage-confirmed-2026-10-04.png"
+  ],
+  "androidConnectedAtFinalCheck": false
+}

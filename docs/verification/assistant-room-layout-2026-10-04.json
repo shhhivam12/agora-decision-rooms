@@ -1,0 +1,129 @@
+{
+  "date": "2026-10-04",
+  "scope": "Local web room layout and Kabir avatar",
+  "default": "Room + Stage",
+  "focus": "Call view",
+  "captions": "Separate view in voice rooms",
+  "frontend": {
+    "typecheck": "passed",
+    "tests": 49,
+    "suites": 13,
+    "build": "passed",
+    "lintErrors": 0,
+    "lintWarnings": 36
+  },
+  "browser": {
+    "desktop": {
+      "width": 1280,
+      "height": 720,
+      "members": 2,
+      "assistantTiles": 1,
+      "defaultHasPeopleAndStage": true,
+      "callViewHidesStage": true
+    },
+    "phone": {
+      "documentScrollWidth": 390,
+      "height": 844,
+      "peopleVisible": true,
+      "rootWidth": 390,
+      "stageVisible": true,
+      "tiles": 3,
+      "width": 390
+    },
+    "media": [
+      {
+        "duration": 4,
+        "error": null,
+        "handAnimation": "assistant-wave",
+        "headAnimation": "assistant-nod",
+        "height": 338,
+        "label": "Speaking · welcome video loop",
+        "mode": "speaking",
+        "paused": false,
+        "pose": "welcome",
+        "ready": 4,
+        "width": 360
+      },
+      {
+        "duration": 4,
+        "error": null,
+        "handAnimation": "assistant-point",
+        "headAnimation": "assistant-nod",
+        "height": 338,
+        "label": "Speaking · explain video loop",
+        "mode": "speaking",
+        "paused": false,
+        "pose": "explain",
+        "ready": 4,
+        "width": 360
+      },
+      {
+        "duration": 4,
+        "error": null,
+        "handAnimation": "assistant-agree",
+        "headAnimation": "assistant-nod",
+        "height": 338,
+        "label": "Speaking · agree video loop",
+        "mode": "speaking",
+        "paused": false,
+        "pose": "agree",
+        "ready": 4,
+        "width": 360
+      },
+      {
+        "duration": 4,
+        "error": null,
+        "handAnimation": "none",
+        "headAnimation": "assistant-think",
+        "height": 338,
+        "label": "Thinking video loop",
+        "mode": "thinking",
+        "paused": false,
+        "pose": "think",
+        "ready": 4,
+        "width": 360
+      },
+      {
+        "duration": 4,
+        "error": null,
+        "handAnimation": "none",
+        "headAnimation": "none",
+        "height": 338,
+        "label": "Listening video loop",
+        "mode": "listening",
+        "paused": false,
+        "pose": "listen",
+        "ready": 4,
+        "width": 360
+      }
+    ],
+    "mode": "Two real backend members, microphone-free planning; no fake camera footage"
+  },
+  "audio": {
+    "source": "Received Agora assistant UID only",
+    "sampleMilliseconds": 120,
+    "silenceClosesMouth": true,
+    "stageFormsAndCameraPlaybackSurviveViewSwitch": true,
+    "evidence": "Unit tests; physical audible playback and lip synchronization not verified in this run"
+  },
+  "mediaExports": {
+    "durationSeconds": 4,
+    "width": 360,
+    "height": 338,
+    "fps": 20,
+    "format": "Transparent VP9 WebM plus neutral-background H264 MP4",
+    "alphaDecodeVerified": "speaking-welcome.webm using libvpx-vp9 / alphaextract",
+    "montageSeconds": 20,
+    "montageBytes": 377090,
+    "manifest": "mobile/assets/assistant-motion/manifest.json"
+  },
+  "screenshots": [
+    "docs/screenshots/decision-rooms/room-stage-desktop-2026-10-04.png",
+    "docs/screenshots/decision-rooms/room-call-desktop-2026-10-04.png",
+    "docs/screenshots/decision-rooms/room-stage-phone-2026-10-04.png",
+    "docs/screenshots/decision-rooms/room-call-phone-2026-10-04.png",
+    "docs/screenshots/decision-rooms/assistant-thinking-preview-2026-10-04.png"
+  ],
+  "physicalRehearsalPending": "Laptop Chrome plus Android Chrome: both cameras, audible assistant reply and avatar synchronization",
+  "deployment": "Not deployed"
+}

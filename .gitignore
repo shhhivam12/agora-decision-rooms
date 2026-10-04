@@ -46,5 +46,6 @@ Thumbs.db
 
 # Local demo artifacts
 artifacts/
+output/
 receipts/local/
-
+mobile/dist-web/

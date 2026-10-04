@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-04",
+  "scope": "Local Agora Decision Rooms browser demo on laptop and Android Chrome; shared interface translations and native voice language selection authored as well",
+  "local_url": "http://localhost:5173",
+  "checks": {
+    "typescript": "passed",
+    "frontend_test_suites": 10,
+    "frontend_tests_passed": 37,
+    "backend_tests_passed": 15,
+    "production_web_build": "passed",
+    "targeted_eslint": "zero errors; existing and inline-style warnings remain",
+    "git_diff_whitespace": "passed",
+    "hindi_ui": "Inspected at 390x844 and 320x720; no horizontal document overflow at 320px. Home, live setup and guided vote/approval controls inspected",
+    "caption_scrolling": "Unit check verifies auto-follow, preserving history position on incoming text, and Latest recovery",
+    "video_lifecycle": "SDK mock checks cover optional capture/publish, camera denial retaining voice, remote audio/video subscriptions, video removal, late capture and pending publication cleanup",
+    "language_routing": "Tests verify host language inheritance and Nova-3 multi / language-specific prompt / MiniMax English-Hindi-auto boost",
+    "real_cloud_language_start_end": [
+      {"language": "en", "assistant_http_status": 200, "started": true, "ended": true},
+      {"language": "hi", "assistant_http_status": 200, "started": true, "ended": true},
+      {"language": "multi", "assistant_http_status": 200, "started": true, "ended": true}
+    ],
+    "physical_hindi_audio": "Pending user test; cloud acceptance does not prove audible Hindi playback",
+    "physical_two_device_video": "Pending user test; Android phone was disconnected during this run",
+    "native_apk": "Not rebuilt or device-tested; participant video implemented in the browser shared-room flow",
+    "deployment": "Local only"
+  },
+  "preview": "../screenshots/decision-rooms/hindi-voice-setup-2026-10-04.png",
+  "next_features": "../demo-feature-options.md; proposals only, awaiting user choice"
+}

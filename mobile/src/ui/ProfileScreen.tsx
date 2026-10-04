@@ -1,140 +1,274 @@
+import { AppText as Text, AppPressable as Pressable } from '../i18n';
 import React, { useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { AgoraMark, BrandIcon, BrandLockup, MakerFooter } from './Brand';
-import { colors, radii } from './theme';
-
-const integrations = [
-  { id: 'agora', icon: '≋', name: 'Agora Voice AI', detail: 'RTC · RTM · Agent toolkit', state: 'Setup', color: colors.agora },
-  { id: 'venues', icon: '⌕', name: 'Venue search', detail: 'Add provider API key', state: 'Setup', color: colors.coral },
-  { id: 'calendar', icon: '□', name: 'Calendar', detail: 'Add Google credentials', state: 'Setup', color: colors.green },
-];
-
+import { StyleSheet, View } from 'react-native';
+import { AgoraMark, BrandIcon, MakerFooter } from './Brand';
+import { PageHeader } from './PageHeader';
+import { Avatar } from './Portrait';
+import { CharacterArt, CharacterBust } from './CharacterArt';
+import { Icon, IconName } from './Icon';
+import { Button, Screen, Section } from './Ui';
+import { colors } from './theme';
 export function ProfileScreen({ onOpenVoice }: { onOpenVoice?: () => void }) {
-  const [demoMode, setDemoMode] = useState(true);
-  const [receipts, setReceipts] = useState(true);
+  const [demoMode, setDemoMode] = useState(true),
+    [receipts, setReceipts] = useState(true);
   return (
-    <ScrollView style={s.screen} contentContainerStyle={s.content} showsVerticalScrollIndicator={false}>
-      <View style={s.brandHead}><BrandLockup width={152} /><View style={s.version}><Text style={s.versionText}>BUILD 0.1</Text></View></View>
-
+    <Screen>
+      <PageHeader
+        title="Your space"
+        subtitle="A little about you and your rooms."
+      />
       <View style={s.profile}>
-        <View style={s.profileOrbit} />
-        <BrandIcon size={76} />
-        <View style={s.profileCopy}><Text style={s.profileKicker}>ROOM HOST</Text><Text style={s.profileName}>Shivam</Text><Text style={s.profileHandle}>@shivam · Bengaluru</Text></View>
-        <Pressable style={s.edit}><Text style={s.editText}>EDIT</Text></Pressable>
+        <Avatar id="you" size={63} />
+        <View style={{ flex: 1 }}>
+          <Text style={s.host}>ROOM HOST</Text>
+          <Text style={s.name}>Shivam</Text>
+          <Text style={s.handle}>@shivam · Demo profile</Text>
+        </View>
+        <BrandIcon size={38} />
       </View>
-
-      <View style={s.impact}>
-        <View style={s.impactItem}><Text style={s.impactNumber}>08</Text><Text style={s.impactLabel}>DECISIONS</Text></View>
-        <View style={s.divider} />
-        <View style={s.impactItem}><Text style={s.impactNumber}>03</Text><Text style={s.impactLabel}>VERIFIED</Text></View>
-        <View style={s.divider} />
-        <View style={s.impactItem}><Text style={s.impactNumber}>06</Text><Text style={s.impactLabel}>PEOPLE</Text></View>
+      <Section
+        title="Talk it out, live"
+        caption="Live voice and a shared conversation"
+      />
+      <View style={s.voice}>
+        <View style={s.voiceHead}>
+          <AgoraMark />
+          <CharacterBust id="kabir" size={78} />
+        </View>
+        <Text style={s.voiceTitle}>
+          A voice in the room.{'\n'}A plan on the stage.
+        </Text>
+        <Text style={s.voiceBody}>
+          Talk with your people and the room assistant, with real-time audio and
+          live captions. The group outing is a separate guided demo.
+        </Text>
+        {onOpenVoice && (
+          <Button
+            label="Open Agora voice"
+            onPress={onOpenVoice}
+            light
+            icon="waveform"
+          />
+        )}
       </View>
-
-      <View style={s.sectionHead}><Text style={s.kicker}>INTEGRATION DESK</Text><Text style={s.sectionTitle}>Ready for your API keys</Text><Text style={s.sectionBody}>The interface and demo flow work now. Connect live services here when your credentials are ready.</Text></View>
-      <View style={s.integrationCard}>
-        {integrations.map((item, index) => (
-          <View key={item.id} style={[s.integration, index > 0 && s.topLine]}>
-            <View style={[s.integrationIcon, { backgroundColor: item.color }]}><Text style={s.integrationIconText}>{item.icon}</Text></View>
-            <View style={s.integrationCopy}><Text style={s.integrationName}>{item.name}</Text><Text style={s.integrationDetail}>{item.detail}</Text></View>
-            <View style={[s.state, item.state === 'Ready' ? s.ready : s.setup]}><Text style={[s.stateText, item.state === 'Ready' ? s.readyText : s.setupText]}>{item.state.toUpperCase()}</Text></View>
+      <Section title="Connected experiences" />
+      <View style={s.services}>
+        {(
+          [
+            {
+              name: 'Agora voice',
+              body: 'Real-time audio and live captions',
+              icon: 'waveform',
+              state: 'Live voice',
+            },
+            {
+              name: 'Venue discovery',
+              body: 'Sample options in the guided demo',
+              icon: 'search',
+              state: 'Demo data',
+            },
+            {
+              name: 'Shared calendar',
+              body: 'Local receipt after host approval',
+              icon: 'calendar',
+              state: 'Demo action',
+            },
+          ] as { name: string; body: string; icon: IconName; state: string }[]
+        ).map((item, i) => (
+          <View key={item.name} style={[s.service, i > 0 && s.line]}>
+            <Icon name={item.icon} size={22} />
+            <View style={{ flex: 1 }}>
+              <Text style={s.serviceName}>{item.name}</Text>
+              <Text style={s.serviceBody}>{item.body}</Text>
+            </View>
+            <Text style={s.serviceState}>{item.state}</Text>
           </View>
         ))}
       </View>
-
-      <View style={s.agoraPanel}>
-        <View style={s.agoraTop}><AgoraMark /><Text style={s.core}>CORE EXPERIENCE</Text></View>
-        <Text style={s.agoraTitle}>Voice is part of the decision, not a microphone on a chatbot.</Text>
-        <Text style={s.agoraBody}>Connect the Android app to Agora Conversational AI for real-time voice, RTM transcripts and visible agent state. The group outing remains a guided demo.</Text>
-        {onOpenVoice ? <Pressable accessibilityRole="button" accessibilityLabel="Open Agora voice" onPress={onOpenVoice} style={{ backgroundColor: colors.lime, padding: 15, borderRadius: 18, marginTop: 15 }}><Text style={{ color: colors.ink, fontSize: 13, fontWeight: '800', textAlign: 'center' }}>Open Agora voice →</Text></Pressable> : null}
-      </View>
-
-      <View style={s.sectionHead}><Text style={s.kicker}>ROOM PREFERENCES</Text><Text style={s.sectionTitle}>How RoundTable behaves</Text></View>
+      <Section title="Room preferences" caption="Local preview preferences" />
       <View style={s.settings}>
-        <Setting label="Demo data fallback" detail="Keep the golden path available without venue APIs" value={demoMode} onChange={() => setDemoMode(value => !value)} />
-        <Setting label="Show execution receipts" detail="Keep proof visible after every approved action" value={receipts} onChange={() => setReceipts(value => !value)} last />
+        <Setting
+          label="Demo data fallback"
+          detail="Keep the guided journey available"
+          value={demoMode}
+          onChange={() => setDemoMode(v => !v)}
+        />
+        <Setting
+          label="Show execution receipts"
+          detail="Keep the approved outcome visible"
+          value={receipts}
+          onChange={() => setReceipts(v => !v)}
+          last
+        />
       </View>
-
-      <View style={s.principles}>
-        <Text style={s.principlesKicker}>THE ROUNDTABLE PROMISE</Text>
-        <Text style={s.principlesTitle}>Nothing important happens invisibly.</Text>
-        <View style={s.principleRow}><Text style={s.principleNumber}>01</Text><Text style={s.principleText}>The agent shows what it understood.</Text></View>
-        <View style={s.principleRow}><Text style={s.principleNumber}>02</Text><Text style={s.principleText}>People vote before the room decides.</Text></View>
-        <View style={s.principleRow}><Text style={s.principleNumber}>03</Text><Text style={s.principleText}>Actions wait for explicit approval.</Text></View>
+      <View style={s.promise}>
+        <CharacterArt scene="agreed" height={145} />
+        <Text style={s.promiseLabel}>THE ROOM'S PROMISE</Text>
+        <Text style={s.promiseTitle}>
+          Everyone can follow{'\n'}what happens next.
+        </Text>
+        {[
+          'The assistant shows what it understood.',
+          'Every person gets a vote.',
+          'Actions wait for explicit approval.',
+        ].map((text, i) => (
+          <View style={s.promiseRow} key={text}>
+            <Text style={s.number}>0{i + 1}</Text>
+            <Text style={s.promiseText}>{text}</Text>
+          </View>
+        ))}
       </View>
-
       <MakerFooter />
-    </ScrollView>
+    </Screen>
   );
 }
-
-function Setting({ label, detail, value, onChange, last = false }: { label: string; detail: string; value: boolean; onChange: () => void; last?: boolean }) {
+function Setting({
+  label,
+  detail,
+  value,
+  onChange,
+  last = false,
+}: {
+  label: string;
+  detail: string;
+  value: boolean;
+  onChange: () => void;
+  last?: boolean;
+}) {
   return (
-    <View style={[s.setting, !last && s.topLineBottom]}>
-      <View style={s.settingCopy}><Text style={s.settingLabel}>{label}</Text><Text style={s.settingDetail}>{detail}</Text></View>
-      <Pressable accessibilityRole="switch" accessibilityState={{ checked: value }} onPress={onChange} style={[s.switch, value && s.switchOn]}>
-        <View style={[s.knob, value && s.knobOn]} />
+    <View style={[s.setting, !last && s.line]}>
+      <View style={{ flex: 1 }}>
+        <Text style={s.serviceName}>{label}</Text>
+        <Text style={s.serviceBody}>{detail}</Text>
+      </View>
+      <Pressable
+        accessibilityRole="switch"
+        accessibilityLabel={label}
+        accessibilityState={{ checked: value }}
+        onPress={onChange}
+        style={[s.switch, value && { backgroundColor: colors.ink }]}
+      >
+        <View style={[s.knob, value && { marginLeft: 19 }]} />
       </Pressable>
     </View>
   );
 }
-
 const s = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: colors.canvas },
-  content: { paddingHorizontal: 18, paddingTop: 12, paddingBottom: 112 },
-  brandHead: { minHeight: 51, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 },
-  version: { borderRadius: radii.pill, backgroundColor: colors.brandSoft, paddingHorizontal: 10, paddingVertical: 7 },
-  versionText: { color: colors.brand, fontSize: 8, letterSpacing: 1, fontWeight: '900' },
-  profile: { minHeight: 156, borderRadius: radii.xlarge, backgroundColor: colors.ink, flexDirection: 'row', alignItems: 'center', padding: 20, overflow: 'hidden' },
-  profileOrbit: { position: 'absolute', width: 160, height: 160, borderRadius: 80, borderWidth: 25, borderColor: colors.brand, right: -70, top: -70 },
-  profileCopy: { flex: 1, marginLeft: 15 },
-  profileKicker: { color: colors.lime, fontSize: 8, letterSpacing: 1.4, fontWeight: '900' },
-  profileName: { color: colors.surface, fontSize: 25, fontWeight: '900', marginTop: 5 },
-  profileHandle: { color: '#AFA8B8', fontSize: 9, marginTop: 4 },
-  edit: { position: 'absolute', right: 15, bottom: 15, borderRadius: radii.pill, backgroundColor: '#2D2736', paddingHorizontal: 11, paddingVertical: 7 },
-  editText: { color: colors.surface, fontSize: 8, fontWeight: '900' },
-  impact: { minHeight: 88, flexDirection: 'row', alignItems: 'center', borderRadius: 25, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.line, marginTop: 12 },
-  impactItem: { flex: 1, alignItems: 'center' },
-  impactNumber: { color: colors.ink, fontSize: 21, fontWeight: '900' },
-  impactLabel: { color: colors.muted, fontSize: 7, letterSpacing: .8, fontWeight: '900', marginTop: 3 },
-  divider: { width: 1, height: 36, backgroundColor: colors.line },
-  sectionHead: { marginTop: 26, marginBottom: 12 },
-  kicker: { color: colors.brand, fontSize: 8, letterSpacing: 1.5, fontWeight: '900' },
-  sectionTitle: { color: colors.ink, fontSize: 19, fontWeight: '900', marginTop: 3 },
-  sectionBody: { color: colors.muted, fontSize: 9, lineHeight: 14, marginTop: 6, maxWidth: 330 },
-  integrationCard: { borderRadius: 26, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.line, paddingHorizontal: 14 },
-  integration: { minHeight: 77, flexDirection: 'row', alignItems: 'center' },
-  topLine: { borderTopWidth: 1, borderTopColor: colors.line },
-  integrationIcon: { width: 42, height: 42, borderRadius: 15, alignItems: 'center', justifyContent: 'center' },
-  integrationIconText: { color: colors.surface, fontSize: 18, fontWeight: '900' },
-  integrationCopy: { flex: 1, marginLeft: 11 },
-  integrationName: { color: colors.ink, fontSize: 12, fontWeight: '900' },
-  integrationDetail: { color: colors.muted, fontSize: 8, marginTop: 4 },
-  state: { borderRadius: radii.pill, paddingHorizontal: 10, paddingVertical: 7 },
-  ready: { backgroundColor: colors.greenSoft },
-  setup: { backgroundColor: colors.yellowSoft },
-  stateText: { fontSize: 7, fontWeight: '900' },
-  readyText: { color: colors.green },
-  setupText: { color: '#9B6A00' },
-  agoraPanel: { borderRadius: 27, backgroundColor: colors.brand, padding: 18, marginTop: 12 },
-  agoraTop: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-  core: { color: colors.lime, fontSize: 7, letterSpacing: 1.1, fontWeight: '900' },
-  agoraTitle: { color: colors.surface, fontSize: 17, lineHeight: 22, fontWeight: '900', marginTop: 15 },
-  agoraBody: { color: '#E1DCFF', fontSize: 9, lineHeight: 14, marginTop: 7 },
-  settings: { borderRadius: 26, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.line, paddingHorizontal: 15 },
-  setting: { minHeight: 80, flexDirection: 'row', alignItems: 'center' },
-  topLineBottom: { borderBottomWidth: 1, borderBottomColor: colors.line },
-  settingCopy: { flex: 1, paddingRight: 12 },
-  settingLabel: { color: colors.ink, fontSize: 12, fontWeight: '900' },
-  settingDetail: { color: colors.muted, fontSize: 8, lineHeight: 12, marginTop: 4 },
-  switch: { width: 45, height: 26, borderRadius: 13, backgroundColor: colors.surfaceMuted, padding: 3 },
-  switchOn: { backgroundColor: colors.brand },
-  knob: { width: 20, height: 20, borderRadius: 10, backgroundColor: colors.surface },
-  knobOn: { marginLeft: 19 },
-  principles: { borderRadius: 28, backgroundColor: colors.lime, padding: 19, marginTop: 20 },
-  principlesKicker: { color: colors.brandDark, fontSize: 8, letterSpacing: 1.4, fontWeight: '900' },
-  principlesTitle: { color: colors.ink, fontSize: 20, lineHeight: 23, fontWeight: '900', marginVertical: 13 },
-  principleRow: { flexDirection: 'row', alignItems: 'center', borderTopWidth: 1, borderTopColor: 'rgba(24,20,32,.14)', paddingVertical: 10 },
-  principleNumber: { color: colors.brandDark, fontSize: 8, fontWeight: '900', width: 30 },
-  principleText: { color: colors.ink, fontSize: 10, fontWeight: '800' },
+  profile: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 17,
+    padding: 22,
+    backgroundColor: colors.surface,
+    borderRadius: 30,
+  },
+  host: { fontSize: 8, letterSpacing: 1.4, color: colors.muted },
+  name: {
+    fontSize: 25,
+    fontWeight: '500',
+    color: colors.ink,
+    letterSpacing: -0.8,
+    marginTop: 5,
+  },
+  handle: { fontSize: 10, color: colors.muted, marginTop: 5 },
+  voice: {
+    backgroundColor: colors.ink,
+    padding: 25,
+    borderRadius: 32,
+    gap: 20,
+  },
+  voiceHead: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  voiceTitle: {
+    color: colors.inverse,
+    fontSize: 27,
+    lineHeight: 31,
+    fontWeight: '500',
+    letterSpacing: -1,
+  },
+  voiceBody: { color: colors.inverseMuted, fontSize: 12, lineHeight: 20 },
+  services: {
+    backgroundColor: colors.surface,
+    borderRadius: 28,
+    paddingHorizontal: 20,
+  },
+  service: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 13,
+    paddingVertical: 20,
+  },
+  line: { borderBottomWidth: 1, borderBottomColor: colors.line },
+  serviceName: { color: colors.ink, fontSize: 13, fontWeight: '500' },
+  serviceBody: {
+    fontSize: 9,
+    lineHeight: 15,
+    color: colors.muted,
+    marginTop: 5,
+  },
+  serviceState: {
+    color: colors.muted,
+    fontSize: 8,
+    maxWidth: 67,
+    textAlign: 'right',
+    lineHeight: 13,
+  },
+  settings: {
+    backgroundColor: colors.surface,
+    borderRadius: 28,
+    paddingHorizontal: 20,
+  },
+  setting: {
+    minHeight: 88,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 14,
+  },
+  switch: {
+    width: 45,
+    height: 26,
+    padding: 3,
+    borderRadius: 15,
+    backgroundColor: colors.line,
+  },
+  knob: {
+    height: 20,
+    width: 20,
+    borderRadius: 11,
+    backgroundColor: colors.surface,
+  },
+  promise: {
+    padding: 25,
+    borderRadius: 30,
+    backgroundColor: colors.surfaceMuted,
+    marginTop: 29,
+  },
+  promiseLabel: {
+    fontSize: 8,
+    letterSpacing: 1.5,
+    color: colors.muted,
+    marginTop: 16,
+  },
+  promiseTitle: {
+    fontSize: 25,
+    lineHeight: 30,
+    letterSpacing: -0.8,
+    color: colors.ink,
+    marginTop: 16,
+    marginBottom: 17,
+    fontWeight: '500',
+  },
+  promiseRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderTopWidth: 1,
+    borderTopColor: colors.line,
+    paddingVertical: 16,
+    gap: 15,
+  },
+  number: { color: colors.muted, fontSize: 9 },
+  promiseText: { color: colors.ink, fontSize: 11, flex: 1, lineHeight: 17 },
 });

@@ -1,161 +1,312 @@
+import { AppText as Text, AppPressable as Pressable } from '../i18n';
 import React from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { AgoraMark, BrandIcon, MakerFooter } from './Brand';
+import { StyleSheet, View } from 'react-native';
+import { MakerFooter } from './Brand';
 import { PageHeader } from './PageHeader';
-import { colors, radii } from './theme';
+import { Icon } from './Icon';
+import { Avatar, AvatarStack } from './Portrait';
+import { CharacterArt, CharacterBust } from './CharacterArt';
+import { characterProfiles, crewIds } from './CharacterProfiles';
+import { Button, Screen, Section } from './Ui';
+import { colors } from './theme';
 
 interface Props {
   onCreateRoom: () => void;
   onOpenRoom?: () => void;
   onSeeRooms?: () => void;
+  onOpenVoice?: () => void;
 }
-
-const friends = [
-  { name: 'Priya', initial: 'P', color: colors.coral },
-  { name: 'Ayaan', initial: 'A', color: colors.green },
-  { name: 'Maya', initial: 'M', color: colors.brand },
-  { name: 'Kabir', initial: 'K', color: '#E89031' },
-];
-
-export function HomeScreen({ onCreateRoom, onOpenRoom = onCreateRoom, onSeeRooms }: Props) {
+export function HomeScreen({
+  onCreateRoom,
+  onOpenRoom = onCreateRoom,
+  onSeeRooms,
+  onOpenVoice,
+}: Props) {
   return (
-    <ScrollView style={s.screen} contentContainerStyle={s.content} showsVerticalScrollIndicator={false}>
+    <Screen>
       <PageHeader brand />
-
-      <View style={s.welcomeRow}>
-        <View><Text style={s.eyebrow}>GOOD EVENING, SHIVAM</Text><Text style={s.greeting}>Bring everyone to the table.</Text></View>
-        <BrandIcon size={46} />
-      </View>
-
-      <View style={s.hero}>
-        <View style={s.orbitOne} />
-        <View style={s.orbitTwo} />
-        <Text style={s.sparkOne}>✦</Text>
-        <Text style={s.sparkTwo}>✦</Text>
-        <View style={s.heroBadge}><View style={s.liveDot} /><Text style={s.heroBadgeText}>SHARED VOICE AGENT</Text></View>
-        <Text style={s.heroTitle}>Talk it out.{'\n'}Leave with a plan.</Text>
-        <Text style={s.heroBody}>RoundTable hears every constraint, shows its work and acts only when the room agrees.</Text>
+      <Text style={s.overline}>A LITTLE LESS BACK-AND-FORTH</Text>
+      <Text style={s.heading}>One table.{'\n'}One shared plan.</Text>
+      <Text style={s.description}>
+        Talk through options, vote together and leave with a plan.
+      </Text>
+      <Button
+        label="Create an outing room"
+        testID="create-outing-room"
+        onPress={onCreateRoom}
+        icon="plus"
+      />
+      {onOpenVoice && (
         <Pressable
-          testID="create-outing-room"
           accessibilityRole="button"
-          onPress={onCreateRoom}
-          style={({ pressed }) => [s.primary, pressed && s.pressed]}>
-          <Text style={s.primaryText}>Create an outing room</Text>
-          <View style={s.arrow}><Text style={s.arrowText}>↗</Text></View>
+          accessibilityLabel="Try live Agora voice"
+          onPress={onOpenVoice}
+          style={s.liveEntry}
+        >
+          <Icon name="waveform" size={20} />
+          <View style={s.liveEntryCopy}>
+            <Text style={s.liveEntryTitle}>
+              Try live voice with your people
+            </Text>
+            <Text style={s.liveEntryMeta}>
+              Live voice, a shared Stage and real planning checks
+            </Text>
+          </View>
+          <Icon name="arrow" size={18} />
         </Pressable>
-        <View style={s.heroAgora}><AgoraMark compact /></View>
-      </View>
-
-      <View style={s.sectionHead}>
-        <View><Text style={s.kicker}>BACK AT THE TABLE</Text><Text style={s.sectionTitle}>Your live room</Text></View>
-        <Pressable onPress={onSeeRooms}><Text style={s.link}>See all →</Text></Pressable>
-      </View>
-      <Pressable onPress={onOpenRoom} style={({ pressed }) => [s.liveRoom, pressed && s.pressed]}>
-        <View style={s.liveRoomTop}>
-          <View style={s.roomGlyph}><Text style={s.roomGlyphText}>FR</Text></View>
-          <View style={s.roomCopy}><Text style={s.roomTitle}>Friday Fun Crew</Text><Text style={s.roomMeta}>3 people · Group outing</Text></View>
-          <View style={s.livePill}><View style={s.liveTiny} /><Text style={s.livePillText}>LIVE</Text></View>
+      )}
+      <Section
+        title="A room for your next plan"
+        action="All rooms"
+        onAction={onSeeRooms}
+      />
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel="Resume Friday Fun Crew"
+        onPress={onOpenRoom}
+        style={({ pressed }) => [s.room, pressed && { opacity: 0.92 }]}
+      >
+        <View style={s.cover}>
+          <View style={s.coverHead}>
+            <Text style={s.coverLabel}>GROUP OUTING</Text>
+            <Text style={s.coverNote}>A place for every opinion.</Text>
+          </View>
+          <CharacterArt scene="discussion" height={190} />
+          <View style={s.story}>
+            {['Talk', 'Compare', 'Decide'].map((word, i) => (
+              <React.Fragment key={word}>
+                {i > 0 && <Text style={s.storyArrow}>→</Text>}
+                <Text style={s.storyStep}>{word}</Text>
+              </React.Fragment>
+            ))}
+          </View>
         </View>
-        <View style={s.roomGoal}><Text style={s.roomGoalLabel}>ROOM GOAL</Text><Text style={s.roomGoalText}>Pick tonight’s plan and add it to everyone’s calendar.</Text></View>
-        <View style={s.resume}><Text style={s.resumeText}>Resume room</Text><Text style={s.resumeArrow}>→</Text></View>
+        <View style={s.coverCopy}>
+          <View style={{ flex: 1 }}>
+            <Text style={s.coverTitle}>
+              Different ideas.{'\n'}One shared plan.
+            </Text>
+            <Text style={s.coverDetail}>Food & games · Under ₹700</Text>
+          </View>
+          <View style={s.enter}>
+            <Icon name="diagonal" color={colors.inverse} size={22} />
+          </View>
+        </View>
+        <View style={s.roomFooter}>
+          <AvatarStack size={31} dark />
+          <View style={{ flex: 1, alignItems: 'flex-end' }}>
+            <Text style={s.roomName}>Friday Fun Crew</Text>
+            <Text style={s.roomMeta}>3 people · Guided demo</Text>
+          </View>
+        </View>
       </Pressable>
-
-      <View style={s.sectionHead}>
-        <View><Text style={s.kicker}>THE CREW</Text><Text style={s.sectionTitle}>Your circle</Text></View>
-        <Text style={s.onlineText}>4 online</Text>
-      </View>
-      <View style={s.friends}>
-        {friends.map(friend => (
-          <View key={friend.name} style={s.friend}>
-            <View style={[s.avatar, { backgroundColor: friend.color }]}><Text style={s.avatarText}>{friend.initial}</Text></View>
-            <View style={s.friendDot} /><Text style={s.friendName}>{friend.name}</Text>
+      <Section
+        title="Meet your circle"
+        caption="Different personalities. Better plans together."
+      />
+      <View style={s.circle}>
+        {crewIds.map(id => (
+          <View style={s.friend} key={id}>
+            <Avatar id={id} size={54} />
+            <Text style={s.friendName}>{characterProfiles[id].name}</Text>
+            <Text style={s.friendRole}>{characterProfiles[id].shortRole}</Text>
           </View>
         ))}
-        <View style={s.friend}><View style={[s.avatar, s.invite]}><Text style={s.inviteText}>+</Text></View><Text style={s.friendName}>Invite</Text></View>
       </View>
-
-      <View style={s.sectionHead}>
-        <View><Text style={s.kicker}>ROOM RECIPES</Text><Text style={s.sectionTitle}>Decide anything together</Text></View>
-      </View>
-      <View style={s.ideas}>
-        <Pressable onPress={onCreateRoom} style={({ pressed }) => [s.idea, s.ideaActive, pressed && s.pressed]}>
-          <View style={[s.ideaIcon, { backgroundColor: colors.yellow }]}><Text style={s.ideaEmoji}>🍜</Text></View>
-          <Text style={s.ideaTitle}>Plan an outing</Text>
-          <Text style={s.ideaBody}>Search, compare, vote and schedule.</Text>
-          <Text style={s.ideaAction}>START ROOM  →</Text>
+      <Section
+        title="What will you decide?"
+        caption="Start with an outing. More room types are on the way."
+      />
+      <View style={s.recipes}>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="Plan an evening out"
+          onPress={onCreateRoom}
+          style={s.recipe}
+        >
+          <CharacterBust id="maya" size={70} />
+          <Text style={s.recipeTitle}>An evening out</Text>
+          <Text style={s.recipeBody}>
+            Food, an activity,{'\n'}one shared plan.
+          </Text>
+          <Icon name="arrow" size={20} />
         </Pressable>
-        <View style={[s.idea, s.ideaSoon]}>
-          <View style={[s.ideaIcon, { backgroundColor: colors.aqua }]}><Text style={s.ideaEmoji}>₹</Text></View>
-          <Text style={s.ideaTitle}>Split expenses</Text>
-          <Text style={s.ideaBody}>Count fairly and settle without awkward math.</Text>
-          <Text style={s.soon}>NEXT RECIPE</Text>
+        <View style={[s.recipe, s.soon]}>
+          <CharacterBust id="ayaan" size={70} />
+          <Text style={s.recipeTitle}>Shared expenses</Text>
+          <Text style={s.recipeBody}>
+            Keep the maths{'\n'}out of the group chat.
+          </Text>
+          <Text style={s.soonLabel}>COMING LATER</Text>
         </View>
       </View>
-
+      <View style={s.finish}>
+        <CharacterArt scene="agreed" height={155} />
+        <Text style={s.finishTitle}>Less “so, what’s the plan?”</Text>
+        <Text style={s.finishBody}>More “see you there”.</Text>
+      </View>
       <MakerFooter />
-    </ScrollView>
+    </Screen>
   );
 }
-
 const s = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: colors.canvas },
-  content: { paddingHorizontal: 18, paddingTop: 10, paddingBottom: 112 },
-  welcomeRow: { flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 16 },
-  eyebrow: { color: colors.brand, fontSize: 9, letterSpacing: 1.7, fontWeight: '900' },
-  greeting: { color: colors.ink, fontSize: 23, lineHeight: 27, fontWeight: '900', marginTop: 5, maxWidth: 260 },
-  hero: { minHeight: 384, borderRadius: radii.xlarge, backgroundColor: colors.brand, overflow: 'hidden', padding: 23, marginBottom: 27 },
-  orbitOne: { position: 'absolute', width: 240, height: 240, borderRadius: 120, borderWidth: 2, borderColor: 'rgba(255,255,255,0.18)', right: -92, top: -88 },
-  orbitTwo: { position: 'absolute', width: 132, height: 132, borderRadius: 66, backgroundColor: colors.coral, right: -31, top: 52, borderWidth: 4, borderColor: colors.ink },
-  sparkOne: { position: 'absolute', right: 91, top: 56, color: colors.lime, fontSize: 29 },
-  sparkTwo: { position: 'absolute', right: 30, top: 203, color: colors.yellow, fontSize: 20 },
-  heroBadge: { alignSelf: 'flex-start', flexDirection: 'row', alignItems: 'center', gap: 7, backgroundColor: 'rgba(255,255,255,0.16)', paddingHorizontal: 11, paddingVertical: 7, borderRadius: radii.pill },
-  liveDot: { width: 7, height: 7, borderRadius: 4, backgroundColor: colors.lime },
-  heroBadgeText: { color: colors.surface, fontSize: 9, letterSpacing: 1.1, fontWeight: '900' },
-  heroTitle: { color: colors.surface, fontSize: 36, lineHeight: 39, fontWeight: '900', marginTop: 29, maxWidth: 300 },
-  heroBody: { color: '#EAE6FF', fontSize: 13, lineHeight: 20, marginTop: 13, maxWidth: 285 },
-  primary: { marginTop: 22, minHeight: 55, borderRadius: radii.pill, backgroundColor: colors.ink, paddingLeft: 19, paddingRight: 7, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', maxWidth: 280 },
-  primaryText: { color: colors.surface, fontSize: 13, fontWeight: '900' },
-  arrow: { width: 42, height: 42, borderRadius: 21, backgroundColor: colors.lime, alignItems: 'center', justifyContent: 'center' },
-  arrowText: { color: colors.ink, fontSize: 20, fontWeight: '900' },
-  heroAgora: { marginTop: 18 },
-  sectionHead: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 13, marginTop: 2 },
-  kicker: { color: colors.brand, fontSize: 8, letterSpacing: 1.6, fontWeight: '900' },
-  sectionTitle: { color: colors.ink, fontSize: 19, fontWeight: '900', marginTop: 3 },
-  link: { color: colors.brand, fontSize: 10, fontWeight: '900', paddingVertical: 5 },
-  liveRoom: { borderRadius: 27, backgroundColor: colors.ink, padding: 17, marginBottom: 27 },
-  liveRoomTop: { flexDirection: 'row', alignItems: 'center' },
-  roomGlyph: { width: 46, height: 46, borderRadius: 16, backgroundColor: colors.lime, alignItems: 'center', justifyContent: 'center', transform: [{ rotate: '-4deg' }] },
-  roomGlyphText: { color: colors.ink, fontSize: 12, fontWeight: '900' },
-  roomCopy: { flex: 1, marginLeft: 12 },
-  roomTitle: { color: colors.surface, fontSize: 15, fontWeight: '900' },
-  roomMeta: { color: '#AFA8B8', fontSize: 9, marginTop: 4 },
-  livePill: { flexDirection: 'row', alignItems: 'center', gap: 5, backgroundColor: '#302A39', paddingHorizontal: 9, paddingVertical: 6, borderRadius: radii.pill },
-  liveTiny: { width: 6, height: 6, borderRadius: 3, backgroundColor: colors.coral },
-  livePillText: { color: colors.surface, fontSize: 8, fontWeight: '900' },
-  roomGoal: { backgroundColor: '#272130', borderRadius: 18, padding: 13, marginTop: 15 },
-  roomGoalLabel: { color: colors.lime, fontSize: 8, letterSpacing: 1.2, fontWeight: '900' },
-  roomGoalText: { color: '#DDD8E3', fontSize: 11, lineHeight: 16, marginTop: 6, fontWeight: '600' },
-  resume: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 15 },
-  resumeText: { color: colors.surface, fontSize: 11, fontWeight: '900' },
-  resumeArrow: { color: colors.lime, fontSize: 18 },
-  onlineText: { color: colors.green, fontSize: 10, fontWeight: '900' },
-  friends: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 28 },
-  friend: { width: 58, alignItems: 'center' },
-  avatar: { width: 50, height: 50, borderRadius: 18, alignItems: 'center', justifyContent: 'center', borderWidth: 2, borderColor: colors.surface },
-  avatarText: { color: colors.surface, fontSize: 16, fontWeight: '900' },
-  friendDot: { position: 'absolute', right: 4, top: 38, width: 10, height: 10, borderRadius: 5, backgroundColor: colors.lime, borderWidth: 2, borderColor: colors.canvas },
-  invite: { backgroundColor: colors.surface, borderColor: colors.line, borderStyle: 'dashed' },
-  inviteText: { color: colors.brand, fontSize: 24 },
-  friendName: { marginTop: 7, fontSize: 10, color: colors.muted, fontWeight: '700' },
-  ideas: { flexDirection: 'row', gap: 11 },
-  idea: { flex: 1, minHeight: 208, padding: 14, borderRadius: 26, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.surface },
-  ideaActive: { borderColor: '#CCC4FF' },
-  ideaSoon: { backgroundColor: '#F1F0F4' },
-  ideaIcon: { width: 45, height: 45, borderRadius: 16, alignItems: 'center', justifyContent: 'center' },
-  ideaEmoji: { fontSize: 22, color: colors.ink, fontWeight: '900' },
-  ideaTitle: { color: colors.ink, fontSize: 14, fontWeight: '900', marginTop: 13 },
-  ideaBody: { color: colors.muted, fontSize: 10, lineHeight: 15, marginTop: 7 },
-  ideaAction: { color: colors.brand, fontSize: 8, letterSpacing: .8, fontWeight: '900', marginTop: 'auto' },
-  soon: { color: colors.muted, fontSize: 8, letterSpacing: .9, fontWeight: '900', marginTop: 'auto' },
-  pressed: { opacity: 0.82, transform: [{ scale: 0.99 }] },
+  overline: {
+    color: colors.muted,
+    fontSize: 9,
+    letterSpacing: 1.6,
+    marginTop: 9,
+    fontWeight: '500',
+  },
+  heading: {
+    color: colors.ink,
+    fontSize: 35,
+    lineHeight: 39,
+    letterSpacing: -1.7,
+    fontWeight: '500',
+    marginTop: 13,
+  },
+  description: {
+    color: colors.muted,
+    fontSize: 13,
+    lineHeight: 20,
+    marginTop: 12,
+    marginBottom: 17,
+  },
+  liveEntry: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    padding: 17,
+    borderRadius: 25,
+    borderWidth: 1,
+    borderColor: colors.line,
+    marginTop: 12,
+    backgroundColor: colors.surface,
+  },
+  liveEntryCopy: { flex: 1 },
+  liveEntryTitle: { fontSize: 12, color: colors.ink, fontWeight: '500' },
+  liveEntryMeta: {
+    fontSize: 9,
+    lineHeight: 15,
+    color: colors.muted,
+    marginTop: 4,
+  },
+  room: { borderRadius: 32, backgroundColor: colors.ink, overflow: 'hidden' },
+  cover: {
+    backgroundColor: colors.surfaceMuted,
+    paddingHorizontal: 16,
+    paddingTop: 18,
+    paddingBottom: 16,
+  },
+  coverHead: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 12,
+  },
+  coverLabel: {
+    color: colors.ink,
+    fontSize: 8,
+    letterSpacing: 1.5,
+    fontWeight: '600',
+    borderWidth: 1,
+    borderColor: colors.line,
+    borderRadius: 99,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+  },
+  coverNote: {
+    color: colors.muted,
+    fontSize: 9,
+    flexShrink: 1,
+    textAlign: 'right',
+  },
+  story: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 14,
+    marginTop: 4,
+  },
+  storyStep: { fontSize: 10, fontWeight: '500', color: colors.ink },
+  storyArrow: { color: colors.muted, fontSize: 12 },
+  coverCopy: {
+    paddingHorizontal: 22,
+    paddingTop: 22,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  coverTitle: {
+    color: colors.inverse,
+    fontSize: 29,
+    lineHeight: 32,
+    letterSpacing: -1.2,
+    fontWeight: '500',
+  },
+  coverDetail: { color: colors.inverseMuted, fontSize: 10, marginTop: 12 },
+  enter: {
+    width: 43,
+    height: 43,
+    borderRadius: 24,
+    borderWidth: 1,
+    borderColor: colors.darkLine,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  roomFooter: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 20,
+    gap: 12,
+  },
+  roomName: { color: colors.inverse, fontSize: 13, fontWeight: '500' },
+  roomMeta: { color: colors.inverseMuted, fontSize: 10, marginTop: 5 },
+  circle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: colors.surface,
+    paddingVertical: 20,
+    paddingHorizontal: 12,
+    borderRadius: 28,
+  },
+  friend: { flex: 1, alignItems: 'center' },
+  friendName: { fontSize: 12, color: colors.ink, marginTop: 9 },
+  friendRole: {
+    fontSize: 8,
+    color: colors.muted,
+    marginTop: 5,
+    textAlign: 'center',
+  },
+  recipes: { flexDirection: 'row', gap: 12 },
+  recipe: {
+    flex: 1,
+    backgroundColor: colors.surface,
+    borderRadius: 28,
+    padding: 18,
+    gap: 13,
+  },
+  recipeTitle: {
+    color: colors.ink,
+    fontSize: 15,
+    fontWeight: '500',
+    letterSpacing: -0.3,
+  },
+  recipeBody: { color: colors.muted, fontSize: 12, lineHeight: 18 },
+  soon: { backgroundColor: colors.surfaceMuted },
+  soonLabel: {
+    fontSize: 8,
+    letterSpacing: 1.4,
+    color: colors.muted,
+    paddingTop: 4,
+  },
+  finish: { marginTop: 28, alignItems: 'center', padding: 18 },
+  finishTitle: {
+    color: colors.ink,
+    fontSize: 18,
+    letterSpacing: -0.5,
+    marginTop: 15,
+    textAlign: 'center',
+  },
+  finishBody: { color: colors.muted, fontSize: 12, marginTop: 7 },
 });

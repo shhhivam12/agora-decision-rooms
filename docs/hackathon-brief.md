@@ -15,7 +15,7 @@ Source: [Agora Voice AI Hackathon on Commudle](https://www.commudle.com/communit
 - Participation is individual.
 - Existing libraries and reusable components are allowed, but meaningful hackathon work and significant pre-existing work should be disclosed.
 
-## Implications for RoundTable AI
+## Implications for Agora Decision Rooms
 
 - The live multi-participant room should be the center of the demo, not a text workflow with optional speech.
 - At least one external action must produce verifiable output.

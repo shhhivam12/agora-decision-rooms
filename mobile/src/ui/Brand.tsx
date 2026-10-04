@@ -1,104 +1,107 @@
+import { AppText as Text } from '../i18n';
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
-import agoraWordmark from '../../assets/branding/agora-wordmark.webp';
-import appIcon from '../../assets/branding/roundtable-app-icon-v3.png';
-import logoLockup from '../../assets/branding/roundtable-logo-lockup-v4.png';
-import { colors, radii } from './theme';
-
-interface SizeProps {
-  size?: number;
-}
-
-export function BrandIcon({ size = 44 }: SizeProps) {
+import { Image, StyleSheet, View } from 'react-native';
+import appIcon from '../../assets/branding/decision-rooms-icon.png';
+import { colors } from './theme';
+export function BrandIcon({ size = 44 }: { size?: number }) {
   return (
     <Image
-      accessibilityLabel="RoundTable AI icon"
+      accessibilityLabel="Agora Decision Rooms icon"
       source={appIcon}
-      resizeMode="cover"
-      style={{ width: size, height: size, borderRadius: size * 0.28 }}
-    />
-  );
-}
-
-export function BrandLockup({ width = 146 }: { width?: number }) {
-  return (
-    <Image
-      accessibilityLabel="RoundTable AI"
-      source={logoLockup}
       resizeMode="contain"
-      style={{ width, height: width / 3 }}
+      style={{ width: size, height: size, borderRadius: size * 0.254 }}
     />
   );
 }
-
+export function BrandLockup({ width = 204 }: { width?: number }) {
+  const scale = width / 204;
+  return (
+    <View
+      accessibilityLabel="Agora Decision Rooms"
+      style={{ flexDirection: 'row', alignItems: 'center', gap: 10 * scale }}
+    >
+      <BrandIcon size={40 * scale} />
+      <View>
+        <Text
+          style={[
+            s.agoraLabel,
+            { fontSize: 9 * scale, letterSpacing: 2.4 * scale },
+          ]}
+        >
+          AGORA
+        </Text>
+        <Text
+          style={[
+            s.wordmark,
+            { fontSize: 19 * scale, letterSpacing: -0.8 * scale },
+          ]}
+        >
+          Decision Rooms
+        </Text>
+      </View>
+    </View>
+  );
+}
 export function AgoraMark({ compact = false }: { compact?: boolean }) {
   return (
-    <View style={[styles.agoraWrap, compact && styles.agoraCompact]}>
-      <Text style={styles.powered}>POWERED BY</Text>
-      <Image
-        accessibilityLabel="Agora"
-        source={agoraWordmark}
-        resizeMode="contain"
-        style={[styles.agora, compact && styles.agoraSmall]}
-      />
+    <View
+      style={[
+        s.partner,
+        compact && { paddingHorizontal: 10, paddingVertical: 6 },
+      ]}
+    >
+      <Text style={s.powered}>POWERED BY</Text>
+      <Text style={s.agora}>agora</Text>
     </View>
   );
 }
-
 export function MakerFooter() {
   return (
-    <View style={styles.footer}>
-      <View style={styles.footerRule} />
-      <BrandIcon size={30} />
-      <View style={styles.footerCopy}>
-        <Text style={styles.footerTitle}>Built with {'<3'} by Shivam</Text>
-        <Text style={styles.footerSub}>for the Agora Voice AI Hackathon</Text>
+    <View style={s.footer}>
+      <BrandIcon size={28} />
+      <View style={{ flex: 1 }}>
+        <Text style={s.footerTitle}>Made by Shivam Mahendru</Text>
+        <Text style={s.footerBody}>
+          Agora Voice AI Hackathon · Independent project
+        </Text>
       </View>
-      <View style={styles.miniAgora}><Text style={styles.miniAgoraText}>AGORA</Text></View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  agoraWrap: {
+const s = StyleSheet.create({
+  agoraLabel: { color: colors.muted, fontWeight: '600', marginBottom: 3 },
+  wordmark: { color: colors.ink, fontWeight: '600' },
+  partner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
     alignSelf: 'flex-start',
-    minHeight: 32,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 7,
-    borderRadius: radii.pill,
-    backgroundColor: '#08080A',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
+    backgroundColor: colors.inkSoft,
+    borderRadius: 99,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
   },
-  agoraCompact: { minHeight: 28, paddingVertical: 3, paddingHorizontal: 8 },
-  powered: { color: '#8F8C96', fontSize: 7, letterSpacing: 1.1, fontWeight: '900' },
-  agora: { width: 62, height: 20 },
-  agoraSmall: { width: 50, height: 17 },
+  powered: {
+    color: colors.inverseMuted,
+    fontSize: 7,
+    letterSpacing: 1.3,
+    fontWeight: '500',
+  },
+  agora: {
+    color: colors.inverse,
+    fontSize: 17,
+    letterSpacing: -0.6,
+    fontWeight: '600',
+  },
   footer: {
-    minHeight: 74,
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 26,
-    paddingHorizontal: 4,
-    paddingTop: 18,
+    gap: 11,
+    borderTopWidth: 1,
+    borderTopColor: colors.line,
+    paddingTop: 20,
+    marginTop: 28,
   },
-  footerRule: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    height: 1,
-    backgroundColor: colors.line,
-  },
-  footerCopy: { flex: 1, marginLeft: 10 },
-  footerTitle: { color: colors.ink, fontSize: 11, fontWeight: '900' },
-  footerSub: { color: colors.muted, fontSize: 9, marginTop: 3 },
-  miniAgora: {
-    borderRadius: radii.pill,
-    backgroundColor: '#E7F8FF',
-    paddingHorizontal: 9,
-    paddingVertical: 6,
-  },
-  miniAgoraText: { color: colors.agora, fontSize: 8, letterSpacing: 1.2, fontWeight: '900' },
+  footerTitle: { color: colors.ink, fontSize: 11, fontWeight: '500' },
+  footerBody: { color: colors.muted, fontSize: 9, marginTop: 4 },
 });

@@ -1,94 +1,89 @@
+import { AppText as Text, AppPressable as Pressable } from '../i18n';
 import React from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { Icon, IconName } from './Icon';
 import { colors } from './theme';
-
 export type MainTab = 'home' | 'rooms' | 'create' | 'friends' | 'profile';
-
-interface Props {
+const tabs: { id: MainTab; icon: IconName; label: string }[] = [
+  { id: 'home', icon: 'home', label: 'Home' },
+  { id: 'rooms', icon: 'rooms', label: 'Rooms' },
+  { id: 'create', icon: 'plus', label: 'Create' },
+  { id: 'friends', icon: 'people', label: 'Friends' },
+  { id: 'profile', icon: 'profile', label: 'Me' },
+];
+export function BottomNav({
+  current,
+  onChange,
+}: {
   current: MainTab;
   onChange: (tab: MainTab) => void;
-}
-
-const tabs: { id: MainTab; glyph: string; label: string }[] = [
-  { id: 'home', glyph: '⌂', label: 'Home' },
-  { id: 'rooms', glyph: '◉', label: 'Rooms' },
-  { id: 'create', glyph: '+', label: 'Create' },
-  { id: 'friends', glyph: '♡', label: 'Friends' },
-  { id: 'profile', glyph: '◎', label: 'Me' },
-];
-
-export function BottomNav({ current, onChange }: Props) {
+}) {
   return (
-    <View style={styles.rail}>
+    <View style={s.rail}>
       {tabs.map(tab => {
-        const active = current === tab.id;
-        const create = tab.id === 'create';
+        const active = current === tab.id,
+          create = tab.id === 'create';
         return (
           <Pressable
+            key={tab.id}
             testID={`tab-${tab.id}`}
             accessibilityRole="button"
             accessibilityLabel={tab.label}
-            key={tab.id}
+            accessibilityState={{ selected: active }}
             onPress={() => onChange(tab.id)}
             style={({ pressed }) => [
-              styles.item,
-              create && styles.create,
-              active && !create && styles.activeItem,
-              pressed && styles.pressed,
-            ]}>
-            <Text style={[styles.glyph, create && styles.createGlyph, active && !create && styles.activeGlyph]}>
-              {tab.glyph}
-            </Text>
-            {!create ? <Text style={[styles.label, active && styles.activeLabel]}>{tab.label}</Text> : null}
+              s.item,
+              active && s.active,
+              create && s.create,
+              pressed && { opacity: 0.7 },
+            ]}
+          >
+            <Icon
+              name={tab.icon}
+              size={create ? 26 : 22}
+              color={active || create ? colors.ink : colors.inverse}
+            />
+            {!create && (
+              <Text style={[s.label, active && { color: colors.ink }]}>
+                {tab.label}
+              </Text>
+            )}
           </Pressable>
         );
       })}
     </View>
   );
 }
-
-const styles = StyleSheet.create({
+const s = StyleSheet.create({
   rail: {
     position: 'absolute',
-    left: 12,
-    right: 12,
-    bottom: 10,
+    left: 26,
+    right: 26,
+    bottom: 15,
     height: 72,
-    borderRadius: 27,
+    borderRadius: 40,
     backgroundColor: colors.ink,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-around',
-    paddingHorizontal: 8,
-    shadowColor: '#08060D',
-    shadowOpacity: 0.2,
+    justifyContent: 'space-between',
+    paddingHorizontal: 9,
+    shadowColor: '#151613',
+    shadowOpacity: 0.15,
     shadowRadius: 18,
     shadowOffset: { width: 0, height: 8 },
-    elevation: 12,
+    elevation: 9,
     zIndex: 20,
   },
   item: {
-    minWidth: 52,
-    height: 56,
+    flex: 1,
+    maxWidth: 53,
+    height: 54,
+    borderRadius: 30,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 19,
+    gap: 3,
   },
-  activeItem: { backgroundColor: '#2A2434' },
-  glyph: { color: '#8D8695', fontSize: 20, lineHeight: 22, fontWeight: '800' },
-  activeGlyph: { color: colors.lime },
-  label: { color: '#8D8695', fontSize: 9, marginTop: 3, fontWeight: '800' },
-  activeLabel: { color: colors.surface },
-  create: {
-    width: 52,
-    minWidth: 52,
-    height: 52,
-    borderRadius: 18,
-    backgroundColor: colors.brand,
-    borderWidth: 3,
-    borderColor: '#8B7CF9',
-    transform: [{ rotate: '5deg' }],
-  },
-  createGlyph: { color: colors.surface, fontSize: 31, lineHeight: 32, transform: [{ rotate: '-5deg' }] },
-  pressed: { opacity: 0.78, transform: [{ scale: 0.96 }] },
+  active: { backgroundColor: colors.canvas },
+  create: { backgroundColor: colors.surfaceMuted, maxWidth: 52, height: 52 },
+  label: { color: colors.inverseMuted, fontSize: 9, fontWeight: '500' },
 });

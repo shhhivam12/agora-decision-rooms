@@ -14,13 +14,26 @@ export default defineConfig({
       },
       {
         find: /^react-native$/,
-        replacement: resolve(import.meta.dirname, 'node_modules/react-native-web'),
+        replacement: resolve(
+          import.meta.dirname,
+          'node_modules/react-native-web',
+        ),
       },
     ],
   },
-  server: { host: '127.0.0.1', port: 5173 },
+  server: {
+    host: '127.0.0.1',
+    port: 5173,
+    proxy: { '/api': { target: 'http://127.0.0.1:8000', changeOrigin: true } },
+  },
   build: {
     outDir: resolve(import.meta.dirname, 'dist-web'),
     emptyOutDir: true,
+    rollupOptions: {
+      input: {
+        app: resolve(import.meta.dirname, 'web/index.html'),
+        assistant: resolve(import.meta.dirname, 'web/assistant-preview.html'),
+      },
+    },
   },
 });

@@ -10,15 +10,24 @@ import { ProfileScreen } from './src/ui/ProfileScreen';
 import { LiveVoiceScreen } from './src/ui/LiveVoiceScreen';
 import { RoomsScreen } from './src/ui/RoomsScreen';
 import { colors } from './src/ui/theme';
+import { initialVoiceInvite } from './src/initialVoiceInvite';
+import { LanguageProvider, LanguageSwitch } from './src/i18n';
 
 type Screen = MainTab | 'outing-room' | 'live-voice';
 
 export function AppContent() {
-  const [screen, setScreen] = useState<Screen>('home');
+  const [screen, setScreen] = useState<Screen>(
+    initialVoiceInvite() ? 'live-voice' : 'home',
+  );
   const openRoom = () => setScreen('outing-room');
 
   if (screen === 'live-voice') {
-    return <LiveVoiceScreen onLeave={() => setScreen('profile')} />;
+    return (
+      <LiveVoiceScreen
+        onLeave={() => setScreen('home')}
+        onOpenDemo={openRoom}
+      />
+    );
   }
 
   if (screen === 'outing-room') {
@@ -34,12 +43,22 @@ export function AppContent() {
             onCreateRoom={() => setScreen('create')}
             onOpenRoom={openRoom}
             onSeeRooms={() => setScreen('rooms')}
+            onOpenVoice={() => setScreen('live-voice')}
           />
         ) : null}
-        {screen === 'rooms' ? <RoomsScreen onOpenRoom={openRoom} onCreateRoom={() => setScreen('create')} /> : null}
-        {screen === 'create' ? <CreateRoomScreen onCreateRoom={openRoom} /> : null}
+        {screen === 'rooms' ? (
+          <RoomsScreen
+            onOpenRoom={openRoom}
+            onCreateRoom={() => setScreen('create')}
+          />
+        ) : null}
+        {screen === 'create' ? (
+          <CreateRoomScreen onCreateRoom={openRoom} />
+        ) : null}
         {screen === 'friends' ? <FriendsScreen /> : null}
-        {screen === 'profile' ? <ProfileScreen onOpenVoice={() => setScreen('live-voice')} /> : null}
+        {screen === 'profile' ? (
+          <ProfileScreen onOpenVoice={() => setScreen('live-voice')} />
+        ) : null}
       </View>
       <BottomNav current={currentTab} onChange={setScreen} />
     </View>
@@ -48,12 +67,18 @@ export function AppContent() {
 
 export default function App() {
   return (
-    <SafeAreaProvider>
-      <StatusBar barStyle="dark-content" backgroundColor={colors.canvas} />
-      <SafeAreaView style={styles.safeArea} edges={['top', 'left', 'right', 'bottom']}>
-        <AppContent />
-      </SafeAreaView>
-    </SafeAreaProvider>
+    <LanguageProvider>
+      <SafeAreaProvider>
+        <StatusBar barStyle="dark-content" backgroundColor={colors.canvas} />
+        <SafeAreaView
+          style={styles.safeArea}
+          edges={['top', 'left', 'right', 'bottom']}
+        >
+          <LanguageSwitch />
+          <AppContent />
+        </SafeAreaView>
+      </SafeAreaProvider>
+    </LanguageProvider>
   );
 }
 

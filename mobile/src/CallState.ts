@@ -22,10 +22,14 @@ export interface Turn {
   text: string;
 }
 
-type ToolkitTranscript = TranscriptHelperItem<Partial<UserTranscription | AgentTranscription>>;
+type ToolkitTranscript = TranscriptHelperItem<
+  Partial<UserTranscription | AgentTranscription>
+>;
 
 function turnTypeOf(item: ToolkitTranscript): TurnType {
-  return item.metadata?.object === MessageType.AGENT_TRANSCRIPTION ? 'agent' : 'user';
+  return item.metadata?.object === MessageType.AGENT_TRANSCRIPTION
+    ? 'agent'
+    : 'user';
 }
 
 export interface CallStore {
@@ -39,7 +43,10 @@ export interface CallStore {
   toggleMic: () => void;
 }
 
-export function useCallStore(backendUrl = AGENT_BACKEND_URL): CallStore {
+export function useCallStore(
+  backendUrl = AGENT_BACKEND_URL,
+  language: 'en' | 'hi' | 'multi' = 'multi',
+): CallStore {
   const [phase, setPhase] = useState<Phase>('idle');
   const [error, setError] = useState<string | null>(null);
   const [agentState, setAgentState] = useState<AgentState>(AgentState.IDLE);
@@ -52,7 +59,7 @@ export function useCallStore(backendUrl = AGENT_BACKEND_URL): CallStore {
 
   /** Upsert by (turnId, type); sort by turn asc, user before agent. */
   const applyTranscript = useCallback((items: ToolkitTranscript[]) => {
-    setTurns((prev) => {
+    setTurns(prev => {
       const byKey = new Map<string, Turn>();
       for (const t of prev) {
         byKey.set(`${t.turnId}-${t.type}`, t);
@@ -82,7 +89,8 @@ export function useCallStore(backendUrl = AGENT_BACKEND_URL): CallStore {
       const cfg = await apiRef.current.getConfig();
       const session = new AgoraSession({
         onTranscript: applyTranscript,
-        onState: (_uid: string, ev: StateChangeEvent) => setAgentState(ev.state),
+        onState: (_uid: string, ev: StateChangeEvent) =>
+          setAgentState(ev.state),
         onError: (err: unknown) =>
           setError(err instanceof Error ? err.message : String(err)),
       });
@@ -93,6 +101,7 @@ export function useCallStore(backendUrl = AGENT_BACKEND_URL): CallStore {
         cfg.channelName,
         Number(cfg.agentUid),
         Number(cfg.uid),
+        language,
       );
       console.log('DIAG agent.started', agentIdRef.current);
       setPhase('inCall');
@@ -103,7 +112,7 @@ export function useCallStore(backendUrl = AGENT_BACKEND_URL): CallStore {
       await sessionRef.current?.stop().catch(() => {});
       sessionRef.current = null;
     }
-  }, [applyTranscript]);
+  }, [applyTranscript, language]);
 
   const end = useCallback(async () => {
     try {
@@ -121,7 +130,7 @@ export function useCallStore(backendUrl = AGENT_BACKEND_URL): CallStore {
   }, []);
 
   const toggleMic = useCallback(() => {
-    setMicMuted((m) => {
+    setMicMuted(m => {
       const next = !m;
       sessionRef.current?.setMicMuted(next);
       return next;

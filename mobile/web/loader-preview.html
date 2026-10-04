@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Agora Decision Rooms — Loader</title>
+    <style>
+      * { box-sizing: border-box; }
+      body { margin:0; background:#EDF0EA; color:#242523; font:16px/1.5 Arial,sans-serif; }
+      main { width:min(800px,100%); margin:0 auto; padding:48px 24px; }
+      header { display:flex; justify-content:space-between; align-items:center; gap:20px; }
+      .eyebrow { font-size:10px; letter-spacing:3px; font-weight:600; margin:0; }
+      h1 { font-size:32px; line-height:1.2; letter-spacing:-1.4px; margin:8px 0; }
+      .intro { color:#697066; margin:12px 0 28px; }
+      .preview { background:#FAFBF7; border:1px solid #D8DED4; border-radius:32px; padding:48px 20px; display:flex; flex-direction:column; align-items:center; }
+      .preview h2 { font-size:18px; font-weight:500; margin:24px 0 4px; }
+      .preview p { color:#697066; font-size:13px; margin:0; }
+      button { border:1px solid #D8DED4; border-radius:99px; background:#FAFBF7; color:#242523; padding:11px 18px; cursor:pointer; font:inherit; font-size:12px; white-space:nowrap; }
+      button:focus-visible { outline:2px solid #49715A; outline-offset:3px; }
+      .sizes { display:flex; gap:40px; flex-wrap:wrap; justify-content:center; padding:36px 0 0; }
+      .sample { display:flex; flex-direction:column; align-items:center; justify-content:flex-end; gap:12px; min-width:48px; }
+      .sample span { font-size:11px; color:#697066; }
+      footer { text-align:center; color:#697066; font-size:12px; margin-top:28px; }
+      @media(max-width:420px){ main{padding:28px 20px}h1{font-size:25px}.sizes{gap:24px}.preview{padding:36px 20px} }
+    </style>
+  </head>
+  <body><div id="root"></div><script type="module" src="/loader-preview.tsx"></script></body>
+</html>
